@@ -1,0 +1,122 @@
+:root{
+    --blue: #212991;
+}
+
+.img{
+    width: 80%;
+    background-repeat: no-repeat;
+}
+
+.main-wrapper .full-page{
+    background-color: #FFFFFF;
+}
+
+.CardCol{
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border: none;
+}
+
+.heading{
+    color: var(--blue);
+}
+
+.sidebar .sidebar-header{
+    background-color: var(--blue);
+    border-bottom: 1px solid #b58181;
+}
+
+.sidebar .sidebar-body{
+    background-color: var(--blue);
+}
+
+.sidebar .sidebar-header .sidebar-toggler span{
+    background: #FFFFFF;
+}
+
+.cardinfo{
+    height: 150px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.CardSec{
+    height: 300px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.sidebar .sidebar-body .nav .nav-item .nav-link .link-title{
+    color: #FFFFFF;
+    letter-spacing: 0px;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.sidebar .sidebar-body .nav .nav-item .nav-link.active
+{
+    font-weight: bold;
+}
+
+.sidebar .sidebar-body .nav .nav-item .nav-link .link-icon{
+    color:cyan;
+}
+
+.sidebar .sidebar-body .nav .nav-item .nav-link .link-arrow{
+    color: burlywood;
+}
+
+.sidebar .sidebar-body .nav.sub-menu .nav-item .nav-link
+{
+    color: cyan;
+}
+
+.sidebar .sidebar-body .nav .nav-item.active .nav-link .link-icon
+{
+    color: cyan;
+}
+
+.sidebar .sidebar-body .nav .nav-item{
+    margin-top: 10px;
+}
+
+.sidebar .sidebar-body .nav.sub-menu .nav-item .nav-link.active{
+    color: cyan;
+    font-weight: bold;
+}
+
+.sidebar .sidebar-body .nav .nav-item.active .nav-link::before{
+    width: 5px;
+    background: white;
+    left: -20px;
+}
+
+.sidebar .sidebar-body .nav .nav-item.nav-category{
+    color: burlywood;
+    font-weight: bold;
+    font-size:small;
+}
+
+.nav hr{
+    margin: 5px 0px 0px 0px;
+    color: #FFFFFF;
+    border: 1px solid;
+}
+
+.sidebar .sidebar-body .nav{
+    padding: 25px 15px 50px 20px;
+}
+
+.navform{
+    margin-right: 10px;
+}
+
+.formswitch{
+    margin-right: 10px;
+    margin-top: 20px;
+}
+
+.form-switch .form-check-label{
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: bold;
+    color: var(--blue);
+}
