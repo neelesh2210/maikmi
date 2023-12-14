@@ -19,15 +19,17 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
-            $table->unique(['type', 'phone']);
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
-            $table->decimal('balance', 8, 2)->default(0.00);
-            $table->rememberToken();
-            $table->enum('is_active', ['active', 'deactivate'])->default('active');
+            $table->timestamp('phone_verified_at')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->enum('is_active', ['active', 'inactive'])->default('active');
+            $table->enum('token_from', ['android', 'ios']);
             $table->string('fcm_token')->nullable();
             $table->softDeletes();
             $table->timestamps();
+
+            $table->unique(['type', 'phone']);
+            $table->unique(['type', 'email']);
         });
     }
 

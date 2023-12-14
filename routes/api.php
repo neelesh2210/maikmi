@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Auth\LoginController;
+use App\Http\Controllers\Api\Auth\RegisterController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -12,6 +14,30 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+//Register
+Route::post('verify-registeration',[RegisterController::class,'verifyRegisteration']);
+Route::post('register',[RegisterController::class,'register']);
+
+//Login
+Route::post('verify-login-phone',[LoginController::class,'verifyLoginPhone']);
+Route::post('login-with-otp',[LoginController::class,'loginWithOtp']);
+
+Route::post('login-with-email',[LoginController::class,'loginWithEmail']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+// -------------------------- Old Routes -------------------------- //
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

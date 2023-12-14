@@ -19,7 +19,7 @@ class CreateSalonsTable extends Migration
             $table->bigInteger('user_id')->unsigned()->comment('users id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('image')->nullable();
-            $table->string('phone_number')->nullable();
+            $table->bigInteger('phone_number')->nullable();
             $table->string('city')->nullable();
             $table->string('address')->nullable();
             $table->string('latitude')->nullable();
@@ -30,7 +30,7 @@ class CreateSalonsTable extends Migration
             $table->tinyInteger('available')->default(1);
             $table->tinyInteger('featured')->default(0);
             $table->longText('services')->nullable();
-            $table->bigInteger('added_by')->unsigned()->comment('admins id');
+            $table->bigInteger('added_by')->nullable()->unsigned()->comment('admins id');
             $table->foreign('added_by')->references('id')->on('admins')->onDelete('cascade');
             $table->timestamps();
         });

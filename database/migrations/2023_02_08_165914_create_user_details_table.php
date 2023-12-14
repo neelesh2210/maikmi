@@ -19,10 +19,10 @@ class CreateUserDetailsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('photo')->nullable();
             $table->string('id_proof')->nullable();
-            $table->string('dob')->nullable();
+            $table->date('dob')->nullable();
             $table->string('birth_time')->nullable();
-            $table->string('gender')->nullable();
-            $table->string('marital_status')->nullable();
+            $table->enum('gender', ['Male', 'Female', 'Other'])->nullable();
+            $table->enum('marital_status', ['Single', 'Married', 'Widowed', 'Divorced', 'Separated'])->nullable();
             $table->string('address')->nullable();
             $table->softDeletes();
             $table->timestamps();

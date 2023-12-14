@@ -15,25 +15,23 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
+        'type',
         'name',
         'email',
+        'phone',
         'password',
+        'phone_verified_at',
+        'email_verified_at',
+        'is_active',
+        'token_from',
+        'fcm_token',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
-        'remember_token',
+        'token_from',
+        'fcm_token',
     ];
 
     /**
@@ -43,7 +41,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'assigned_id'       => 'array',
+        'phone_verified_at' => 'datetime',
     ];
 
     public function userDetail(){
