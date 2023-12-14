@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 /*
@@ -25,7 +26,12 @@ Route::post('login-with-otp',[LoginController::class,'loginWithOtp']);
 
 Route::post('login-with-email',[LoginController::class,'loginWithEmail']);
 
+Route::group(['middleware' => ['auth:sanctum']], function () {
 
+    //Home
+    Route::get('home',[HomeController::class,'home']);
+
+});
 
 
 
