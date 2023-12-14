@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Otp;
 use App\Models\User;
 use App\Models\Salon;
+use App\Models\UserDetail;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Craftsys\Msg91\Facade\Msg91;
@@ -25,7 +26,7 @@ class RegisterController extends Controller
                 'email'=>["nullable","email",Rule::unique('users','email')->where('type','user')],
                 'password'=>['nullable','required_unless:email,null', Password::min(8)],
                 'gender'=>'required|in:Male,Female,Other',
-                'dob'=>'date_format:d-m-Y'
+                'dob'=>'date_format:Y-m-d'
             ]);
         }elseif($request->type == 'vendor'){
             $this->validate($request,[
@@ -74,7 +75,7 @@ class RegisterController extends Controller
                 'email'=>["nullable","email",Rule::unique('users','email')->where('type','user')],
                 'password'=>['nullable','required_unless:email,null', Password::min(8)],
                 'gender'=>'required|in:Male,Female,Other',
-                'dob'=>'date_format:d-m-Y'
+                'dob'=>'date_format:Y-m-d'
             ]);
 
             $otp = Otp::where('type','register')->where('from','phone')->where('phone',$request->phone)->orderBy('id','desc')->first();
