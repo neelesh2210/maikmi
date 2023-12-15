@@ -17,7 +17,7 @@ use Illuminate\Validation\Rules\Password;
 class RegisterController extends Controller
 {
 
-    public function verifyRegisteration(Request $request){
+    public function verifyRegistration(Request $request){
         if($request->type == 'user'){
             $this->validate($request,[
                 'type'=>'required|in:user',

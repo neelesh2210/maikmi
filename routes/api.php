@@ -17,7 +17,7 @@ use App\Http\Controllers\Api\Auth\RegisterController;
 */
 
 //Register
-Route::post('verify-registeration',[RegisterController::class,'verifyRegisteration']);
+Route::post('verify-registration',[RegisterController::class,'verifyRegistration']);
 Route::post('register',[RegisterController::class,'register']);
 
 //Login
