@@ -25,14 +25,14 @@ class LoginController extends Controller
         }else{
             return response()->json(['message'=>'Invalid Type!','status'=>422],422);
         }
-
-        if(env('APP_ENV') == 'production'){
-            $otp = rand(1111,9999);
-            Msg91::sms()->to('91'.$request->phone)->flow('64a6b9d1d6fc057c15503ab2')->variable('business_name', env('APP_NAME'))->variable('otp', $otp)->send();
-        }else{
-            $otp = 1234;
-            Msg91::sms()->to('91'.$request->phone)->flow('64a6b9d1d6fc057c15503ab2')->variable('business_name', env('APP_NAME'))->variable('otp', $otp)->send();
-        }
+        $otp = 1234;
+        // if(env('APP_ENV') == 'production'){
+        //     $otp = rand(1111,9999);
+        //     Msg91::sms()->to('91'.$request->phone)->flow('64a6b9d1d6fc057c15503ab2')->variable('business_name', env('APP_NAME'))->variable('otp', $otp)->send();
+        // }else{
+        //     $otp = 1234;
+        //     Msg91::sms()->to('91'.$request->phone)->flow('64a6b9d1d6fc057c15503ab2')->variable('business_name', env('APP_NAME'))->variable('otp', $otp)->send();
+        // }
 
         $otps = new Otp;
         $otps->phone = $request->phone;
