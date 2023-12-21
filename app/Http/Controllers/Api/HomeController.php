@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Salon;
 use Illuminate\Http\Request;
 use App\Models\ServiceCategory;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\SalonResource;
 use App\Http\Resources\Api\ServiceCategoryResource;
 
 class HomeController extends Controller
@@ -13,7 +15,15 @@ class HomeController extends Controller
     public function home(){
         $service_categories = ServiceCategoryResource::collection(ServiceCategory::where('status','1')->where('featured','1')->get());
 
-        return response()->json(['service_categories'=>$service_categories,'message'=>'Data Retrived Successfully!','status'=>200],200);
+        $featured_salons = SalonResource::collection(Salon::whereHas('getOwner',function($query){
+            $query->where('is_active','active');
+        })->where('available','1')->where('featured','1')->take(10)->get());
+
+        $salons = SalonResource::collection(Salon::whereHas('getOwner',function($query){
+            $query->where('is_active','active');
+        })->where('available','1')->take(10)->get());
+
+        return response()->json(['service_categories'=>$service_categories,'featured_salons'=>$featured_salons,'salons'=>$salons,'message'=>'Data Retrived Successfully!','status'=>200],200);
     }
 
 }

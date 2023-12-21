@@ -15,7 +15,7 @@ class Salon extends Model
 
     public function getOwner()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id')->where('type','vendor');
     }
 
     public function getAvailabilityHours()

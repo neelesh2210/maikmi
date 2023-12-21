@@ -5,14 +5,15 @@ namespace App\Http\Controllers\Api\Vendors;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Vendors\ProfileResource;
+use App\Http\Resources\Api\ProfileResource;
 
-class ProfileApiController extends Controller
+class ProfileController extends Controller
 {
     public function getProfile(){
 
         return response()->json([
-            'success' => true,
+            'message' => 'Profile Retrive Successfully!',
+            'status' => 200,
             'profile' => new ProfileResource(auth()->user()),
         ], 200);
 

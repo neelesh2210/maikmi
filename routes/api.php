@@ -4,7 +4,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\Auth\LoginController;
+use App\Http\Controllers\Api\ImageUploadController;
 use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Api\Vendors\ProfileController;
+use App\Http\Controllers\Api\Vendors\ServiceController;
+use App\Http\Controllers\Api\Vendors\ServiceCategoryController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -31,6 +35,26 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     //Home
     Route::get('home',[HomeController::class,'home']);
 
+    //Image Upload
+    Route::post('image-upload',[ImageUploadController::class,'upload'])->name('image.upload');
+
+    //Profile
+    Route::get('profile', [ProfileController::class,'getProfile']);
+    Route::post('update-profile', 'ProfileApiController@updateProfile');
+
+
+    //Vendor Route
+    Route::group(['prefix' => 'vendor'], function () {
+
+        //Service Category
+        Route::get('service-categories',[ServiceCategoryController::class,'index'])->name('service.categories');
+
+        //Serive
+        Route::get('service-list',[ServiceController::class,'index'])->name('service.list');
+        Route::post('add-service',[ServiceController::class,'store'])->name('add.service');
+
+    });
+
 });
 
 
@@ -54,15 +78,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Api\Vendors', 'prefix' => 've
 
     Route::post('login', 'Auth\AuthApiController@login');
     Route::post('register', 'Auth\AuthApiController@register');
-
-    // Vendors authenticated route
-    Route::group(['middleware' => ['auth:sanctum']], function () {
-
-        // Profile
-        Route::get('profile', 'ProfileApiController@getProfile');
-        Route::post('update-profile', 'ProfileApiController@updateProfile');
-
-    });
 
 });
 
