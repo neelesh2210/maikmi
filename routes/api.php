@@ -3,10 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\HomeController;
+use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\ImageUploadController;
 use App\Http\Controllers\Api\Auth\RegisterController;
-use App\Http\Controllers\Api\Vendors\ProfileController;
+use App\Http\Controllers\Api\Vendors\SalonController;
 use App\Http\Controllers\Api\Vendors\ServiceController;
 use App\Http\Controllers\Api\Vendors\ServiceCategoryController;
 /*
@@ -24,10 +25,11 @@ use App\Http\Controllers\Api\Vendors\ServiceCategoryController;
 Route::post('verify-registration',[RegisterController::class,'verifyRegistration']);
 Route::post('register',[RegisterController::class,'register']);
 
-//Login
+//Login with Phone
 Route::post('verify-login-phone',[LoginController::class,'verifyLoginPhone']);
 Route::post('login-with-otp',[LoginController::class,'loginWithOtp']);
 
+//Login with Email
 Route::post('login-with-email',[LoginController::class,'loginWithEmail']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
@@ -40,18 +42,23 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     //Profile
     Route::get('profile', [ProfileController::class,'getProfile']);
-    Route::post('update-profile', 'ProfileApiController@updateProfile');
+    Route::post('update-profile', [ProfileController::class,'updateProfile']);
 
+    //Salon
+    Route::get('salon-detail/{id}',[SalonController::class,'show']);
 
     //Vendor Route
     Route::group(['prefix' => 'vendor'], function () {
 
-        //Service Category
+        //Vendor Service Category
         Route::get('service-categories',[ServiceCategoryController::class,'index'])->name('service.categories');
 
-        //Serive
+        //Vendor Serive
         Route::get('service-list',[ServiceController::class,'index'])->name('service.list');
         Route::post('add-service',[ServiceController::class,'store'])->name('add.service');
+
+        //Vendor Salon
+        Route::post('update-salon-detail',[SalonController::class,'update']);
 
     });
 
