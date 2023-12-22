@@ -70,4 +70,19 @@ class ProfileController extends Controller
             'status' => 200,
         ], 200);
     }
+
+    public function updateAvatar(Request $request){
+        $this->validate($request,[
+            'image'=>'required|mimes:png,jpg,jpeg,webp,svg'
+        ]);
+        $user_detail = UserDetail::where('user_id',Auth::user()->id)->first();
+        if(!$user_detail){
+            $user_detail = new UserDetail;
+            $user_detail->user_id = Auth::user()->id;
+        }
+        $user_detail->photo = imageUpload($request->file('image'), true);
+        $user_detail->save();
+
+        return response()->json(['message'=>'Photo Updated Successfully!','status'=>200],200);
+    }
 }

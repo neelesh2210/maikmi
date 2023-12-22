@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\ImageUploadController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Vendors\SalonController;
+use App\Http\Controllers\Api\Vendors\WorkerController;
 use App\Http\Controllers\Api\Vendors\ServiceController;
 use App\Http\Controllers\Api\Vendors\ServiceCategoryController;
 /*
@@ -43,6 +44,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     //Profile
     Route::get('profile', [ProfileController::class,'getProfile']);
     Route::post('update-profile', [ProfileController::class,'updateProfile']);
+    Route::post('update-avatar', [ProfileController::class,'updateAvatar']);
 
     //Salon
     Route::get('salon-detail/{id}',[SalonController::class,'show']);
@@ -56,9 +58,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         //Vendor Serive
         Route::get('service-list',[ServiceController::class,'index'])->name('service.list');
         Route::post('add-service',[ServiceController::class,'store'])->name('add.service');
+        Route::post('update-service/{id}',[ServiceController::class,'update'])->name('update.service');
 
         //Vendor Salon
         Route::post('update-salon-detail',[SalonController::class,'update']);
+
+        //Worker
+        Route::get('worker-list',[WorkerController::class,'index']);
+        Route::post('add-worker',[WorkerController::class,'store']);
 
     });
 

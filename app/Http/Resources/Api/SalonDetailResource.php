@@ -23,7 +23,7 @@ class SalonDetailResource extends JsonResource
             'is_favorite'=>0,
         ];
 
-        $data['services'] = ServiceResource::collection(Service::where('user_id',$this->user_id)->get());
+        $data['services'] = ServiceResource::collection(Service::where('user_id',$this->user_id)->where('available',1)->get());
 
         return $data;
     }

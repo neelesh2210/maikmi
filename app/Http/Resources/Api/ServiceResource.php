@@ -4,6 +4,7 @@ namespace App\Http\Resources\Api;
 
 use App\Models\ServiceCategory;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Api\ServiceCategoryResource;
 
 class ServiceResource extends JsonResource
 {
@@ -15,11 +16,13 @@ class ServiceResource extends JsonResource
             'price'=>$this->price,
             'discount_price'=>$this->discount_price,
             'image'=>$this->image?imageUrl($this->image):asset('admin_css/no-pictures.png'),
+            'duration'=>$this->duration,
+            'description'=>$this->description,
         ];
 
         $category_name = [];
         foreach ($this->service_category_ids as $service_category_id) {
-            $category_name[] = ServiceCategory::where('id',$service_category_id)->first()->name;
+            $category_name[] = new ServiceCategoryResource(ServiceCategory::where('id',$service_category_id)->first());
         }
 
         $data['category'] = $category_name;

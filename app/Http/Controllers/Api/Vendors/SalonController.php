@@ -25,29 +25,44 @@ class SalonController extends Controller
     }
 
     public function update(Request $request){
-        $this->validate($request,[
-            'name'=>'required',
-            'phone'=>'required|digits:10',
-            'city'=>'required',
-            'address'=>'required',
-            'latitude'=>'required',
-            'longitude'=>'required',
-        ]);
+        if($request->has('image')){
+            $this->validate($request,[
+                'image'=>'required|mimes:png,jpg,jpeg,webp,svg'
+            ]);
+            $salon = Salon::where('user_id',Auth::user()->id)->first();
+            if($salon){
+                $salon->image = imageUpload($request->file('image'), true);
+                $salon->save();
 
-        $salon = Salon::where('user_id',Auth::user()->id)->first();
-        if($salon){
-            $salon->name = $request->name;
-            $salon->phone_number = $request->phone;
-            $salon->city = $request->city;
-            $salon->address = $request->address;
-            $salon->latitude = $request->latitude;
-            $salon->longitude = $request->latitude;
-            $salon->save();
-
-            return response()->json(['message'=>'Salon Updated Successfully!','status'=>200],200);
+                return response()->json(['message'=>'Salon Image Updated Successfully!','status'=>200],200);
+            }else{
+                return response()->json(['message'=>'Invalid User!','status'=>422],422);
+            }
         }else{
-            return response()->json(['message'=>'Invalid User!','status'=>422],422);
+            $this->validate($request,[
+                'name'=>'required',
+                'phone'=>'required|digits:10',
+                'city'=>'required',
+                'address'=>'required',
+                'latitude'=>'required',
+                'longitude'=>'required',
+            ]);
+            $salon = Salon::where('user_id',Auth::user()->id)->first();
+            if($salon){
+                $salon->name = $request->name;
+                $salon->phone_number = $request->phone;
+                $salon->city = $request->city;
+                $salon->address = $request->address;
+                $salon->latitude = $request->latitude;
+                $salon->longitude = $request->latitude;
+                $salon->save();
+
+                return response()->json(['message'=>'Salon Updated Successfully!','status'=>200],200);
+            }else{
+                return response()->json(['message'=>'Invalid User!','status'=>422],422);
+            }
         }
+
     }
 
 }

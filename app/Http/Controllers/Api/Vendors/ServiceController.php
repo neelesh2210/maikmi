@@ -52,4 +52,41 @@ class ServiceController extends Controller
         }
     }
 
+    public function update(Request $request,$id){
+        $service_categories = ServiceCategory::where('status',1)->pluck('id')->toArray();
+        $image_uploads = ImageUpload::pluck('id')->toArray();
+
+        $this->validate($request,[
+            'name'              =>              'required',
+            'category_ids.*'    =>              'required|distinct',
+            'category_ids'      =>              'required|array|in:'.implode(',',$service_categories),
+            'image'             =>              'nullable|in:'.implode(',',$image_uploads),
+            'price'             =>              'required|numeric|gt:0',
+            'discounted_price'  =>              'required|numeric|gt:0',
+            'duration'          =>              'required|numeric|gt:0'
+        ]);
+
+        if(optional(Auth::user()->getSalon)->id){
+            $service = Service::where('user_id',Auth::user()->id)->where('id',$id)->first();
+            if($service){
+                $service->service_category_ids = $request->category_ids;
+                $service->name = $request->name;
+                $service->price = $request->price;
+                $service->discount_price = $request->discounted_price;
+                $service->duration = $request->duration;
+                if($request->image){
+                    $service->image = $request->image;
+                }
+                $service->description = $request->description;
+                $service->save();
+
+                return response()->json(['message'=>'Service Updated Successfully!','status'=>200],200);
+            }else{
+                return response()->json(['error'=>'Invalid Serivce!','status'=>422],422);
+            }
+        }else{
+            return response()->json(['error'=>'User Have No Salon!','status'=>422],422);
+        }
+    }
+
 }
