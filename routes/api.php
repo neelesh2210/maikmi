@@ -66,6 +66,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         //Worker
         Route::get('worker-list',[WorkerController::class,'index']);
         Route::post('add-worker',[WorkerController::class,'store']);
+        Route::post('change-worker-status',[WorkerController::class,'status']);
 
     });
 

@@ -13,6 +13,8 @@ class Worker extends Model
         'user_id',
         'salon_id',
         'name',
+        'engage_time',
+        'engage_duration',
         'is_free'
     ];
 }

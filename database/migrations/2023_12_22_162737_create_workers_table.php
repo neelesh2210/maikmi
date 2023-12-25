@@ -18,6 +18,8 @@ class CreateWorkersTable extends Migration
             $table->bigInteger('user_id');
             $table->bigInteger('salon_id');
             $table->string('name');
+            $table->timestamp('engage_time')->nullable();
+            $table->integer('engage_duration')->nullable();
             $table->enum('is_free', ['1', '0'])->default('0');
             $table->timestamps();
         });
