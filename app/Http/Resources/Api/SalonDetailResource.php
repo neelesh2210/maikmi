@@ -19,11 +19,23 @@ class SalonDetailResource extends JsonResource
             'salon_latitude'=>$this->latitude,
             'salon_longitude'=>$this->longitude,
             'salon_rating'=>4.5,
-            'is_vacant'=>1,
+            'is_vacant'=>null,
             'is_favorite'=>0,
         ];
 
         $data['services'] = ServiceResource::collection(Service::where('user_id',$this->user_id)->where('available',1)->get());
+
+        $have_worker = Worker::where('salon_id',$this->id)->first();
+        if($have_worke){
+            $free_worker = Worker::where('salon_id',$this->id)->where('is_free','1')->first();
+            if($free_worker){
+                $data['is_vacant'] = 1;
+            }else{
+                $data['is_vacant'] = 0;
+            }
+        }else{
+            $data['is_vacant'] = 0;
+        }
 
         return $data;
     }
