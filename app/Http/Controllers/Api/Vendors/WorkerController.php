@@ -43,7 +43,7 @@ class WorkerController extends Controller
         $this->validate($request,[
             'worker_id'=>'required|in:'.implode(',',$workers->toArray()),
             'is_free'=>'required|in:1,0',
-            'engage_duration'=>'nullable|required_if:is_free,1'
+            'engage_duration'=>'nullable|required_if:is_free,0'
         ]);
 
         $worker = Worker::where('user_id',Auth::user()->id)->where('id',$request->worker_id)->first();
