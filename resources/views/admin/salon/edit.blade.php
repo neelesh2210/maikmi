@@ -16,7 +16,7 @@
                         @csrf
                         @method('PUT')
                         <div class="row">
-                            <h4 class="card-title">Salon Detail</h4>
+                            <h4 class="card-title">Shop Detail</h4>
                             <hr>
                             <div class="col-md-4 mb-3">
                                 <label for="Name" class="form-label">Name</label>
@@ -82,7 +82,7 @@
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-                            <h4 class="card-title">Salon Owner</h4>
+                            <h4 class="card-title">Shop Owner</h4>
                             <hr>
                             <div class="col-md-6 mb-3">
                                 <label for="owner_name" class="form-label">Owner Name</label>

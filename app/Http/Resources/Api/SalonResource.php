@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Api;
 
+use App\Models\Worker;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SalonResource extends JsonResource

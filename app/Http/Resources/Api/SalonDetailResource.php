@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Api;
 
+use App\Models\Worker;
 use App\Models\Service;
 use App\Http\Resources\Api\ServiceResource;
 use Illuminate\Http\Resources\Json\JsonResource;

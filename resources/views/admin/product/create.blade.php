@@ -34,9 +34,9 @@
                                 @enderror
                             </div>
                             <div class="col-md-3 mb-3">
-                                <label for="salon_id" class="form-label">Salon</label>
+                                <label for="salon_id" class="form-label">Shop</label>
                                 <select name="salon_id" id="salon_id" class="form-control js-example-basic-single" required>
-                                    <option value="">Select Salon</option>
+                                    <option value="">Select Shop</option>
                                     @foreach ($salonList as $salonData)
                                         <option value="{{$salonData->id}}">{{$salonData->name}}</option>
                                     @endforeach

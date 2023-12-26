@@ -108,7 +108,7 @@
                         <div class="form-check form-check-inline">
                             <input type="checkbox" class="form-check-input" id="enable_at_salon" name="enable_at_salon" value="1" {{$data->enable_at_salon == 1 ? 'checked' : ''}}>
                             <label class="form-check-label" for="enable_at_salon">
-                                Enable booking at salon
+                                Enable booking at Shop
                             </label>
                         </div>
 

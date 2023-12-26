@@ -56,8 +56,8 @@
                             </div>
 
                             <div class="col-md-3 mb-3">
-                                <label for="salons_ids" class="form-label">Salon</label>
-                                <select name="salons_ids[]" id="salons_ids" class="form-control js-example-basic-multiple" multiple data-placeholder="Select Salon" required>
+                                <label for="salons_ids" class="form-label">Shop</label>
+                                <select name="salons_ids[]" id="salons_ids" class="form-control js-example-basic-multiple" multiple data-placeholder="Select Shop" required>
                                     @foreach ($salonsList as $salonData)
                                         <option value="{{$salonData->id}}">{{$salonData->name}}</option>
                                     @endforeach

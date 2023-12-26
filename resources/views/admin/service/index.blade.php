@@ -19,7 +19,7 @@
                                     <th>#</th>
                                     <th>Image</th>
                                     <th>Name</th>
-                                    <th>Salon</th>
+                                    <th>Shop</th>
                                     <th>Price</th>
                                     <th>Discount Price</th>
                                     <th>Categories</th>

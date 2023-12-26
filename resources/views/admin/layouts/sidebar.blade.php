@@ -32,7 +32,7 @@
                 <a class="nav-link" data-bs-toggle="collapse" href="#salonManagement" role="button"
                     aria-expanded="false" aria-controls="salonManagement">
                     <i class="link-icon fa-lg bi bi-scissors"></i>
-                    <span class="link-title">Salons Management</span>
+                    <span class="link-title">Shops Management</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
                 <div class="collapse {{ activeRoute(['salon.index', 'salon.create', 'salon.edit', 'salon.show', 'salon-gallery.edit', 'availability-hour.edit', 'service-booking.index']) ? 'show' : '' }}"
@@ -41,7 +41,7 @@
 
                         <li class="nav-item ">
                             <a href="{{ route('salon.index') }}"
-                                class="nav-link {{ activeRoute(['salon.index', 'salon.create', 'salon.edit', 'salon.show', 'salon-gallery.edit', 'availability-hour.edit', 'service-booking.index']) ? 'active' : '' }}">Salons List</a>
+                                class="nav-link {{ activeRoute(['salon.index', 'salon.create', 'salon.edit', 'salon.show', 'salon-gallery.edit', 'availability-hour.edit', 'service-booking.index']) ? 'active' : '' }}">Shops List</a>
                         </li>
 
                         <li class="nav-item ">

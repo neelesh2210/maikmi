@@ -18,7 +18,7 @@ class SalonController extends Controller
     public function index(Request $request)
     {
         $list = Salon::orderBy('id', 'desc')->with(['getOwner', 'getServiceBooking'])->paginate(20);
-        return view('admin.salon.index', compact('list'), ['page_title' => 'Salon List']);
+        return view('admin.salon.index', compact('list'), ['page_title' => 'Shop List']);
     }
 
     /**
@@ -28,7 +28,7 @@ class SalonController extends Controller
      */
     public function create()
     {
-        return view('admin.salon.create', ['page_title' => 'Add Salon']);
+        return view('admin.salon.create', ['page_title' => 'Add Shop']);
     }
 
     /**
@@ -84,7 +84,7 @@ class SalonController extends Controller
         $salon->added_by = auth()->id();
         $salon->save();
 
-        return redirect()->route('salon.index')->with('success','Salon created successfully !!');
+        return redirect()->route('salon.index')->with('success','Shop created successfully !!');
     }
 
     /**
@@ -108,7 +108,7 @@ class SalonController extends Controller
     public function edit($id)
     {
         $data = Salon::with('getOwner')->find($id);
-        return view('admin.salon.edit', compact('data'), ['page_title' => 'Edit Salon']);
+        return view('admin.salon.edit', compact('data'), ['page_title' => 'Edit Shop']);
     }
 
     /**
@@ -162,7 +162,7 @@ class SalonController extends Controller
         }
         $salon->save();
 
-        return redirect()->route('salon.index')->with('success','Salon updated successfully !!');
+        return redirect()->route('salon.index')->with('success','Shop updated successfully !!');
     }
 
     /**

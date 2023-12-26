@@ -18,7 +18,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Image</th>
-                                    <th>Salon Info</th>
+                                    <th>Shop Info</th>
                                     <th>Owner Info</th>
                                     <th>Service Booking</th>
                                     <th>Featured</th>

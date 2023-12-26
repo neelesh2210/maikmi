@@ -34,9 +34,9 @@
                                 @enderror
                             </div>
                             <div class="col-md-3 mb-3">
-                                <label for="salon_id" class="form-label">Salon</label>
+                                <label for="salon_id" class="form-label">Shop</label>
                                 <select name="salon_id" id="salon_id" class="form-control js-example-basic-single" required>
-                                    <option value="">Select Salon</option>
+                                    <option value="">Select Shop</option>
                                     @foreach ($salonList as $salonData)
                                         <option value="{{$salonData->id}}">{{$salonData->name}}</option>
                                     @endforeach
@@ -111,7 +111,7 @@
                                 <div class="form-check form-check-inline">
                                     <input type="checkbox" class="form-check-input" id="enable_at_salon" name="enable_at_salon" value="1">
                                     <label class="form-check-label" for="enable_at_salon">
-                                        Enable booking at salon
+                                        Enable booking at Shop
                                     </label>
                                 </div>
 
