@@ -20,7 +20,7 @@ class SalonResource extends JsonResource
             'is_favorite'=>0,
         ];
         $have_worker = Worker::where('salon_id',$this->id)->first();
-        if($have_worke){
+        if($have_worker){
             $free_worker = Worker::where('salon_id',$this->id)->where('is_free','1')->first();
             if($free_worker){
                 $data['is_vacant'] = 1;
