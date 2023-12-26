@@ -20,14 +20,14 @@
                             <hr>
                             <div class="col-md-4 mb-3">
                                 <label for="Name" class="form-label">Name</label>
-                                <input id="Name" class="form-control" type="text" name="name" required placeholder="Enter name" value="{{$data->name}}">
+                                <input id="Name" class="form-control" type="text" name="name" required placeholder="Enter name" value="{{old('name',$data->name)}}">
                                 @error('name')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="phone_number" class="form-label">Phone Number</label>
-                                <input id="phone_number" class="form-control" type="number" name="phone_number" required placeholder="Enter phone number" value="{{$data->phone_number}}">
+                                <input id="phone_number" class="form-control" type="number" name="phone_number" required placeholder="Enter phone number" value="{{old('phone_number',$data->phone_number)}}">
                                 @error('phone_number')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -41,7 +41,7 @@
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="latitude" class="form-label">Latitude</label>
-                                <input id="latitude" class="form-control" type="text" name="latitude" required placeholder="Enter latitude" value="{{$data->latitude}}">
+                                <input id="latitude" class="form-control" type="text" name="latitude" required placeholder="Enter latitude" value="{{old('latitude',$data->latitude)}}">
                                 @error('latitude')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -49,21 +49,21 @@
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="longitude" class="form-label">Longitude</label>
-                                <input id="longitude" class="form-control" type="text" name="longitude" required placeholder="Enter latitude" value="{{$data->longitude}}">
+                                <input id="longitude" class="form-control" type="text" name="longitude" required placeholder="Enter latitude" value="{{old('longitude',$data->longitude)}}">
                                 @error('latitude')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="address" class="form-label">Address</label>
-                                <textarea name="address" id="address" rows="1" class="form-control" required placeholder="Enter address">{{$data->address}}</textarea>
+                                <textarea name="address" id="address" rows="1" class="form-control" required placeholder="Enter address">{{old('address',$data->address)}}</textarea>
                                 @error('address')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="availability_range" class="form-label">Availability Range (Km)</label>
-                                <input id="availability_range" class="form-control" type="number" name="availability_range" required placeholder="Enter availability range" value="{{$data->availability_range}}">
+                                <input id="availability_range" class="form-control" type="number" name="availability_range" required placeholder="Enter availability range" value="{{old('availability_range',$data->availability_range)}}">
                                 @error('availability_range')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
