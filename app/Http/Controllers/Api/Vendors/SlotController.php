@@ -11,6 +11,12 @@ use App\Http\Controllers\Controller;
 class SlotController extends Controller
 {
 
+    public function getTimeSlot(){
+        $list = AvailabilityHour::where('user_id',Auth::user()->id)->get(['day','start_at','end_at','status']);
+
+        return response()->json(['list'=>$list,'message'=>'List Retrived Successfully!','status'=>200],200);
+    }
+
     public function updateTimeSlot(Request $request){
         $input = $request->all();
         $salonData = Salon::find(Auth::user()->getSalon->id);

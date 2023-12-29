@@ -77,6 +77,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('change-worker-status',[WorkerController::class,'status']);
 
         //Time Slot
+        Route::get('get-time-slot',[App\Http\Controllers\Api\Vendors\SlotController::class,'getTimeSlot']);
         Route::post('update-time-slot',[App\Http\Controllers\Api\Vendors\SlotController::class,'updateTimeSlot']);
 
     });
