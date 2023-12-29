@@ -72,7 +72,7 @@ class AvailabilityHourController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $input = $request->all();
+        return $input = $request->all();
         $salonData = Salon::find($id);
         foreach($request->days as $key => $day){
             $data = AvailabilityHour::where('salon_id', $id)->where('day', $day)->first();

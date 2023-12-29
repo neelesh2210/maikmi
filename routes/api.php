@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\HomeController;
+use App\Http\Controllers\Api\SlotController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\ImageUploadController;
@@ -49,6 +50,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     //Salon
     Route::get('salon-detail/{id}',[SalonController::class,'show']);
 
+    //Salon Time Slot
+    Route::post('get-time-slot',[SlotController::class,'timeSlot']);
+
     //Vendor Route
     Route::group(['prefix' => 'vendor'], function () {
 
@@ -67,6 +71,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('worker-list',[WorkerController::class,'index']);
         Route::post('add-worker',[WorkerController::class,'store']);
         Route::post('change-worker-status',[WorkerController::class,'status']);
+
+        //Time Slot
+        Route::post('update-time-slot',[App\Http\Controllers\Api\Vendors\SlotController::class,'updateTimeSlot']);
 
     });
 
