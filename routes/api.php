@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\ImageUploadController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Vendors\SalonController;
+use App\Http\Controllers\Api\ServiceBookingController;
 use App\Http\Controllers\Api\Vendors\WorkerController;
 use App\Http\Controllers\Api\Vendors\ServiceController;
 use App\Http\Controllers\Api\Vendors\ServiceCategoryController;
@@ -52,6 +53,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     //Salon Time Slot
     Route::post('get-time-slot',[SlotController::class,'timeSlot']);
+
+    //Service Booking
+    Route::post('service-booking',[ServiceBookingController::class,'serviceBooking']);
 
     //Vendor Route
     Route::group(['prefix' => 'vendor'], function () {
