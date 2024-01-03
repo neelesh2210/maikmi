@@ -56,19 +56,20 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     //Service Booking
     Route::post('service-booking',[ServiceBookingController::class,'serviceBooking']);
+    Route::get('service-booking-list',[ServiceBookingController::class,'serviceBookingList']);
 
     //Vendor Route
     Route::group(['prefix' => 'vendor'], function () {
 
-        //Vendor Service Category
+        //Service Category
         Route::get('service-categories',[ServiceCategoryController::class,'index'])->name('service.categories');
 
-        //Vendor Serive
+        //Serive
         Route::get('service-list',[ServiceController::class,'index'])->name('service.list');
         Route::post('add-service',[ServiceController::class,'store'])->name('add.service');
         Route::post('update-service/{id}',[ServiceController::class,'update'])->name('update.service');
 
-        //Vendor Salon
+        //Salon
         Route::post('update-salon-detail',[SalonController::class,'update']);
 
         //Worker
@@ -79,6 +80,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         //Time Slot
         Route::get('get-time-slot',[App\Http\Controllers\Api\Vendors\SlotController::class,'getTimeSlot']);
         Route::post('update-time-slot',[App\Http\Controllers\Api\Vendors\SlotController::class,'updateTimeSlot']);
+
+        //Service Booking
+        Route::get('service-booking-list',[App\Http\Controllers\Api\Vendors\ServiceBookingController::class,'serviceBookingList']);
 
     });
 

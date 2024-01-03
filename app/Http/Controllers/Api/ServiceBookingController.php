@@ -7,6 +7,7 @@ use App\Models\Salon;
 use Illuminate\Http\Request;
 use App\Models\ServiceBooking;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Users\ServiceBookingResource;
 
 class ServiceBookingController extends Controller
 {
@@ -49,6 +50,13 @@ class ServiceBookingController extends Controller
             ], 400);
 
         }
+    }
+
+    public function serviceBookingList(){
+        return response([
+            'success'       => true,
+            'data'          => ServiceBookingResource::collection(ServiceBooking::where('booked_by', auth()->id())->orderBy('id', 'desc')->get()),
+        ], 200);
     }
 
 }
