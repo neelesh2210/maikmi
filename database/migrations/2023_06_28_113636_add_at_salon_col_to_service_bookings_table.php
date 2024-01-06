@@ -27,8 +27,12 @@ class AddAtSalonColToServiceBookingsTable extends Migration
     public function down()
     {
         Schema::table('service_bookings', function (Blueprint $table) {
-            $table->dropColumn('at_salon');
-            $table->dropColumn('remark');
+            if (Schema::hasColumn('service_bookings', 'at_salon')){
+                $table->dropColumn('at_salon');
+            }
+            if (Schema::hasColumn('service_bookings', 'remark')){
+                $table->dropColumn('remark');
+            }
         });
     }
 }
