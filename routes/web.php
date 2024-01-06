@@ -14,8 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    //return "Comming Soon";
-    return redirect()->route('admin.dashboard');
+    return view('home');
 })->name('frontend.index');
 
 Route::get('login', function () {

@@ -12,11 +12,6 @@
 |
 */
 
-
-Route::get('/', function () {
-    return redirect()->route('vendors.dashboard');
-});
-
 Route::get('login', [App\Http\Controllers\Vendors\Auth\LoginController::class, 'showLoginForm'])->name('vendors.login');
 Route::post('login', [App\Http\Controllers\Vendors\Auth\LoginController::class, 'login'])->name('vendors.login');
 
