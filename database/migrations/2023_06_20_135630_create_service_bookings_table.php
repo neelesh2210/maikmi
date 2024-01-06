@@ -26,6 +26,7 @@ class CreateServiceBookingsTable extends Migration
             $table->longText('service')->nullable();
             $table->longText('coupon')->nullable();
             $table->smallInteger('quantity')->nullable();
+            $table->bigInteger('total_amount')->nullable();
             $table->longText('address')->nullable();
             $table->enum('payment_type', ['cod', 'online'])->nullable()->default('cod');
             $table->string('booking_date')->nullable();

@@ -44,6 +44,7 @@ class ServiceController extends Controller
             $service->duration = $request->duration;
             $service->image = $request->image;
             $service->description = $request->description;
+            $service->available = 1;
             $service->save();
 
             return response()->json(['message'=>'Service Added Successfully!','status'=>200],200);

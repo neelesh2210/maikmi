@@ -14,6 +14,7 @@ class SalonDetailResource extends JsonResource
         $data = [
             'salon_id'=>$this->id,
             'salon_name'=>$this->name,
+            'salon_phone_number'=>$this->phone_number,
             'salon_image'=>$this->image?imageUrl($this->image):asset('admin_css/no-pictures.png'),
             'salon_address'=>$this->address,
             'salon_city'=>$this->city,

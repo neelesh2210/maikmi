@@ -28,6 +28,7 @@ class ServiceBookingResource extends JsonResource
             'booking_at'    => $this->booking_at,
             'at_salon'      => $this->at_salon ? true : false,
             'status'        => $this->status,
+            'total_amount'  => $this->total_amount,
         ];
 
         return $data;

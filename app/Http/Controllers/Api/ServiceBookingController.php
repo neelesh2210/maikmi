@@ -12,10 +12,8 @@ use App\Http\Resources\Users\ServiceBookingResource;
 class ServiceBookingController extends Controller
 {
 
-    public function serviceBooking(Request $request)
-    {
-        try {
-
+    public function serviceBooking(Request $request){
+        try{
             $data = new ServiceBooking;
             $data->booking_id = date('Ym').rand(1111, 9999);
             $data->user_id = Salon::find($request->salon_id)->user_id;
@@ -25,6 +23,7 @@ class ServiceBookingController extends Controller
             $data->service = $request->service;
             $data->coupon = $request->coupon;
             $data->quantity = 1;
+            $data->total_amount = $request->total_amount;
             $data->address = $request->address;
             $data->payment_type = $request->payment_type;
             $data->booking_date = $request->booking_date;
@@ -42,7 +41,7 @@ class ServiceBookingController extends Controller
                 'message'       => 'Booking successfully',
             ], 200);
 
-        } catch (\Exception $e) {
+        }catch(\Exception $e){
 
             return response([
                 'success'       => false,
