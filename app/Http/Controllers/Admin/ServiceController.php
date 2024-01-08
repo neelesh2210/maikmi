@@ -56,8 +56,8 @@ class ServiceController extends Controller
         $data = new Service;
         $data->salon_id = $request->salon_id;
         $data->user_id = Salon::find($request->salon_id)->user_id;
-        $data->service_category_ids = $request->category_ids;
-        $data->service_subcategory_ids = ServiceSubCategory::whereIn('service_category_id', $request->category_ids)->pluck('id')->toArray();
+        $data->service_category_ids = array_map('intval', $request->category_ids);
+        $data->service_subcategory_ids = null;
         $data->name = $request->name;
         $data->price = $request->price;
         $data->discount_price = $request->discount_price;
@@ -123,8 +123,8 @@ class ServiceController extends Controller
         $data = Service::find($id);
         $data->salon_id = $request->salon_id;
         $data->user_id = Salon::find($request->salon_id)->user_id;
-        $data->service_category_ids = $request->category_ids;
-        $data->service_subcategory_ids = ServiceSubCategory::whereIn('service_category_id', $request->category_ids)->pluck('id')->toArray();
+        $data->service_category_ids = array_map('intval', $request->category_ids);
+        $data->service_subcategory_ids = null;
         $data->name = $request->name;
         $data->price = $request->price;
         $data->discount_price = $request->discount_price;

@@ -83,6 +83,15 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
         //Service Booking
         Route::get('service-booking-list',[App\Http\Controllers\Api\Vendors\ServiceBookingController::class,'serviceBookingList']);
+        Route::post('service-booking-status-change',[App\Http\Controllers\Api\Vendors\ServiceBookingController::class,'serviceBookingStatusChange']);
+
+        //Product Category
+        Route::get('product-category-list',[App\Http\Controllers\Api\Vendors\ProductCategoryController::class,'index']);
+
+        //Product
+        Route::get('product-list',[App\Http\Controllers\Api\Vendors\ProductController::class,'index']);
+        Route::post('add-product',[App\Http\Controllers\Api\Vendors\ProductController::class,'store']);
+        Route::post('edit-product/{id}',[App\Http\Controllers\Api\Vendors\ProductController::class,'update']);
 
     });
 

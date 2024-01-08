@@ -26,7 +26,7 @@
                                 <label for="service_category_ids" class="form-label">Categories</label>
                                 <select name="category_ids[]" id="service_category_ids" class="form-control js-example-basic-multiple" multiple data-placeholder="Select categories" required>
                                     @foreach ($serviceCategoryList as $category)
-                                        <option value="{{$category->id}}">{{$category->name}}</option>
+                                        <option value="{{(int)$category->id}}">{{$category->name}}</option>
                                     @endforeach
                                 </select>
                                 @error('service_category_ids')
