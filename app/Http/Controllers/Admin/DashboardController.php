@@ -7,14 +7,16 @@ use App\Models\User;
 use App\Models\CallHistory;
 use Illuminate\Http\Request;
 use App\Models\WalletHistory;
+use App\Models\ServiceBooking;
 use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
 
-    public function index()
-    {
-        return view('admin.dashboard', ['page_title' => 'Admin Dashboard']);
+    public function index(Request $request){
+        $total_customers = User::where('type','user')->count();
+        $total_bookings = ServiceBooking::count();
+        return view('admin.dashboard',compact('total_customers','total_bookings'), ['page_title' => 'Admin Dashboard']);
     }
 
     public function changeTheme(Request $request)
