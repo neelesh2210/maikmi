@@ -23,6 +23,7 @@
                                     <th>Price</th>
                                     <th>Discount Price</th>
                                     <th>Categories</th>
+                                    <th>Feature</th>
                                     <th>Available</th>
                                     <th>Action</th>
                                 </tr>
@@ -44,6 +45,11 @@
                                         <td> {{$data->discount_price}} </td>
                                         <td>
                                             {{$data->getProductCategory($data->product_category_ids)}}
+                                        </td>
+                                        <td>
+                                            <div class="form-check form-switch">
+                                                <input type="checkbox" class="form-check-input featured_update" name="featured" value="{{$data->id}}" @if ($data->featured == 1) checked @endif>
+                                            </div>
                                         </td>
                                         <td> {!! $data->available == 1 ? '<span class="badge rounded-pill bg-success">Yes</span>' : '<span class="badge rounded-pill bg-danger">No</span>' !!} </td>
                                         <td>
@@ -71,4 +77,28 @@
             </div>
         </div>
     </div>
+
+    <script>
+
+        $(".featured_update").change(function(){
+            var id = $(this).val();
+            $.get("{{ route('product.featureUpdate', '') }}/"+id, function(data)
+            {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                });
+                Toast.fire({
+                    icon: (data == "1") ? "success" : "error",
+                    title: 'Feature status update successfully !!',
+                });
+
+            });
+        });
+
+    </script>
+
 @endsection

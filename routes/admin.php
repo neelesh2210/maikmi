@@ -64,6 +64,7 @@ Route::middleware(['auth:admin'])->group(function () {
 
         // Product management
         Route::resource('products', 'ProductController');
+        Route::get('product/feature-update/{id}', 'ProductController@featureUpdate')->name('product.featureUpdate');
 
         // Product Coupon
         Route::resource('product-coupon', 'ProductCouponController');
