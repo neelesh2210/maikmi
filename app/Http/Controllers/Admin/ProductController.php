@@ -141,4 +141,17 @@ class ProductController extends Controller
         Product::destroy($id);
         return redirect()->route('products.index')->with('success', 'Product deleted successfully !!');
     }
+
+    public function featureUpdate($id)
+    {
+        $data = Product::find($id);
+        if($data->featured == 1){
+            $data->featured = 0;
+        }elseif($data->featured == 0){
+            $data->featured = 1;
+        }
+        $data->save();
+
+        return $data->featured;
+    }
 }

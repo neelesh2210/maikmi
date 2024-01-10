@@ -31,6 +31,8 @@ class ServiceBookingResource extends JsonResource
             'total_amount'  => $this->total_amount,
         ];
 
+        $data['booked_by'] = ['name'=>$this->getBookedBy->name,'phone'=>$this->getBookedBy->phone];
+
         return $data;
     }
 }

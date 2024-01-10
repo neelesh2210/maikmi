@@ -13,7 +13,7 @@ class ServiceBookingController extends Controller
     public function serviceBookingList(){
         return response([
             'success'       => true,
-            'data'          => ServiceBookingResource::collection(ServiceBooking::where('user_id', auth()->id())->orderBy('id', 'desc')->get()),
+            'data'          => ServiceBookingResource::collection(ServiceBooking::where('user_id', auth()->id())->with('getBookedBy')->orderBy('id', 'desc')->get()),
         ], 200);
     }
 
