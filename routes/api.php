@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\ImageUploadController;
+use App\Http\Controllers\Api\ProductCartController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Vendors\SalonController;
 use App\Http\Controllers\Api\ServiceBookingController;
@@ -61,6 +62,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     //Product
     Route::get('product-detail/{id}',[ProductController::class,'detail']);
+
+    //Cart
+    Route::post('add-update-to-product-cart',[ProductCartController::class,'store']);
+    Route::post('delete-product-from-cart',[ProductCartController::class,'destroy']);
 
     //Vendor Route
     Route::group(['prefix' => 'vendor'], function () {
