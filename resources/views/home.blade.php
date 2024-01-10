@@ -64,10 +64,9 @@
                                 <span class="text-primary">Beauty</span> Potential
                             </h1>
                             <p class="text-white animated slideInLeft mb-4 pb-2">
-                                "Maikmi: Effortless Beauty. Your go-to
-                                salon for a relaxed, personalized experience. Discover simple elegance tailored just for
-                                you. Unwind in our cozy atmosphere, where skilled hands bring out your natural radiance,
-                                making every visit a refreshing escape."
+                                Maikmi is more than just a booking app; it's a lifestyle upgrade. We've carefully
+                                crafted a user-friendly platform that seamlessly connects beauty enthusiasts with
+                                top-notch salons, spas, and beauty experts.
                             </p>
                             <a href=""
                                 class="btn btn-pink text-white py-sm-3 px-sm-5 me-3 animated slideInLeft custom-btn">
@@ -257,11 +256,11 @@
                     </div>
                     <div class="col-md-4">
                         <h5 class="fw-normal text-start text-pink">Call Us On</h5>
-                        <p><i class="fa fa-phone-alt text-pink me-2"></i>+91-1234509876</p>
+                        <a href="tel:+917688828394" class="text-white"><i class="fa fa-phone-alt text-pink me-2"></i>+91-7688828394</a>
                     </div>
                     <div class="col-md-4">
                         <h5 class="fw-normal text-start text-pink">Our Address</h5>
-                        <p><i class="fa fa-map-marker-alt text-pink me-2"></i>Bhelupur, Kamachha, Varanasi, Uttar
+                        <p><i class="fa fa-map-marker-alt text-pink me-2"></i>Varanasi, Uttar
                             Pradesh, 221010</p>
                     </div>
                 </div>
@@ -304,7 +303,7 @@
                     <div class="row">
                         <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
                             &copy; Maikmi, All Right Reserved. Designed By <a class="text-primary"
-                                href="https://techuptechnologies.com/">Techuptechnologies</a>
+                                href="#">Adian Infotech</a>
                         </div>
                         <div class="col-md-6">
                             <div class="d-flex justify-content-center">
