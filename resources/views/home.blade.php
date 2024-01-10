@@ -39,7 +39,7 @@
         <div class="container-xxl position-relative p-0">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
                 <a href="" class="navbar-brand p-0">
-                    <img src="{{asset('website/img/logo.png')}}" alt="Logo">
+                    <img src="{{ asset('website/img/logo.png') }}" alt="Logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarCollapse">
@@ -88,14 +88,16 @@
                         <h2 class="section-title ff-secondary text-start text-primary fw-normal">About Us</h2>
                         <h1 class="mb-4">Welcome to <span class="text-pink">Maikmi</span></h1>
                         <p class="mb-4">
-                            At Maikmi, we believe that everyone deserves to look and feel their best.
-                            Our team of skilled stylists is dedicated to providing top-notch hair and
-                            beauty services in a warm and inviting atmosphere.
+                            The revolutionary app designed to simplify and enhance your beauty and wellness experience.
+                            We understand the importance of self-care in today's fast-paced world, and our mission is to
+                            make it easier for you to book appointments with your favorite salons, spas, and beauty
+                            professionals.
                         </p>
                         <p class="mb-4">
-                            Step into Maikmi and experience a haven of relaxation and transformation.
-                            Our salon is designed to create a comfortable and friendly space where you
-                            can unwind while we work our magic on your hair and beauty needs.
+                            Maikmi is more than just a booking app; it's a lifestyle upgrade. We've carefully crafted a
+                            user-friendly platform that seamlessly connects beauty enthusiasts with top-notch salons,
+                            spas, and beauty experts. Whether you're looking for a haircut, a rejuvenating spa day, or
+                            any beauty-related service, Maikmi is your go-to destination.
                         </p>
                         <a class="btn btn-pink text-white py-3 px-5 mt-2 custom-btn" href="">Read More</a>
                     </div>
@@ -103,23 +105,23 @@
                         <div class="row g-3 img-about">
                             <div class="col-6 text-start">
                                 <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.1s"
-                                    src="{{asset('website/img/salon1.jpg')}}">
+                                    src="{{ asset('website/img/salon1.jpg') }}">
                             </div>
                             <div class="col-6 text-start">
                                 <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.3s"
-                                    src="{{asset('website/img/salon2.jpg')}}">
+                                    src="{{ asset('website/img/salon2.jpg') }}">
                             </div>
                             <div class="col-6 text-end">
                                 <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.5s"
-                                    src="{{asset('website/img/salon3.jpg')}}">
+                                    src="{{ asset('website/img/salon3.jpg') }}">
                             </div>
                             <div class="col-6 text-end">
                                 <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.7s"
-                                    src="{{asset('website/img/salon4.jpg')}}">
+                                    src="{{ asset('website/img/salon4.jpg') }}">
                             </div>
                             <div class="maikmi-absolute">
                                 <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.8s"
-                                    src="{{asset('website/img/maikmi.png')}}">
+                                    src="{{ asset('website/img/maikmi.png') }}">
                             </div>
                         </div>
                     </div>
@@ -140,28 +142,28 @@
                         <div class="service-item rounded w-100 wow zoomIn" data-wow-delay="0.7s">
                             <h5>Haircuts & Styling</h5>
                             <div class="bg-absolute"></div>
-                            <img class="img-fluid rounded" src="{{asset('website/img/salon1.jpg')}}">
+                            <img class="img-fluid rounded" src="{{ asset('website/img/salon1.jpg') }}">
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6">
                         <div class="service-item rounded w-100 wow fadeInUp" data-wow-delay="0.3s">
                             <h5>Hair Coloring</h5>
                             <div class="bg-absolute"></div>
-                            <img class="img-fluid rounded" src="{{asset('website/img/salon2.jpg')}}">
+                            <img class="img-fluid rounded" src="{{ asset('website/img/salon2.jpg') }}">
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6">
                         <div class="service-item rounded w-100 wow fadeInUp" data-wow-delay="0.5s">
                             <h5>Facials & Skin Care</h5>
                             <div class="bg-absolute"></div>
-                            <img class="img-fluid rounded" src="{{asset('website/img/salon3.jpg')}}">
+                            <img class="img-fluid rounded" src="{{ asset('website/img/salon3.jpg') }}">
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6">
                         <div class="service-item rounded w-100 wow fadeInUp" data-wow-delay="0.7s">
                             <h5>Manicures and Pedicures</h5>
                             <div class="bg-absolute"></div>
-                            <img class="img-fluid rounded" src="{{asset('website/img/salon4.jpg')}}">
+                            <img class="img-fluid rounded" src="{{ asset('website/img/salon4.jpg') }}">
                         </div>
                     </div>
                 </div>
@@ -184,8 +186,8 @@
                             My go-to salon for a fresh look!"
                         </p>
                         <div class="d-flex align-items-center">
-                            <img class="img-fluid flex-shrink-0 rounded-circle" src="{{asset('website/img/user.png')}}"
-                                style="width: 50px; height: 50px;">
+                            <img class="img-fluid flex-shrink-0 rounded-circle"
+                                src="{{ asset('website/img/user.png') }}" style="width: 50px; height: 50px;">
                             <div class="ps-3">
                                 <h5 class="mb-1">Aashutosh Kumar</h5>
                                 <small>Clerk</small>
@@ -199,8 +201,8 @@
                             Always leave with a smile and a stunning hairstyle."
                         </p>
                         <div class="d-flex align-items-center">
-                            <img class="img-fluid flex-shrink-0 rounded-circle" src="{{asset('website/img/user.png')}}"
-                                style="width: 50px; height: 50px;">
+                            <img class="img-fluid flex-shrink-0 rounded-circle"
+                                src="{{ asset('website/img/user.png') }}" style="width: 50px; height: 50px;">
                             <div class="ps-3">
                                 <h5 class="mb-1">Amit Kumar</h5>
                                 <small>Salesman</small>
@@ -213,8 +215,8 @@
                             "Exceptional service every time! The salon has a welcoming atmosphere. Highly recommended."
                         </p>
                         <div class="d-flex align-items-center">
-                            <img class="img-fluid flex-shrink-0 rounded-circle" src="{{asset('website/img/user.png')}}"
-                                style="width: 50px; height: 50px;">
+                            <img class="img-fluid flex-shrink-0 rounded-circle"
+                                src="{{ asset('website/img/user.png') }}" style="width: 50px; height: 50px;">
                             <div class="ps-3">
                                 <h5 class="mb-1">Nitin Kumar</h5>
                                 <small>Businessman</small>
@@ -228,8 +230,8 @@
                             session."
                         </p>
                         <div class="d-flex align-items-center">
-                            <img class="img-fluid flex-shrink-0 rounded-circle" src="{{asset('website/img/user.png')}}"
-                                style="width: 50px; height: 50px;">
+                            <img class="img-fluid flex-shrink-0 rounded-circle"
+                                src="{{ asset('website/img/user.png') }}" style="width: 50px; height: 50px;">
                             <div class="ps-3">
                                 <h5 class="mb-1">Anubhav</h5>
                                 <small>Student</small>
@@ -272,12 +274,12 @@
                 <div class="row g-5">
                     <div class="col-lg-6 col-md-6">
                         <a href="" class="footer-brand p-0">
-                            <img src="{{asset('website/img/logo.png')}}" alt="Logo">
+                            <img src="{{ asset('website/img/logo.png') }}" alt="Logo">
                         </a>
                         <p>
                             Step into Maikmi and experience a haven of relaxation and transformation.
-                            Our salon is designed to create a comfortable and friendly space where you
-                            can unwind while we work our magic on your hair and beauty needs.
+                            Our app is designed to create a comfortable and friendly space where you
+                            can unwind while we work our magic on your beauty needs.
                         </p>
                     </div>
                     <div class="col-lg-3 col-6">
