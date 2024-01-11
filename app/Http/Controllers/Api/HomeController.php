@@ -29,20 +29,10 @@ class HomeController extends Controller
             $query->where('is_active','active');
         })->where('available','1')->take(10)->get());
 
-        $product_categories = ProductCategoryResource::collection(ProductCategory::where('status','1')->where('featured','1')->get());
-
-        $app_sliders = AppSliderResource::collection(AppSlider::where('status',1)->orderBy('id','desc')->get());
-        $feature_products = ProductResource::collection(Product::where('is_ban',0)->where('available',1)->where('featured',1)->take('10')->orderBy('id','desc')->get());
-        $new_products = ProductResource::collection(Product::where('is_ban',0)->where('available',1)->take('16')->orderBy('id','desc')->get());
-
         return response()->json([
                                     'service_categories'=>$service_categories,
                                     'featured_salons'=>$featured_salons,
                                     'salons'=>$salons,
-                                    'product_categories'=>$product_categories,
-                                    'app_sliders'=>$app_sliders,
-                                    'feature_products'=>$feature_products,
-                                    'new_products'=>$new_products,
                                     'message'=>'Data Retrived Successfully!',
                                     'status'=>200
                                 ],200);

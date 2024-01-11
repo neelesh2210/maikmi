@@ -9,7 +9,10 @@ use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\ImageUploadController;
 use App\Http\Controllers\Api\ProductCartController;
+use App\Http\Controllers\Api\ProductHomeController;
 use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Api\ProductSearchController;
+use App\Http\Controllers\Api\ServiceSearchController;
 use App\Http\Controllers\Api\Vendors\SalonController;
 use App\Http\Controllers\Api\ServiceBookingController;
 use App\Http\Controllers\Api\Vendors\WorkerController;
@@ -42,6 +45,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     //Home
     Route::get('home',[HomeController::class,'home']);
 
+    //Product Home
+    Route::get('product-home',[ProductHomeController::class,'home']);
+
     //Image Upload
     Route::post('image-upload',[ImageUploadController::class,'upload'])->name('image.upload');
 
@@ -51,6 +57,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('update-avatar', [ProfileController::class,'updateAvatar']);
 
     //Salon
+    Route::get('get-salon-list/{sedrvice_name}',[SalonController::class,'salonList']);
     Route::get('salon-detail/{id}',[SalonController::class,'show']);
 
     //Salon Time Slot
@@ -66,6 +73,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     //Cart
     Route::post('add-update-to-product-cart',[ProductCartController::class,'store']);
     Route::post('delete-product-from-cart',[ProductCartController::class,'destroy']);
+
+    //Service Search
+    Route::get('service-search',[ServiceSearchController::class,'search']);
+
+    //Product Search
+    Route::get('product-search',[ProductSearchController::class,'search']);
 
     //Vendor Route
     Route::group(['prefix' => 'vendor'], function () {
