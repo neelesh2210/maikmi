@@ -69,7 +69,7 @@
                                 crafted a user-friendly platform that seamlessly connects beauty enthusiasts with
                                 top-notch salons, spas, and beauty experts.
                             </p>
-                            <a href=""
+                            <a href="#gallery"
                                 class="btn btn-pink text-white py-sm-3 px-sm-5 me-3 animated slideInLeft custom-btn">
                                 Explore Gallery
                             </a>
@@ -176,7 +176,7 @@
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-title ff-secondary text-center text-primary fw-normal">Our Gallery</h2>
-                    <h1 class="mb-5">What Our Customer <span class="text-pink">Say</span></h1>
+                    <h1 class="mb-5">Explore The Canvas Of<span class="text-pink"> Maikmi</span></h1>
                 </div>
                 <div class="owl-carousel gallery-carousel">
                     <div class="gallery-item bg-transparent border rounded p-2">
@@ -281,7 +281,7 @@
                 <div class="row p-2 g-4">
                     <div class="col-md-4">
                         <h5 class="fw-normal text-start text-pink">Mail Us On</h5>
-                        <p><i class="fa fa-envelope-open text-pink me-2"></i>maikmi@textmail.com</p>
+                        <a href="mailto:adianinfotech@support.com" class="text-white"><i class="fa fa-envelope-open text-pink me-2"></i>adianinfotech@support.com</a>
                     </div>
                     <div class="col-md-4">
                         <h5 class="fw-normal text-start text-pink">Call Us On</h5>
@@ -313,18 +313,18 @@
                     </div>
                     <div class="col-lg-3 col-6">
                         <h4 class="text-start text-primary fw-normal mb-4">Quick Links</h4>
-                        <a class="btn btn-link" href="">About Us</a>
-                        <a class="btn btn-link" href="">Contact Us</a>
+                        <a class="btn btn-link" href="#about">About Us</a>
+                        <a class="btn btn-link" href="#contact-us">Contact Us</a>
                         <a class="btn btn-link" href="">Privacy Policy</a>
                         <a class="btn btn-link" href="">Terms & Condition</a>
                     </div>
 
                     <div class="col-lg-3 col-6">
-                        <h4 class="text-start text-primary fw-normal mb-4">Opens On</h4>
+                        <h4 class="text-start text-primary fw-normal mb-4">Support Time</h4>
                         <h5 class="text-pink fw-normal">Monday - Saturday</h5>
-                        <p>10AM - 09PM</p>
+                        <p>10AM : 06.00PM</p>
                         <h5 class="text-pink fw-normal">Sunday</h5>
-                        <p>10AM - 05PM</p>
+                        <p>- Closed</p>
                     </div>
                 </div>
             </div>

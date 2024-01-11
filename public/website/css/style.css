@@ -269,7 +269,7 @@
     transition: 0.5s;
 }
 .gallery-carousel .gallery-item{
-    aspect-ratio: 16/9;
+    aspect-ratio: 6/4;
     overflow: hidden;
 }
 .gallery-carousel .gallery-item img{
