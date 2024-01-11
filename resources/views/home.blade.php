@@ -47,10 +47,11 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0 pe-4">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="" class="nav-item nav-link">Gallery</a>
-                        <a href="" class="nav-item nav-link">About Us</a>
-                        <a href="" class="nav-item nav-link">Contact Us</a>
+                        <a href="" class="nav-item nav-link active">Home</a>
+                        <a href="#about" class="nav-item nav-link">About Us</a>
+                        <a href="#services" class="nav-item nav-link">Services</a>
+                        <a href="#gallery" class="nav-item nav-link">Gallery</a>
+                        <a href="#contact-us" class="nav-item nav-link">Contact Us</a>
                     </div>
                 </div>
             </nav>
@@ -80,7 +81,7 @@
         <!-- Navbar & Hero End -->
 
         <!-- About Start -->
-        <div class="container-xxl py-5">
+        <div class="container-xxl py-5" id="about">
             <div class="container">
                 <div class="row g-5 align-items-center">
                     <div class="col-lg-6">
@@ -130,7 +131,7 @@
         <!-- About End -->
 
         <!-- Service Start -->
-        <div class="container-xxl py-5">
+        <div class="container-xxl py-5" id="services">
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-title ff-secondary text-center text-primary fw-normal">Our Services</h2>
@@ -169,6 +170,34 @@
             </div>
         </div>
         <!-- Service End -->
+
+        <!-- Gallery Start -->
+        <div class="container-xxl py-5 wow fadeInUp" id="gallery" data-wow-delay=".1s">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-title ff-secondary text-center text-primary fw-normal">Our Gallery</h2>
+                    <h1 class="mb-5">What Our Customer <span class="text-pink">Say</span></h1>
+                </div>
+                <div class="owl-carousel gallery-carousel">
+                    <div class="gallery-item bg-transparent border rounded p-2">
+                        <img src="{{asset('website/img/gallery/g1.jpeg')}}" alt="gallery">
+                    </div>
+                    <div class="gallery-item bg-transparent border rounded p-2">
+                        <img src="{{asset('website/img/gallery/g2.jpeg')}}" alt="gallery">
+                    </div>
+                    <div class="gallery-item bg-transparent border rounded p-2">
+                        <img src="{{asset('website/img/gallery/g3.jpeg')}}" alt="gallery">
+                    </div>
+                    <div class="gallery-item bg-transparent border rounded p-2">
+                        <img src="{{asset('website/img/gallery/g4.jpeg')}}" alt="gallery">
+                    </div>
+                    <div class="gallery-item bg-transparent border rounded p-2">
+                        <img src="{{asset('website/img/gallery/g5.jpeg')}}" alt="gallery">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Gallery End -->
 
         <!-- Testimonial Start -->
         <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
@@ -243,7 +272,7 @@
         <!-- Testimonial End -->
 
         <!-- Contact Area-->
-        <div class="container-xxl py-5 px-0 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container-xxl py-5 px-0 wow fadeInUp" id="contact-us" data-wow-delay="0.1s">
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-title ff-secondary text-center text-primary fw-normal">Connect With Us</h2>
@@ -256,7 +285,8 @@
                     </div>
                     <div class="col-md-4">
                         <h5 class="fw-normal text-start text-pink">Call Us On</h5>
-                        <a href="tel:+917688828394" class="text-white"><i class="fa fa-phone-alt text-pink me-2"></i>+91-7688828394</a>
+                        <a href="tel:+917688828394" class="text-white"><i
+                                class="fa fa-phone-alt text-pink me-2"></i>+91-7688828394</a>
                     </div>
                     <div class="col-md-4">
                         <h5 class="fw-normal text-start text-pink">Our Address</h5>

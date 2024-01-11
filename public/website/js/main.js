@@ -31,7 +31,7 @@
       nav: false,
       autoplay: true,
       autoplayTimeout: 5000,
-      autoplaySpeed: 800,
+      autoplaySpeed: 1500,
       responsive: {
         0: {
           items: 1,
@@ -41,6 +41,29 @@
         },
         1000: {
           items: 3,
+        },
+      },
+    });
+  });
+
+  //Gallery Carousel
+  $(document).ready(function () {
+    $(".gallery-carousel").owlCarousel({
+      loop: true,
+      margin: 10,
+      nav: false,
+      autoplay: true,
+      autoplayTimeout: 5000,
+      autoplaySpeed: 1500,
+      responsive: {
+        0: {
+          items: 2,
+        },
+        600: {
+          items: 3,
+        },
+        1000: {
+          items: 4,
         },
       },
     });
