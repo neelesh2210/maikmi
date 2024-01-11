@@ -71,6 +71,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('product-detail/{id}',[ProductController::class,'detail']);
 
     //Cart
+    Route::get('cart-list',[ProductCartController::class,'index']);
     Route::post('add-update-to-product-cart',[ProductCartController::class,'store']);
     Route::post('delete-product-from-cart',[ProductCartController::class,'destroy']);
 

@@ -3,7 +3,9 @@
 namespace App\Http\Resources\Api;
 
 use App\Models\Worker;
+use App\Models\Product;
 use App\Models\Service;
+use App\Http\Resources\Api\ProductResource;
 use App\Http\Resources\Api\ServiceResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -26,6 +28,7 @@ class SalonDetailResource extends JsonResource
         ];
 
         $data['services'] = ServiceResource::collection(Service::where('user_id',$this->user_id)->where('available',1)->get());
+        $data['products'] = ProductResource::collection(Product::where('user_id',$this->user_id)->where('available',1)->get());
 
         $have_worker = Worker::where('salon_id',$this->id)->first();
         if($have_worker){

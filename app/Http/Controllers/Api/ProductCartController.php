@@ -7,9 +7,16 @@ use App\Models\Product;
 use App\Models\ProductCart;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\ProductCartResource;
 
 class ProductCartController extends Controller
 {
+
+    public function index(){
+        $product_carts = ProductCartResource::collection(ProductCart::where('user_id',Auth::user()->id)->with(['product','salon'])->get());
+
+        return response()->json(['product_cart_list'=>$product_carts,'message'=>'Cart Retrived Successfully!','status'=>200],200);
+    }
 
     public function store(Request $request){
         $this->validate($request,[
@@ -17,7 +24,12 @@ class ProductCartController extends Controller
             'quantity'=>'required|integer',
         ]);
 
+        $cart = ProductCart::where('user_id',Auth::user()->id)->first();
         $product = Product::where('id',$request->product_id)->first();
+
+        if(optional($cart)->salon_id != $product->salon_id){
+            ProductCart::where('user_id',Auth::user()->id)->delete();
+        }
         if($product){
             $product_cart = ProductCart::updateOrCreate([
                 'salon_user_id'=>$product->user_id,
