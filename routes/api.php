@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\ImageUploadController;
 use App\Http\Controllers\Api\ProductCartController;
 use App\Http\Controllers\Api\ProductHomeController;
+use App\Http\Controllers\Api\ProductOrderController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\ProductSearchController;
 use App\Http\Controllers\Api\ServiceSearchController;
@@ -80,6 +81,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     //Product Search
     Route::get('product-search',[ProductSearchController::class,'search']);
+
+    //Product Order
+    Route::get('product-order-list',[ProductOrderController::class,'index']);
+    Route::post('product-order-store',[ProductOrderController::class,'store']);
 
     //Vendor Route
     Route::group(['prefix' => 'vendor'], function () {
