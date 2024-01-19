@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use PDF;
 use Auth;
 use App\Models\Salon;
 use App\Models\Product;
@@ -16,7 +17,7 @@ class ProductOrderController extends Controller
 {
 
     public function index(){
-        $orders = ProductOrderResource::collection(ProductOrder::latest()->get());
+        $orders = ProductOrderResource::collection(ProductOrder::where('booked_id',Auth::user()->id)->latest()->get());
 
         return response()->json(['orders'=>$orders,'status'=>200],200);
     }
@@ -59,6 +60,18 @@ class ProductOrderController extends Controller
             return response()->json(['order_id'=>$product_order->order_id,'message'=>'Order Successfully!','status'=>200],200);
         }else{
             return response()->json(['message'=>'No Item in Cart!','status'=>200],200);
+        }
+    }
+
+    public function invoice($order_id,$user_id){
+        $order = ProductOrder::where('booked_id',decrypt($user_id))->where('order_id',$order_id)->first();
+        if($order){
+            view()->share('order',$order);
+
+            $pdf = PDF::loadView('product_invoice');
+            return $pdf->download('invoice.pdf');
+        }else{
+            abort(404);
         }
     }
 

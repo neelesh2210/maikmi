@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Api;
 
+use Auth;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductOrderResource extends JsonResource
@@ -30,6 +31,7 @@ class ProductOrderResource extends JsonResource
             'payment_type'=>$this->payment_type,
             'payment_detail'=>$this->payment_detail,
             'date'=>$this->created_at->format('d-m-Y h:i A'),
+            'invoice'=>route('api.product.invoice',[$this->order_id,encrypt(Auth::user()->id)]),
         ];
         $products = [];
         foreach (json_decode($this->products) as $product) {

@@ -177,6 +177,7 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Craftsys\Msg91\Msg91LaravelServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
 
@@ -234,6 +235,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Msg91' => Craftsys\Msg91\Facade\Msg91::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ],
 

@@ -42,6 +42,10 @@ Route::post('login-with-otp',[LoginController::class,'loginWithOtp']);
 //Login with Email
 Route::post('login-with-email',[LoginController::class,'loginWithEmail']);
 
+//Invoice
+Route::get('generate-product-invoce/{order_id}/{user_id}',[ProductOrderController::class,'invoice'])->name('api.product.invoice');
+Route::get('generate-service-invoce/{booking_id}/{user_id}',[ServiceBookingController::class,'invoice'])->name('api.service.invoice');
+
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
     //Home

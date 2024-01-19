@@ -58,4 +58,16 @@ class ServiceBookingController extends Controller
         ], 200);
     }
 
+    public function invoice($booking_id,$user_id){
+        $booking = ServiceBooking::where('user_id',decrypt($user_id))->where('booking_id',$booking_id)->first();
+        if($booking){
+            view()->share('booking',$booking);
+
+            $pdf = PDF::loadView('service_invoice');
+            return $pdf->download('invoice.pdf');
+        }else{
+            abort(404);
+        }
+    }
+
 }
