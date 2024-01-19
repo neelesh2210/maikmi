@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\ImageUploadController;
 use App\Http\Controllers\Api\ProductCartController;
 use App\Http\Controllers\Api\ProductHomeController;
+use App\Http\Controllers\Api\UserAddressController;
 use App\Http\Controllers\Api\ProductOrderController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\ProductSearchController;
@@ -58,7 +59,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('update-avatar', [ProfileController::class,'updateAvatar']);
 
     //Salon
-    Route::get('get-salon-list/{sedrvice_name}',[SalonController::class,'salonList']);
+    Route::get('get-salon-list-by-service/{sedrvice_name}',[SalonController::class,'salonListByService']);
+    Route::get('get-salon-list-by-service-category/{category_id}',[SalonController::class,'salonListByServiceCategory']);
+    Route::get('get-salon-list-by-product-category/{category_id}',[SalonController::class,'salonListByProductCategory']);
     Route::get('salon-detail/{id}',[SalonController::class,'show']);
 
     //Salon Time Slot
@@ -85,6 +88,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     //Product Order
     Route::get('product-order-list',[ProductOrderController::class,'index']);
     Route::post('product-order-store',[ProductOrderController::class,'store']);
+
+    //Address
+    Route::apiResource('address', UserAddressController::class);
 
     //Vendor Route
     Route::group(['prefix' => 'vendor'], function () {

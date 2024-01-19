@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Vendors;
 
 use Auth;
 use App\Models\Salon;
+use App\Models\Product;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -66,8 +67,28 @@ class SalonController extends Controller
 
     }
 
-    public function salonList($service_name){
+    public function salonListByService($service_name){
         $salon_ids = Service::where('is_ban',0)->where('available',1)->where('available',1)->where('name','LIKE','%'.$service_name.'%')->groupBy('salon_id')->pluck('salon_id');
+
+        $salons = SalonResource::collection(Salon::whereIn('id',$salon_ids)->whereHas('getOwner',function($query){
+            $query->where('is_active','active');
+        })->where('available','1')->take(10)->get());
+
+        return response()->json(['salons'=>$salons,'message'=>'Salon Retrived Successfully!','status'=>200],200);
+    }
+
+    public function salonListByServiceCategory($category_id){
+        $salon_ids = Service::where('is_ban',0)->where('available',1)->whereJsonContains('service_category_ids',(int)$category_id)->distinct()->pluck('salon_id');
+
+        $salons = SalonResource::collection(Salon::whereIn('id',$salon_ids)->whereHas('getOwner',function($query){
+            $query->where('is_active','active');
+        })->where('available','1')->take(10)->get());
+
+        return response()->json(['salons'=>$salons,'message'=>'Salon Retrived Successfully!','status'=>200],200);
+    }
+
+    public function salonListByProductCategory($category_id){
+        $salon_ids = Product::where('is_ban',0)->where('available',1)->whereJsonContains('product_category_ids',(int)$category_id)->distinct()->pluck('salon_id');
 
         $salons = SalonResource::collection(Salon::whereIn('id',$salon_ids)->whereHas('getOwner',function($query){
             $query->where('is_active','active');
