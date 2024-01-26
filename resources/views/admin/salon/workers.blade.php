@@ -35,7 +35,7 @@
                                         <td>{{$worker->engage_time}}</td>
                                         <td>{{$worker->engage_duration}}</td>
                                         <td>
-                                            @if($worker->is_free == '1')
+                                            @if($worker->is_free == '0')
                                                 <span class="badge bg-danger">Busy</span>
                                             @else
                                                 <span class="badge bg-success">Free</span>
