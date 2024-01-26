@@ -27,7 +27,7 @@ class HomeController extends Controller
 
         $salons = SalonResource::collection(Salon::whereHas('getOwner',function($query){
             $query->where('is_active','active');
-        })->where('available','1')->take(10)->get());
+        })->where('available','1')->take(20)->get());
 
         return response()->json([
                                     'service_categories'=>$service_categories,
