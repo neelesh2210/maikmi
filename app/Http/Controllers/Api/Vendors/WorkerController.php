@@ -49,7 +49,7 @@ class WorkerController extends Controller
         $worker = Worker::where('user_id',Auth::user()->id)->where('id',$request->worker_id)->first();
         if($worker){
             $worker->is_free = $request->is_free;
-            if($request->is_free == '1'){
+            if($request->is_free == '0'){
                 $worker->engage_time = Carbon::now();
                 $worker->engage_duration = $request->engage_duration;
             }else{
