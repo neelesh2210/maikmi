@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Auth\LoginController;
+use App\Http\Controllers\Admin\ProductOrderController;
 
 
 /*
@@ -90,6 +91,10 @@ Route::middleware(['auth:admin'])->group(function () {
 
         // Transaction Route
         Route::get('payment', 'TransactionRecordController@paymentHistory')->name('transaction.payment');
+
+        //Product Order
+        Route::get('product-order-list',[ProductOrderController::class,'index'])->name('product.order.list');
+        Route::get('product-order-detail/{order_id}',[ProductOrderController::class,'show'])->name('product.order.detail');
 
         // Staff Route
         Route::resource('staffs', 'StaffController');
