@@ -14,6 +14,25 @@ use App\Http\Resources\Api\SalonDetailResource;
 class SalonController extends Controller
 {
 
+    public function index(Request $request){
+
+        $salons = SalonResource::collection(Salon::whereHas('getOwner',function($query){
+            $query->where('is_active','active');
+        })->where('available','1')->paginate(20));
+
+        return response()->json([
+            'salons'=>$salons,
+            'links'                     =>[
+                'first_page_url'        => $salons->url($salons->firstItem()),
+                'last_page_url'         => $salons->url($salons->lastPage()),
+                'next_page_url'         => $salons->nextPageUrl(),
+                'prev_page_url'         => $salons->previousPageUrl(),
+            ],
+            'message'=>'Salon Retrived Successfully!',
+            'status'=>200
+        ],200);
+    }
+
     public function show($id){
         $salon = Salon::whereHas('getOwner',function($query){
                     $query->where('is_active','active');

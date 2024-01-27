@@ -67,6 +67,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('get-salon-list-by-service-category/{category_id}',[SalonController::class,'salonListByServiceCategory']);
     Route::get('get-salon-list-by-product-category/{category_id}',[SalonController::class,'salonListByProductCategory']);
     Route::get('salon-detail/{id}',[SalonController::class,'show']);
+    Route::get('salon-list',[SalonController::class,'index']);
 
     //Salon Time Slot
     Route::post('get-time-slot',[SlotController::class,'timeSlot']);
@@ -130,6 +131,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('product-list',[App\Http\Controllers\Api\Vendors\ProductController::class,'index']);
         Route::post('add-product',[App\Http\Controllers\Api\Vendors\ProductController::class,'store']);
         Route::post('edit-product/{id}',[App\Http\Controllers\Api\Vendors\ProductController::class,'update']);
+
+        //Product Order
+        Route::get('product-order-list',[App\Http\Controllers\Api\Vendors\ProductOrderController::class,'index']);
+        Route::post('product-order-status-change',[App\Http\Controllers\Api\Vendors\ProductOrderController::class,'statusChange']);
 
     });
 
