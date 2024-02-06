@@ -57,6 +57,8 @@ class ProductOrderController extends Controller
 
             ProductCart::where('user_id',Auth::user()->id)->delete();
 
+            sendNotification('Product Order', 'Product Ordered Successfully with order id '.$product_order->order_id, auth()->user()->fcm_token);
+
             return response()->json(['order_id'=>$product_order->order_id,'message'=>'Order Successfully!','status'=>200],200);
         }else{
             return response()->json(['message'=>'No Item in Cart!','status'=>200],200);

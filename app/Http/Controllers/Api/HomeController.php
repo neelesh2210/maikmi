@@ -18,16 +18,20 @@ use App\Http\Resources\Api\ServiceCategoryResource;
 class HomeController extends Controller
 {
 
-    public function home(){
+    public function home(Request $request){
         $service_categories = ServiceCategoryResource::collection(ServiceCategory::where('status','1')->where('featured','1')->get());
-
+        $search_city = $request->search_city;
         $featured_salons = SalonResource::collection(Salon::whereHas('getOwner',function($query){
             $query->where('is_active','active');
-        })->where('available','1')->where('featured','1')->take(10)->get());
+        })->where('available','1')->where('featured','1')->when($search_city, function ($q) use ($search_city) {
+            $q->where('city',$search_city);
+        })->take(10)->get());
 
         $salons = SalonResource::collection(Salon::whereHas('getOwner',function($query){
             $query->where('is_active','active');
-        })->where('available','1')->take(20)->get());
+        })->where('available','1')->when($search_city, function ($q) use ($search_city) {
+            $q->where('city',$search_city);
+        })->take(20)->get());
 
         return response()->json([
                                     'service_categories'=>$service_categories,

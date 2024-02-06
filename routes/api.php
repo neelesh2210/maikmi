@@ -97,6 +97,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     //Address
     Route::apiResource('address', UserAddressController::class);
 
+    Route::post('update-fcm-token',[LoginController::class,'updateFcmToken'])->name('update.fcm.token');
+
     //Vendor Route
     Route::group(['prefix' => 'vendor'], function () {
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use Auth;
 use App\Models\Otp;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -91,6 +92,20 @@ class LoginController extends Controller
             return response()->json(['message'=>'Your Email is Not Verified!','status'=>422],422);
         }
 
+    }
+
+    public function updateFcmToken(Request $request){
+        $this->validate($request,[
+            'token_from'=>'required|in:android,ios',
+            'fcm_token'=>'required',
+        ]);
+
+        $user = User::find(Auth::user()->id);
+        $user->token_from = $request->token_from;
+        $user->fcm_token = $request->fcm_token;
+        $user->save();
+
+        return response()->json(['message'=>'FCM Token Updated Successfully!','status'=>200],200);
     }
 
 }

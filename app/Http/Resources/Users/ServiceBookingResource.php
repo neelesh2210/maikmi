@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Users;
 
+use Auth;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ServiceBookingResource extends JsonResource

@@ -35,6 +35,8 @@ class ServiceBookingController extends Controller
             $data->status = $request->status;
             $data->save();
 
+            sendNotification('Service Booking', 'Service Booked Successfully with booking id '.$data->booking_id, auth()->user()->fcm_token);
+
             return response([
                 'success'       => true,
                 'booking_id'    => $data->booking_id,
@@ -45,7 +47,7 @@ class ServiceBookingController extends Controller
 
             return response([
                 'success'       => false,
-                'message'       => 'Somthing went worng.'
+                'message'       => 'Somthing went Wrong.'
             ], 400);
 
         }
@@ -54,7 +56,7 @@ class ServiceBookingController extends Controller
     public function serviceBookingList(){
         return response([
             'success'       => true,
-            'data'          => ServiceBookingResource::collection(ServiceBooking::where('booked_by', auth()->id())->orderBy('id', 'desc')->get()),
+            'data'          => ServiceBookingResource::collection(ServiceBooking::where('booked_by', auth()->user()->id)->orderBy('id', 'desc')->get()),
         ], 200);
     }
 

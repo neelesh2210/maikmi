@@ -96,22 +96,28 @@ class SalonController extends Controller
         return response()->json(['salons'=>$salons,'message'=>'Salon Retrived Successfully!','status'=>200],200);
     }
 
-    public function salonListByServiceCategory($category_id){
+    public function salonListByServiceCategory(Request $request,$category_id){
+        $search_city = $request->search_city;
         $salon_ids = Service::where('is_ban',0)->where('available',1)->whereJsonContains('service_category_ids',(int)$category_id)->distinct()->pluck('salon_id');
 
         $salons = SalonResource::collection(Salon::whereIn('id',$salon_ids)->whereHas('getOwner',function($query){
             $query->where('is_active','active');
-        })->where('available','1')->take(10)->get());
+        })->where('available','1')->when($search_city, function ($q) use ($search_city) {
+            $q->where('city',$search_city);
+        })->take(10)->get());
 
         return response()->json(['salons'=>$salons,'message'=>'Salon Retrived Successfully!','status'=>200],200);
     }
 
-    public function salonListByProductCategory($category_id){
+    public function salonListByProductCategory(Request $request,$category_id){
+        $search_city = $request->search_city;
         $salon_ids = Product::where('is_ban',0)->where('available',1)->whereJsonContains('product_category_ids',(int)$category_id)->distinct()->pluck('salon_id');
 
         $salons = SalonResource::collection(Salon::whereIn('id',$salon_ids)->whereHas('getOwner',function($query){
             $query->where('is_active','active');
-        })->where('available','1')->take(10)->get());
+        })->where('available','1')->when($search_city, function ($q) use ($search_city) {
+            $q->where('city',$search_city);
+        })->take(10)->get());
 
         return response()->json(['salons'=>$salons,'message'=>'Salon Retrived Successfully!','status'=>200],200);
     }
