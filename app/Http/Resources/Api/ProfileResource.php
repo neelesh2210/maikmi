@@ -14,7 +14,7 @@ class ProfileResource extends JsonResource
             'phone'             => $this->phone,
             'dob'               => optional($this->userDetail)->dob,
             'gender'            => optional($this->userDetail)->gender,
-            'avatar'            => optional($this->userDetail)->photo?imageUrl(optional($this->userDetail)->photo):asset('admin_css/no-pictures.png')
+            'avatar'            => optional($this->userDetail)->photo?imageUrl(optional($this->userDetail)->photo):asset('frontend/images/no-user.png')
         ];
 
         return $data;
