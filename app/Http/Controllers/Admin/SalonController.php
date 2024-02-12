@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use App\Models\Salon;
+use App\Models\Worker;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
@@ -200,5 +201,12 @@ class SalonController extends Controller
         $data->save();
 
         return $data->featured;
+    }
+
+    public function workerList($salon_id){
+        $salon = Salon::where('id',$salon_id)->first();
+        $workers = Worker::where('salon_id',$salon_id)->get();
+
+        return view('admin.salon.workers',compact('salon','workers'),['page_title'=>'Worker List']);
     }
 }

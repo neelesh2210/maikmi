@@ -120,25 +120,14 @@ if(! function_exists('imageUpload')){
 }
 
 if(! function_exists('sendNotification')){
-    function sendNotification($title, $body, $token, $save=false)
+    function sendNotification($title, $body, $token)
     {
         $notificationArr = [
             'title'             => $title,
             'body'              => $body,
         ];
-        $in_app_module = [
-            "title"          => $title,
-            "body"           => $body,
-            "type"           => "notification",
-        ];
-        FireBaseManager::sendMessage($notificationArr, $in_app_module, $token);
-        if($save){
-            $data = new Notification;
-            $data->user_id = Auth::id();
-            $data->title = $title;
-            $data->body = $body;
-            $data->save();
-        }
+
+        FireBaseManager::sendMessage($notificationArr, $token);
     }
 }
 

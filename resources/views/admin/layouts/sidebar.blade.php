@@ -28,14 +28,14 @@
             @endcanany
 
 
-            <li class="nav-item {{ activeRoute(['salon.index', 'salon.create', 'salon.edit', 'salon.show', 'salon-gallery.edit', 'availability-hour.edit']) ? 'active' : '' }}">
+            <li class="nav-item {{ activeRoute(['salon.index', 'salon.create', 'salon.edit', 'salon.show', 'salon-gallery.edit', 'availability-hour.edit','product.order.list','product.order.detail']) ? 'active' : '' }}">
                 <a class="nav-link" data-bs-toggle="collapse" href="#salonManagement" role="button"
                     aria-expanded="false" aria-controls="salonManagement">
                     <i class="link-icon fa-lg bi bi-scissors"></i>
                     <span class="link-title">Shops Management</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
-                <div class="collapse {{ activeRoute(['salon.index', 'salon.create', 'salon.edit', 'salon.show', 'salon-gallery.edit', 'availability-hour.edit', 'service-booking.index']) ? 'show' : '' }}"
+                <div class="collapse {{ activeRoute(['salon.index', 'salon.create', 'salon.edit', 'salon.show', 'salon-gallery.edit', 'availability-hour.edit', 'service-booking.index','product.order.list','product.order.detail']) ? 'show' : '' }}"
                     id="salonManagement">
                     <ul class="nav sub-menu">
 
@@ -47,6 +47,10 @@
                         <li class="nav-item ">
                             <a href="{{ route('service-booking.index') }}"
                                 class="nav-link {{ activeRoute(['service-booking.index']) ? 'active' : '' }}">Booking List</a>
+                        </li>
+
+                        <li class="nav-item ">
+                            <a href="{{ route('product.order.list') }}" class="nav-link {{ activeRoute(['product.order.list','product.order.detail']) ? 'active' : '' }}">Product Order List</a>
                         </li>
 
                     </ul>
@@ -138,7 +142,6 @@
                 </div>
             </li>
 
-
             <li class="nav-item {{ activeRoute(['user.index', 'user.edit', 'user-address.index']) ? 'active' : '' }}">
                 <a class="nav-link" data-bs-toggle="collapse" href="#userManagement" role="button"
                     aria-expanded="false" aria-controls="userManagement">
@@ -159,7 +162,6 @@
                     </ul>
                 </div>
             </li>
-
 
             @canany(['payment-history_list'])
                 <li
@@ -183,6 +185,7 @@
                     </div>
                 </li>
             @endcanany
+
             @canany(['staff-list', 'role-list'])
                 <li
                     class="nav-item {{ activeRoute(['staffs.index', 'staffs.create', 'staffs.edit']) ? 'active' : '' }}">
@@ -213,6 +216,7 @@
                     </div>
                 </li>
             @endcanany
+
             @canany(['web_setup'])
                 <li class="nav-item {{ activeRoute(['web_setup.index']) ? 'active' : '' }}">
                     <a class="nav-link" data-bs-toggle="collapse" href="#webisiteSetting" role="button"
@@ -234,6 +238,7 @@
                     </div>
                 </li>
             @endcanany
+
             @canany(['slider-list', 'banner-list'])
                 <li class="nav-item nav-category">mobile apps</li><hr>
                 <li

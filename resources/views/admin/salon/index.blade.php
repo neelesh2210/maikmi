@@ -63,6 +63,7 @@
                                                 <a class="dropdown-item d-flex align-items-center" href="{{ route('salon.edit', $data->id) }}"><i class="bi bi-pencil-square icon-sm me-2"></i><span class="">Edit</span></a>
                                                 <a class="dropdown-item d-flex align-items-center" href="{{ route('salon-gallery.edit', $data->id) }}"><i class="bi bi-image icon-sm me-2"></i><span class="">Gallery</span></a>
                                                 <a class="dropdown-item d-flex align-items-center" href="{{ route('availability-hour.edit', $data->id) }}"><i class="bi bi-clock-history icon-sm me-2"></i><span class="">Availability Hour</span></a>
+                                                <a class="dropdown-item d-flex align-items-center" href="{{route('salon.worker.list',$data->id)}}"><i class="bi bi-people icon-sm me-2"></i>Workers</a>
                                             </div>
                                         </td>
                                     </tr>

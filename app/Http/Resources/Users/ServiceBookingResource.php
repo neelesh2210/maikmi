@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Users;
 
+use Auth;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ServiceBookingResource extends JsonResource
@@ -29,6 +30,7 @@ class ServiceBookingResource extends JsonResource
             'at_salon'      => $this->at_salon ? true : false,
             'status'        => $this->status,
             'total_amount'  => $this->total_amount,
+            'invoice'       => route('api.service.invoice',[$this->booking_id,encrypt(Auth::user()->id)]),
         ];
 
         $data['booked_by'] = ['name'=>$this->getBookedBy->name,'phone'=>$this->getBookedBy->phone];

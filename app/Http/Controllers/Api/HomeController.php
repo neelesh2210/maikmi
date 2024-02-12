@@ -18,31 +18,25 @@ use App\Http\Resources\Api\ServiceCategoryResource;
 class HomeController extends Controller
 {
 
-    public function home(){
+    public function home(Request $request){
         $service_categories = ServiceCategoryResource::collection(ServiceCategory::where('status','1')->where('featured','1')->get());
-
+        $search_city = $request->search_city;
         $featured_salons = SalonResource::collection(Salon::whereHas('getOwner',function($query){
             $query->where('is_active','active');
-        })->where('available','1')->where('featured','1')->take(10)->get());
+        })->where('available','1')->where('featured','1')->when($search_city, function ($q) use ($search_city) {
+            $q->where('city',$search_city);
+        })->take(10)->get());
 
         $salons = SalonResource::collection(Salon::whereHas('getOwner',function($query){
             $query->where('is_active','active');
-        })->where('available','1')->take(10)->get());
-
-        $product_categories = ProductCategoryResource::collection(ProductCategory::where('status','1')->where('featured','1')->get());
-
-        $app_sliders = AppSliderResource::collection(AppSlider::where('status',1)->orderBy('id','desc')->get());
-        $feature_products = ProductResource::collection(Product::where('is_ban',0)->where('available',1)->where('featured',1)->take('10')->orderBy('id','desc')->get());
-        $new_products = ProductResource::collection(Product::where('is_ban',0)->where('available',1)->take('16')->orderBy('id','desc')->get());
+        })->where('available','1')->when($search_city, function ($q) use ($search_city) {
+            $q->where('city',$search_city);
+        })->take(20)->get());
 
         return response()->json([
                                     'service_categories'=>$service_categories,
                                     'featured_salons'=>$featured_salons,
                                     'salons'=>$salons,
-                                    'product_categories'=>$product_categories,
-                                    'app_sliders'=>$app_sliders,
-                                    'feature_products'=>$feature_products,
-                                    'new_products'=>$new_products,
                                     'message'=>'Data Retrived Successfully!',
                                     'status'=>200
                                 ],200);

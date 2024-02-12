@@ -27,4 +27,9 @@ class Salon extends Model
     {
         return $this->hasMany(ServiceBooking::class, 'salon_id');
     }
+
+    public function service()
+    {
+        return $this->hasMany(Service::class, 'salon_id');
+    }
 }
