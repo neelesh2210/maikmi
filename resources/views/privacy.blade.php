@@ -108,8 +108,6 @@
                         upon posting.</p>
                     <p>By using our app and website, you acknowledge that you have read and understood this Privacy
                         Policy and agree to the collection and use of your personal information as described herein.</p>
-                    <p>Please remember that this is a sample privacy policy and may need to be adjusted based on your
-                        specific app's functionalities and legal requirements.</p>
                 </div>
             </div>
         </div>

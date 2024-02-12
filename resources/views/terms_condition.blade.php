@@ -85,7 +85,6 @@
                 <h5 class="text-theme mt-3">6. Changes to Terms and Conditions</h5>
                 <p class="mb-3">  We reserve the right to modify or replace these terms and conditions at any time. Any changes will be effective immediately upon posting.</p>
               <p>By using this app and website, you acknowledge that you have read and understood these terms and conditions and agree to be bound by them.</p>
-              <p>Please note that this is a sample and may need to be adjusted based on the specific services and functionalities of your app and website.</p>
               </div>
             </div>
           </div>
