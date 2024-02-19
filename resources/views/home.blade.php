@@ -180,19 +180,19 @@
                 </div>
                 <div class="owl-carousel gallery-carousel">
                     <div class="gallery-item bg-transparent border rounded p-2">
-                        <img src="{{asset('website/img/gallery/g1.jpeg')}}" alt="gallery">
+                        <img src="{{ asset('website/img/gallery/g1.jpeg') }}" alt="gallery">
                     </div>
                     <div class="gallery-item bg-transparent border rounded p-2">
-                        <img src="{{asset('website/img/gallery/g2.jpeg')}}" alt="gallery">
+                        <img src="{{ asset('website/img/gallery/g2.jpeg') }}" alt="gallery">
                     </div>
                     <div class="gallery-item bg-transparent border rounded p-2">
-                        <img src="{{asset('website/img/gallery/g3.jpeg')}}" alt="gallery">
+                        <img src="{{ asset('website/img/gallery/g3.jpeg') }}" alt="gallery">
                     </div>
                     <div class="gallery-item bg-transparent border rounded p-2">
-                        <img src="{{asset('website/img/gallery/g4.jpeg')}}" alt="gallery">
+                        <img src="{{ asset('website/img/gallery/g4.jpeg') }}" alt="gallery">
                     </div>
                     <div class="gallery-item bg-transparent border rounded p-2">
-                        <img src="{{asset('website/img/gallery/g5.jpeg')}}" alt="gallery">
+                        <img src="{{ asset('website/img/gallery/g5.jpeg') }}" alt="gallery">
                     </div>
                 </div>
             </div>
@@ -281,7 +281,8 @@
                 <div class="row p-2 g-4">
                     <div class="col-md-4">
                         <h5 class="fw-normal text-start text-pink">Mail Us On</h5>
-                        <a href="mailto:adianinfotech@support.com" class="text-white"><i class="fa fa-envelope-open text-pink me-2"></i>adianinfotech@support.com</a>
+                        <a href="mailto:adianinfotech@support.com" class="text-white"><i
+                                class="fa fa-envelope-open text-pink me-2"></i>adianinfotech@support.com</a>
                     </div>
                     <div class="col-md-4">
                         <h5 class="fw-normal text-start text-pink">Call Us On</h5>
@@ -315,8 +316,8 @@
                         <h4 class="text-start text-primary fw-normal mb-4">Quick Links</h4>
                         <a class="btn btn-link" href="#about">About Us</a>
                         <a class="btn btn-link" href="#contact-us">Contact Us</a>
-                        <a class="btn btn-link" href="">Privacy Policy</a>
-                        <a class="btn btn-link" href="">Terms & Condition</a>
+                        <a class="btn btn-link" href="{{ route('frontend.privacy') }}">Privacy Policy</a>
+                        <a class="btn btn-link" href="{{ route('frontend.terms') }}">Terms & Condition</a>
                     </div>
 
                     <div class="col-lg-3 col-6">
