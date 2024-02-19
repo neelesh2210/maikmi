@@ -6,9 +6,9 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-6 card-title"><h4>{{$page_title}}</h4></div>
-                        <div class="col-md-6 text-end">
+                        {{-- <div class="col-md-6 text-end">
                             <x-add-btn route="{{route('salon.create')}}" />
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="card-body">
@@ -59,9 +59,9 @@
                                                 <i class="bi bi-three-dots-vertical icon-lg text-muted pb-3px"></i>
                                             </a>
                                             <div class="dropdown-menu" aria-labelledby="actionBtn{{$data->id}}">
-                                                <a class="dropdown-item d-flex align-items-center" href="{{ route('salon.show', $data->id) }}"><i class="bi bi-eye icon-sm me-2"></i><span class="">View</span></a>
+                                                {{-- <a class="dropdown-item d-flex align-items-center" href="{{ route('salon.show', $data->id) }}"><i class="bi bi-eye icon-sm me-2"></i><span class="">View</span></a> --}}
                                                 <a class="dropdown-item d-flex align-items-center" href="{{ route('salon.edit', $data->id) }}"><i class="bi bi-pencil-square icon-sm me-2"></i><span class="">Edit</span></a>
-                                                <a class="dropdown-item d-flex align-items-center" href="{{ route('salon-gallery.edit', $data->id) }}"><i class="bi bi-image icon-sm me-2"></i><span class="">Gallery</span></a>
+                                                {{-- <a class="dropdown-item d-flex align-items-center" href="{{ route('salon-gallery.edit', $data->id) }}"><i class="bi bi-image icon-sm me-2"></i><span class="">Gallery</span></a> --}}
                                                 <a class="dropdown-item d-flex align-items-center" href="{{ route('availability-hour.edit', $data->id) }}"><i class="bi bi-clock-history icon-sm me-2"></i><span class="">Availability Hour</span></a>
                                                 <a class="dropdown-item d-flex align-items-center" href="{{route('salon.worker.list',$data->id)}}"><i class="bi bi-people icon-sm me-2"></i>Workers</a>
                                             </div>

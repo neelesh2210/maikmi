@@ -117,7 +117,7 @@
                 </div>
             </li>
 
-            <li class="nav-item {{ activeRoute(['service-coupon.index', 'service-coupon.create', 'service-coupon.edit', 'product-coupon.index', 'product-coupon.create', 'product-coupon.edit']) ? 'active' : '' }}">
+            {{-- <li class="nav-item {{ activeRoute(['service-coupon.index', 'service-coupon.create', 'service-coupon.edit', 'product-coupon.index', 'product-coupon.create', 'product-coupon.edit']) ? 'active' : '' }}">
                 <a class="nav-link" data-bs-toggle="collapse" href="#couponManagement" role="button"
                     aria-expanded="false" aria-controls="couponManagement">
                     <i class="link-icon fa-lg bi bi-receipt-cutoff"></i>
@@ -140,7 +140,7 @@
 
                     </ul>
                 </div>
-            </li>
+            </li> --}}
 
             <li class="nav-item {{ activeRoute(['user.index', 'user.edit', 'user-address.index']) ? 'active' : '' }}">
                 <a class="nav-link" data-bs-toggle="collapse" href="#userManagement" role="button"

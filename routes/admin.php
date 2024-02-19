@@ -26,7 +26,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::group(['namespace' => 'App\Http\Controllers\Admin'], function () {
 
         // Salons Management
-        Route::resource('salon', 'SalonController');
+        Route::resource('salon', 'SalonController')->except(['create']);
         Route::get('salon/feature-update/{id}', 'SalonController@featureUpdate')->name('salon.featureUpdate');
         Route::get('salon/available-update/{id}', 'SalonController@availableUpdate')->name('salon.availableUpdate');
         Route::get('salon/worker-list/{salon_id}','SalonController@workerList')->name('salon.worker.list');
