@@ -39,14 +39,14 @@ class DashboardController extends Controller
         $orders=[];
         foreach($week_dates as $week_date)
         {
-            $total_order = ProductOrder::whereDate('created_at',$week_date )->count();
+            $total_order = ProductOrder::whereDate('created_at',$week_date )->sum('total_amount');
             $orders[]=$total_order;
         }
 
         $bookings=[];
         foreach($week_dates as $week_date)
         {
-            $total_booking = ServiceBooking::whereDate('created_at',$week_date )->count();
+            $total_booking = ServiceBooking::whereDate('created_at',$week_date )->sum('total_amount');
             $bookings[]=$total_booking;
         }
 
