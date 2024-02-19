@@ -51,7 +51,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 mt-4">
             <div class="card">
                 <div class="card-header">
                     <u><h4 class="text-center">Order Stats</h4></u>
@@ -98,7 +98,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 mt-4">
             <div class="card">
                 <div class="card-header">
                     <u><h4 class="text-center">Booking Stats</h4></u>
