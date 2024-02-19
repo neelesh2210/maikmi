@@ -111,7 +111,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('update-service/{id}',[ServiceController::class,'update'])->name('update.service');
 
         //Salon
+        Route::get('get-salon-home',[SalonController::class,'getSalonHome']);
         Route::post('update-salon-detail',[SalonController::class,'update']);
+        Route::post('update-salon-availability',[SalonController::class,'updateSalonAvailability']);
+        Route::post('update-home-service-status',[SalonController::class,'updateHomeServiceStatus']);
 
         //Worker
         Route::get('worker-list',[WorkerController::class,'index']);

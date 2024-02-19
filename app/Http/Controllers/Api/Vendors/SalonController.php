@@ -122,4 +122,32 @@ class SalonController extends Controller
         return response()->json(['salons'=>$salons,'message'=>'Salon Retrived Successfully!','status'=>200],200);
     }
 
+    public function updateSalonAvailability(Request $request){
+        $this->validate($request,[
+            'status'=>'required|in:1,0'
+        ]);
+        $salon = Salon::where('user_id',Auth::user()->id)->first();
+        $salon->available = $request->status;
+        $salon->save();
+
+        return response()->json(['message'=>'Salon Status Updated Successfully!','status'=>200],200);
+    }
+
+    public function updateHomeServiceStatus(Request $request){
+        $this->validate($request,[
+            'status'=>'required|in:1,0'
+        ]);
+        $salon = Salon::where('user_id',Auth::user()->id)->first();
+        $salon->home_service_status = $request->status;
+        $salon->save();
+
+        return response()->json(['message'=>'Salon Home Service Status Updated Successfully!','status'=>200],200);
+    }
+
+    public function getSalonHome(){
+        $salon = Salon::where('user_id',Auth::user()->id)->first();
+
+        return response()->json(['available_status'=>''.$salon->available,'home_service_status'=>$salon->home_service_status,'message'=>'Data Retrieved Successfully!','status'=>200],200);
+    }
+
 }

@@ -28,6 +28,20 @@ class RegisterController extends Controller
                 'gender'=>'required|in:Male,Female,Other',
                 'dob'=>'date_format:Y-m-d'
             ]);
+            if($request->referrer_code){
+                if(strpos($request->referrer_code,'MKS') !== false){
+                    $salon = Salon::where('salon_unique_id',$request->referrer_code)->first();
+                    if(!$salon){
+                        return response()->json(['message'=>'Referrer Code Not Found!','status'=>422],422);
+                    }
+                }else{
+                    return response()->json(['message'=>'Referrer Code Not Found!','status'=>422],422);
+                    // $user = User::where('user_unique_id',$request->referrer_code)->first();
+                    // if(!$user){
+                    //     return response()->json(['message'=>'Referrer Code Not Found!','status'=>422],422);
+                    // }
+                }
+            }
         }elseif($request->type == 'vendor'){
             $this->validate($request,[
                 'type'=>'required|in:vendor',
@@ -81,11 +95,42 @@ class RegisterController extends Controller
             $otp = Otp::where('type','register')->where('from','phone')->where('phone',$request->phone)->orderBy('id','desc')->first();
 
             if($otp->otp == $request->otp){
+                $latest_user = User::orderBy('id','desc')->first();
+                if($latest_user){
+                    $user_unique_id = 200000 + $latest_user->id + 1;
+                }else{
+                    $user_unique_id = 200001;
+                }
+
+                if($request->referrer_code){
+                    if(strpos($request->referrer_code,'MKS') !== false){
+                        $salon = Salon::where('salon_unique_id',$request->referrer_code)->first();
+                        if(!$salon){
+                            return response()->json(['message'=>'Referrer Code Not Found!','status'=>422],422);
+                        }else{
+                            $referrer_code_type = 'vendor';
+                        }
+                    }else{
+                        return response()->json(['message'=>'Referrer Code Not Found!','status'=>422],422);
+                        // $user = User::where('user_unique_id',$request->referrer_code)->first();
+                        // if(!$user){
+                        //     return response()->json(['message'=>'Referrer Code Not Found!','status'=>422],422);
+                        // }else{
+                        //     $referrer_code_type = 'user';
+                        // }
+                    }
+                }else{
+                    $referrer_code_type = null;
+                }
+
                 $user = new User;
+                $user->user_unique_id = $user_unique_id;
                 $user->type = 'user';
                 $user->name = $request->name;
                 $user->phone = $request->phone;
                 $user->email = $request->email;
+                $user->referrer_code = $request->referrer_code;
+                $user->referrer_code_type = $referrer_code_type;
                 if($request->email){
                     $user->password = Hash::make($request->password);
                 }
@@ -121,7 +166,15 @@ class RegisterController extends Controller
             $otp = Otp::where('type','register')->where('from','phone')->where('phone',$request->phone)->orderBy('id','desc')->first();
 
             if($otp->otp == $request->otp){
+                $latest_user = User::orderBy('id','desc')->first();
+                if($latest_user){
+                    $user_unique_id = 200000 + $latest_user->id + 1;
+                }else{
+                    $user_unique_id = 200001;
+                }
+
                 $user = new User;
+                $user->user_unique_id = $user_unique_id;
                 $user->type = 'vendor';
                 $user->name = $request->name;
                 $user->phone = $request->phone;
@@ -132,7 +185,14 @@ class RegisterController extends Controller
                 $user->phone_verified_at = Carbon::now();
                 $user->save();
 
+                $latest_salon = Salon::orderBy('id','desc')->first();
+                if($latest_salon){
+                    $salon_unique_id = 200000 + $latest_salon->id + 1;
+                }else{
+                    $salon_unique_id = 200001;
+                }
                 $salon = new Salon;
+                $salon->salon_unique_id = 'MKS'.$salon_unique_id;
                 $salon->user_id = $user->id;
                 $salon->name = $request->shop_name;
                 $salon->phone_number = $request->shop_phone;

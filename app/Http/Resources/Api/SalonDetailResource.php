@@ -25,6 +25,7 @@ class SalonDetailResource extends JsonResource
             'salon_rating'=>4.5,
             'is_vacant'=>null,
             'is_favorite'=>0,
+            'home_service_status'=>$this->home_service_status,
         ];
 
         $data['services'] = ServiceResource::collection(Service::where('user_id',$this->user_id)->where('available',1)->get());
