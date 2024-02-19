@@ -52,7 +52,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            <div class="card cardinfo">
+            <div class="card">
                 <div class="card-body">
                     <u><h4 class="text-center">Order Stats</h4></u>
                 </div>
@@ -99,7 +99,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            <div class="card cardinfo">
+            <div class="card">
                 <div class="card-body">
                     <u><h4 class="text-center">Booking Stats</h4></u>
                 </div>
