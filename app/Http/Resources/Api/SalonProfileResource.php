@@ -9,6 +9,7 @@ class SalonProfileResource extends JsonResource
 
     public function toArray($request){
         return [
+            'salon_unique_id'=>$this->getSalon->salon_unique_id,
             'name'=>$this->getSalon->name,
             'image'=>$this->getSalon->image?imageUrl($this->getSalon->image):asset('admin_css/no-pictures.png'),
             'phone'=>$this->getSalon->phone_number,
