@@ -60,6 +60,36 @@ class ServiceBookingController extends Controller
         ], 200);
     }
 
+    public function serviceBookingCancel(Request $request){
+        $booking = ServiceBooking::where('booked_by',auth()->user()->id)->where('booking_id',$request->booking_id)->first();
+        if($booking){
+            $booking->cancel_reason = $request->cancel_reason;
+            $booking->status = 'cancelled';
+            $booking->save();
+
+            sendNotification('Service Booking Cancelled', 'Service Cancelled Successfully with booking id '.$booking->booking_id, auth()->user()->fcm_token);
+
+            return response()->json(['message'=>'Booking Cancel Successfully!','status'=>200],200);
+        }else{
+            return response()->json(['message'=>'Booking Not Found!','status'=>422],422);
+        }
+    }
+
+    public function serviceBookingReschedule(Request $request){
+        $booking = ServiceBooking::where('booked_by',auth()->user()->id)->where('booking_id',$request->booking_id)->first();
+        if($booking){
+            $booking->booking_date = $request->booking_date;
+            $booking->booking_time = $request->booking_time;
+            $booking->save();
+
+            sendNotification('Service Booking Reschedule', 'Service Reschedule Successfully with booking id '.$data->booking_id, auth()->user()->fcm_token);
+
+            return response()->json(['message'=>'Booking Reschedule Successfully!','status'=>200],200);
+        }else{
+            return response()->json(['message'=>'Booking Not Found!','status'=>422],422);
+        }
+    }
+
     public function invoice($booking_id,$user_id){
         $booking = ServiceBooking::where('user_id',decrypt($user_id))->where('booking_id',$booking_id)->first();
         if($booking){

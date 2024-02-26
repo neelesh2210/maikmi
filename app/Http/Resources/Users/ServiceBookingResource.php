@@ -26,6 +26,7 @@ class ServiceBookingResource extends JsonResource
             'payment_type'  => $this->payment_type,
             'booking_date'  => $this->booking_date,
             'booking_time'  => $this->booking_time,
+            'booking_day'   => date('D',strtotime($this->booking_date)),
             'booking_at'    => $this->booking_at,
             'at_salon'      => $this->at_salon ? true : false,
             'status'        => $this->status,

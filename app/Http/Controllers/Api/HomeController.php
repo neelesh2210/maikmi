@@ -31,10 +31,22 @@ class HomeController extends Controller
                 })->where('available','1')->where('featured','1')->when($search_city, function ($q) use ($search_city) {
                     $q->where('city',$search_city);
                 })->orderByRaw("FIELD(id,$referrer_salon->id) DESC")->orderBy("id","desc")->take(10)->get());
+
+                $at_home_salons = SalonResource::collection(Salon::whereHas('getOwner',function($query){
+                    $query->where('is_active','active');
+                })->where('available','1')->where('home_service_status','1')->when($search_city, function ($q) use ($search_city) {
+                    $q->where('city',$search_city);
+                })->orderByRaw("FIELD(id,$referrer_salon->id) DESC")->orderBy("id","desc")->take(10)->get());
             }else{
                 $featured_salons = SalonResource::collection(Salon::whereHas('getOwner',function($query){
                     $query->where('is_active','active');
                 })->where('available','1')->where('featured','1')->when($search_city, function ($q) use ($search_city) {
+                    $q->where('city',$search_city);
+                })->orderBy("id","desc")->take(10)->get());
+
+                $at_home_salons = SalonResource::collection(Salon::whereHas('getOwner',function($query){
+                    $query->where('is_active','active');
+                })->where('available','1')->where('home_service_status','1')->when($search_city, function ($q) use ($search_city) {
                     $q->where('city',$search_city);
                 })->orderBy("id","desc")->take(10)->get());
             }
@@ -42,6 +54,12 @@ class HomeController extends Controller
             $featured_salons = SalonResource::collection(Salon::whereHas('getOwner',function($query){
                 $query->where('is_active','active');
             })->where('available','1')->where('featured','1')->when($search_city, function ($q) use ($search_city) {
+                $q->where('city',$search_city);
+            })->orderBy("id","desc")->take(10)->get());
+
+            $at_home_salons = SalonResource::collection(Salon::whereHas('getOwner',function($query){
+                $query->where('is_active','active');
+            })->where('available','1')->where('home_service_status','1')->when($search_city, function ($q) use ($search_city) {
                 $q->where('city',$search_city);
             })->orderBy("id","desc")->take(10)->get());
         }
@@ -55,6 +73,7 @@ class HomeController extends Controller
         return response()->json([
                                     'service_categories'=>$service_categories,
                                     'featured_salons'=>$featured_salons,
+                                    'at_home_salons'=>$at_home_salons,
                                     'salons'=>$salons,
                                     'message'=>'Data Retrived Successfully!',
                                     'status'=>200
