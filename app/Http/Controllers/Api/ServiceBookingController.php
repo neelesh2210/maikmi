@@ -82,7 +82,7 @@ class ServiceBookingController extends Controller
             $booking->booking_time = $request->booking_time;
             $booking->save();
 
-            sendNotification('Service Booking Reschedule', 'Service Reschedule Successfully with booking id '.$data->booking_id, auth()->user()->fcm_token);
+            sendNotification('Service Booking Reschedule', 'Service Reschedule Successfully with booking id '.$booking->booking_id, auth()->user()->fcm_token);
 
             return response()->json(['message'=>'Booking Reschedule Successfully!','status'=>200],200);
         }else{
