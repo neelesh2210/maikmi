@@ -128,6 +128,19 @@
                                         Available
                                     </label>
                                 </div>
+
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" class="form-check-input" id="male" name="gender" value="male">
+                                    <label class="form-check-label" for="male">
+                                        Male
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" class="form-check-input" id="female" name="gender" value="female">
+                                    <label class="form-check-label" for="female">
+                                        Female
+                                    </label>
+                                </div>
                             </div>
                         </div>
                         <x-save-btn text="Save" />

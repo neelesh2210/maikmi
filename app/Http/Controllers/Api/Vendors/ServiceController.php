@@ -30,7 +30,8 @@ class ServiceController extends Controller
             'image'             =>              'nullable|in:'.implode(',',$image_uploads),
             'price'             =>              'required|numeric|gt:0',
             'discounted_price'  =>              'required|numeric|gt:0',
-            'duration'          =>              'required|numeric|gt:0'
+            'duration'          =>              'required|numeric|gt:0',
+            'gender'            =>              'required|in:male,female'
         ]);
 
         if(optional(Auth::user()->getSalon)->id){
@@ -45,6 +46,7 @@ class ServiceController extends Controller
             $service->image = $request->image;
             $service->description = $request->description;
             $service->available = 1;
+            $service->gender = $request->gender;
             $service->save();
 
             return response()->json(['message'=>'Service Added Successfully!','status'=>200],200);
@@ -64,7 +66,8 @@ class ServiceController extends Controller
             'image'             =>              'nullable|in:'.implode(',',$image_uploads),
             'price'             =>              'required|numeric|gt:0',
             'discounted_price'  =>              'required|numeric|gt:0',
-            'duration'          =>              'required|numeric|gt:0'
+            'duration'          =>              'required|numeric|gt:0',
+            'gender'            =>              'required|in:male,female'
         ]);
 
         if(optional(Auth::user()->getSalon)->id){
@@ -79,6 +82,7 @@ class ServiceController extends Controller
                     $service->image = $request->image;
                 }
                 $service->description = $request->description;
+                $service->gender = $request->gender;
                 $service->save();
 
                 return response()->json(['message'=>'Service Updated Successfully!','status'=>200],200);
