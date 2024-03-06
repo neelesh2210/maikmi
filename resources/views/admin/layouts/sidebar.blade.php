@@ -73,10 +73,10 @@
                                 class="nav-link {{ activeRoute(['service-category.index', 'service-category.edit']) ? 'active' : '' }}">Category List</a>
                         </li>
 
-                        <li class="nav-item ">
+                        {{-- <li class="nav-item ">
                             <a href="{{route('service-subcategory.index')}}"
                                 class="nav-link {{ activeRoute(['service-subcategory.index', 'service-subcategory.edit']) ? 'active' : '' }}">Sub Category List</a>
-                        </li>
+                        </li> --}}
 
                         <li class="nav-item ">
                             <a href="{{route('services.index')}}"

@@ -47,7 +47,8 @@ class ServiceCategoryController extends Controller
         $data->name = $request->name;
         $data->color = $request->color;
         $data->description = $request->description;
-        $data->image = imageUpload($request->file('image'), 'service_category' , false);
+        $data->male_image = imageUpload($request->file('male_image'), 'service_category' , false);
+        $data->female_image = imageUpload($request->file('female_image'), 'service_category' , false);
         $data->save();
 
         return redirect()->route('service-category.index')->with('success', 'Service category added successfully !!');
@@ -96,8 +97,11 @@ class ServiceCategoryController extends Controller
         $data->name = $request->name;
         $data->color = $request->color;
         $data->description = $request->description;
-        if($request->file('image')){
-            $data->image = imageUpload($request->file('image'), 'service_category' , false);
+        if($request->file('male_image')){
+            $data->male_image = imageUpload($request->file('male_image'), 'service_category' , false);
+        }
+        if($request->file('female_image')){
+            $data->female_image = imageUpload($request->file('female_image'), 'service_category' , false);
         }
         $data->save();
 

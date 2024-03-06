@@ -13,7 +13,8 @@ class ServiceCategoryResource extends JsonResource
             'name'=>$this->name,
             'color'=>$this->color,
             'description'=>$this->description,
-            'image'=>imageUrl($this->image),
+            'male_image'=>imageUrl($this->male_image),
+            'female_image'=>imageUrl($this->female_image),
         ];
     }
 }

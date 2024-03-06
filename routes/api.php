@@ -143,6 +143,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('product-order-list',[App\Http\Controllers\Api\Vendors\ProductOrderController::class,'index']);
         Route::post('product-order-status-change',[App\Http\Controllers\Api\Vendors\ProductOrderController::class,'statusChange']);
 
+        //Salon KYC
+        Route::post('kyc-document-store',[App\Http\Controllers\Api\Vendors\KycDocumentController::class,'store']);
+
     });
 
 });

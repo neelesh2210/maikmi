@@ -14,7 +14,8 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Icon</th>
+                                    <th>Male Icon</th>
+                                    <th>Female Icon</th>
                                     <th>Name</th>
                                     <th>Color</th>
                                     <th>Featured</th>
@@ -26,7 +27,8 @@
                                 @forelse ($list as $key => $data)
                                     <tr>
                                         <td>{{($key+1) + ($list->currentPage() - 1)*$list->perPage()}}</td>
-                                        <td><img src="{{imageUrl($data->image)}}" alt="image" onerror="this.onerror=null; this.src='{{asset('admin_css/no-pictures.png')}}'"></td>
+                                        <td><img src="{{imageUrl($data->male_image)}}" alt="image" onerror="this.onerror=null; this.src='{{asset('admin_css/no-pictures.png')}}'"></td>
+                                        <td><img src="{{imageUrl($data->female_image)}}" alt="image" onerror="this.onerror=null; this.src='{{asset('admin_css/no-pictures.png')}}'"></td>
                                         <td>{{$data->name}}</td>
                                         <td><span class="badge" style="background:{{$data->color}};">{{$data->color}}</span></td>
                                         <td>
@@ -90,15 +92,27 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="image" class="form-label">Icon</label>
-                            <input id="image" class="form-control" type="file" name="image" accept="image/*" @isset($edit_data) @else required @endif>
-                            @error('image')
+                            <label for="male_image" class="form-label">Male Icon</label>
+                            <input id="male_image" class="form-control" type="file" name="male_image" accept="image/*" @isset($edit_data) @else required @endif>
+                            @error('male_image')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         @isset($edit_data)
                             <div class="mb-3">
-                                <img src="{{imageUrl($edit_data->image)}}" class="img-fluid" alt="Banner" onerror="this.onerror=null; this.src='{{asset('admin_css/no-pictures.png')}}'">
+                                <img src="{{imageUrl($edit_data->male_image)}}" class="img-fluid" alt="Banner" onerror="this.onerror=null; this.src='{{asset('admin_css/no-pictures.png')}}'">
+                            </div>
+                        @endisset
+                        <div class="mb-3">
+                            <label for="female_image" class="form-label">Female Icon</label>
+                            <input id="female_image" class="form-control" type="file" name="female_image" accept="image/*" @isset($edit_data) @else required @endif>
+                            @error('female_image')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        @isset($edit_data)
+                            <div class="mb-3">
+                                <img src="{{imageUrl($edit_data->female_image)}}" class="img-fluid" alt="Banner" onerror="this.onerror=null; this.src='{{asset('admin_css/no-pictures.png')}}'">
                             </div>
                         @endisset
                         <div class="mb-3">

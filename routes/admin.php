@@ -29,7 +29,9 @@ Route::middleware(['auth:admin'])->group(function () {
         Route::resource('salon', 'SalonController')->except(['create']);
         Route::get('salon/feature-update/{id}', 'SalonController@featureUpdate')->name('salon.featureUpdate');
         Route::get('salon/available-update/{id}', 'SalonController@availableUpdate')->name('salon.availableUpdate');
+        Route::post('salon/kyc-status-update/{id}', 'SalonController@kycStatusUpdate')->name('salon.kycStatusUpdate');
         Route::get('salon/worker-list/{salon_id}','SalonController@workerList')->name('salon.worker.list');
+        Route::get('salon/kyc/{salon_id}','SalonController@kyc')->name('salon.kyc');
 
         // Gallery
         Route::resource('salon-gallery', 'SalonGalleryController');

@@ -203,10 +203,25 @@ class SalonController extends Controller
         return $data->featured;
     }
 
+    public function kycStatusUpdate(Request $request,$id)
+    {
+        $data = Salon::find($id);
+        $data->kyc_status = $request->kyc_status;
+        $data->save();
+
+        return back()->with('success','KYC Status Updated Successfully!');
+    }
+
     public function workerList($salon_id){
         $salon = Salon::where('id',$salon_id)->first();
         $workers = Worker::where('salon_id',$salon_id)->get();
 
         return view('admin.salon.workers',compact('salon','workers'),['page_title'=>'Worker List']);
+    }
+
+    public function kyc($salon_id){
+        $salon = Salon::find($salon_id);
+
+        return view('admin.salon.kyc',compact('salon'),['page_title'=>'KYC']);
     }
 }
