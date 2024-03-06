@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\ServiceCategory;
 use App\Models\Admin\ImageUpload;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\ServiceCatelog;
 use App\Http\Resources\Api\ServiceResource;
 
 class ServiceController extends Controller
@@ -92,6 +93,12 @@ class ServiceController extends Controller
         }else{
             return response()->json(['error'=>'User Have No Salon!','status'=>422],422);
         }
+    }
+
+    public function serviceCatelog($category_id){
+        $catelogs = ServiceCatelog::where('category_id',$category_id)->get(['name','description']);
+
+        return response()->json(['catelogs'=>$catelogs,'status'=>200],200);
     }
 
 }

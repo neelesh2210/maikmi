@@ -83,6 +83,10 @@
                                 class="nav-link {{ activeRoute(['services.index', 'services.create', 'services.edit']) ? 'active' : '' }}">Service List</a>
                         </li>
 
+                        <li class="nav-item ">
+                            <a href="{{route('service-catelog.index')}}" class="nav-link {{ activeRoute(['service-catelog.index', 'service-catelog.edit']) ? 'active' : '' }}">Service Catelog</a>
+                        </li>
+
                     </ul>
                 </div>
             </li>

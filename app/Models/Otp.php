@@ -14,6 +14,8 @@ class Otp extends Model
         'email',
         'otp',
         'from',
+        'user_type',
         'type',
+        'is_verified'
     ];
 }

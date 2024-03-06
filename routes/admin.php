@@ -52,6 +52,9 @@ Route::middleware(['auth:admin'])->group(function () {
         // Services
         Route::resource('services', 'ServiceController');
 
+        //Service Catelog
+        Route::resource('service-catelog','ServiceCatelogController');
+
         // Services Coupon
         Route::resource('service-coupon', 'ServiceCouponController');
         Route::get('service-coupon/status-update/{id}', 'ServiceCouponController@statusUpdate')->name('service-coupon.statusUpdate');

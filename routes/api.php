@@ -42,6 +42,11 @@ Route::post('login-with-otp',[LoginController::class,'loginWithOtp']);
 //Login with Email
 Route::post('login-with-email',[LoginController::class,'loginWithEmail']);
 
+//Login/Register
+Route::post('verify-phone',[LoginController::class,'verifyPhone']);
+Route::post('verify-otp',[LoginController::class,'verifyOtp']);
+Route::post('registration',[LoginController::class,'registration']);
+
 //Invoice
 Route::get('generate-product-invoce/{order_id}/{user_id}',[ProductOrderController::class,'invoice'])->name('api.product.invoice');
 Route::get('generate-service-invoce/{booking_id}/{user_id}',[ServiceBookingController::class,'invoice'])->name('api.service.invoice');
@@ -111,6 +116,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('service-list',[ServiceController::class,'index'])->name('service.list');
         Route::post('add-service',[ServiceController::class,'store'])->name('add.service');
         Route::post('update-service/{id}',[ServiceController::class,'update'])->name('update.service');
+        Route::get('service-catelog/{category_id}',[ServiceController::class,'serviceCatelog']);
 
         //Salon
         Route::get('get-salon-home',[SalonController::class,'getSalonHome']);
