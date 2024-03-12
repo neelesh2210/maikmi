@@ -40,7 +40,8 @@ class ServiceCategoryController extends Controller
         $this->validate($request,[
             'name'          => 'required|unique:service_categories,name',
             'description'   => 'required',
-            'image'         => 'required|image|mimes:jpeg,png,jpg,gif,svg'
+            'male_image'         => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'female_image'         => 'required|image|mimes:jpeg,png,jpg,gif,svg'
         ]);
 
         $data = new ServiceCategory;
@@ -90,7 +91,8 @@ class ServiceCategoryController extends Controller
         $this->validate($request,[
             'name'          => 'required|unique:service_categories,name,'.$id,
             'description'   => 'required',
-            'image'         => 'image|mimes:jpeg,png,jpg,gif,svg'
+            'male_image'         => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            'female_image'         => 'nullable|image|mimes:jpeg,png,jpg,gif,svg'
         ]);
 
         $data = ServiceCategory::find($id);
