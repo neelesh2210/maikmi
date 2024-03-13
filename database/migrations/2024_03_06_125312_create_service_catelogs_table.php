@@ -17,6 +17,7 @@ class CreateServiceCatelogsTable extends Migration
             $table->id();
             $table->integer('category_id');
             $table->string('name');
+            $table->string('image')->nullable();
             $table->longText('description')->nullable();
             $table->timestamps();
         });

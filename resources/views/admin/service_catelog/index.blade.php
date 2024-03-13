@@ -16,7 +16,7 @@
                                     <th>#</th>
                                     <th>Category</th>
                                     <th>Name</th>
-                                    <th>Description</th>
+                                    <th>Image</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -26,7 +26,7 @@
                                         <td>{{($key+1) + ($service_catelogs->currentPage() - 1)*$service_catelogs->perPage()}}</td>
                                         <td>{{$service_catelog->category->name}}</td>
                                         <td>{{$service_catelog->name}}</td>
-                                        <td>{{$service_catelog->description}}</td>
+                                        <td><img src="{{imageUrl($service_catelog->image)}}" alt="image" onerror="this.onerror=null; this.src='{{asset('admin_css/no-pictures.png')}}'"></td>
                                         <td>
                                             <x-edit-btn route="{{ route('service-catelog.edit', $service_catelog->id) }}" />
                                             <x-delete-btn route="{{ route('service-catelog.destroy', $service_catelog->id) }}" />
@@ -85,6 +85,18 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Image</label>
+                            <input id="image" class="form-control" type="file" name="image" accept="image/*" @isset($edit_data) @else required @endif>
+                            @error('image')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        @isset($edit_data)
+                            <div class="mb-3">
+                                <img src="{{imageUrl($edit_data->image)}}" class="img-fluid" alt="Banner" onerror="this.onerror=null; this.src='{{asset('admin_css/no-pictures.png')}}'">
+                            </div>
+                        @endisset
                         <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
                             <textarea name="description" id="description" class="form-control" rows="2" required placeholder="Enter desctiption">@isset($edit_data){{$edit_data->description}}@endisset</textarea>

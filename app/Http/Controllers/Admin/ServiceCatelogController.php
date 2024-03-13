@@ -21,12 +21,16 @@ class ServiceCatelogController extends Controller
         $this->validate($request,[
             'category_id'=>'required|numeric',
             'name'=>'required',
+            'image'=> 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'description'=>'required'
         ]);
 
         $service_catelog = new ServiceCatelog;
         $service_catelog->category_id = $request->category_id;
         $service_catelog->name = $request->name;
+        if($request->file('image')){
+            $service_catelog->image = imageUpload($request->file('image'), 'service_catelogs' , false);
+        }
         $service_catelog->description = $request->description;
         $service_catelog->save();
 
@@ -45,12 +49,16 @@ class ServiceCatelogController extends Controller
         $this->validate($request,[
             'category_id'=>'required|numeric',
             'name'=>'required',
+            'image'=> 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'description'=>'required'
         ]);
 
         $service_catelog = ServiceCatelog::find($id);
         $service_catelog->category_id = $request->category_id;
         $service_catelog->name = $request->name;
+        if($request->file('image')){
+            $service_catelog->image = imageUpload($request->file('image'), 'service_catelogs' , false);
+        }
         $service_catelog->description = $request->description;
         $service_catelog->save();
 
