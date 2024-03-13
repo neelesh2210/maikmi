@@ -53,7 +53,7 @@ class SlotController extends Controller
                 $availability = false;
             }
 
-            $service_bookings = ServiceBooking::where('salon_id',$request->salon_id)->whereIn('status',['pending','booked','confirmed'])->where('booking_date',$request->date)->where('booking_time',$time)->count();
+            $service_bookings = ServiceBooking::where('salon_id',$request->salon_id)->whereIn('status',['pending','booked','confirmed'])->where('booking_date',$request->date)->where('booking_time',date("g:i A", strtotime($time)))->count();
 
             if($service_bookings >= $workers){
                 $availability = false;
