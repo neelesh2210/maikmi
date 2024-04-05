@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\ImageUploadController;
 use App\Http\Controllers\Api\ProductCartController;
 use App\Http\Controllers\Api\ProductHomeController;
+use App\Http\Controllers\Api\SalonRatingController;
 use App\Http\Controllers\Api\UserAddressController;
 use App\Http\Controllers\Api\ProductOrderController;
 use App\Http\Controllers\Api\Auth\RegisterController;
@@ -104,7 +105,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     //Address
     Route::apiResource('address', UserAddressController::class);
 
+    //Update FCM Token
     Route::post('update-fcm-token',[LoginController::class,'updateFcmToken'])->name('update.fcm.token');
+
+    //Salon Rating
+    Route::post('salon-rating',[SalonRatingController::class,'salonRating']);
+    Route::get('salon-rating-list/{salon_id}',[SalonRatingController::class,'salonRatingList']);
 
     //Vendor Route
     Route::group(['prefix' => 'vendor'], function () {

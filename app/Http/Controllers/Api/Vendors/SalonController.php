@@ -98,13 +98,28 @@ class SalonController extends Controller
 
     public function salonListByServiceCategory(Request $request,$category_id){
         $search_city = $request->search_city;
+        $search_user_latitude = $request->search_user_latitude;
+        $search_user_longitude = $request->search_user_longitude;
+
         $salon_ids = Service::where('is_ban',0)->where('available',1)->whereJsonContains('service_category_ids',(int)$category_id)->distinct()->pluck('salon_id');
 
-        $salons = SalonResource::collection(Salon::whereIn('id',$salon_ids)->whereHas('getOwner',function($query){
+        $salons = Salon::whereIn('id',$salon_ids)->whereHas('getOwner',function($query){
             $query->where('is_active','active');
         })->where('available','1')->when($search_city, function ($q) use ($search_city) {
             $q->where('city',$search_city);
-        })->take(10)->get());
+        })->take(10)->get();
+
+        foreach ($salons as $salon) {
+            $salon->distance = latLongDistanceCalculate($salon->latitude, $salon->longitude, $search_user_latitude, $search_user_longitude, 'K');
+        }
+
+        $salons = $salons->toArray();
+
+        usort($salons, function($a, $b) {
+            return $a['distance'] - $b['distance'];
+        });
+
+        $salons =  SalonResource::collection($salons);
 
         return response()->json(['salons'=>$salons,'message'=>'Salon Retrived Successfully!','status'=>200],200);
     }

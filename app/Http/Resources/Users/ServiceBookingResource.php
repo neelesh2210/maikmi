@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Users;
 
 use Auth;
+use App\Models\SalonRating;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ServiceBookingResource extends JsonResource
@@ -35,6 +36,8 @@ class ServiceBookingResource extends JsonResource
         ];
 
         $data['booked_by'] = ['name'=>$this->getBookedBy->name,'phone'=>$this->getBookedBy->phone];
+
+        $data['review'] = SalonRating::where('user_id',Auth::user()->id)->where('salon_id',$this->salon)->first(['rating','comment']);
 
         return $data;
     }

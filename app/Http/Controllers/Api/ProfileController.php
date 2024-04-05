@@ -31,7 +31,7 @@ class ProfileController extends Controller
 
     public function updateProfile(Request $request){
         $user = User::where('id',Auth::user()->id)->first();
-        if($user->type = 'user'){
+        if($user->type == 'user'){
             $this->validate($request,[
                 'name'=>'required',
                 'phone'=>["required","digits:10",Rule::unique('users','phone')->where('type','user')->ignore(Auth::user()->id)],
@@ -39,7 +39,7 @@ class ProfileController extends Controller
                 'gender'=>'required|in:Male,Female,Other',
                 'dob'=>'date_format:Y-m-d'
             ]);
-        }elseif($user->type = 'vendor'){
+        }elseif($user->type == 'vendor'){
             $this->validate($request,[
                 'name'=>'required',
                 'phone'=>["required","digits:10",Rule::unique('users','phone')->where('type','vendor')->ignore(Auth::user()->id)],
