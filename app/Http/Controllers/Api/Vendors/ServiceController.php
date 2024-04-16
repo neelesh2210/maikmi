@@ -96,7 +96,7 @@ class ServiceController extends Controller
     }
 
     public function serviceCatelog($category_id){
-        $catelogs = ServiceCatelog::where('category_id',$category_id)->get(['name','image','description']);
+        $catelogs = ServiceCatelog::where('category_id',$category_id)->get(['name','image','description','gender']);
         foreach ($catelogs as $catelog) {
             $catelog->image_url = $catelog->image?imageUrl($catelog->image):asset('admin_css/no-pictures.png');
         }

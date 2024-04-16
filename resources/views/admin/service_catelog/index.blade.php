@@ -16,6 +16,7 @@
                                     <th>#</th>
                                     <th>Category</th>
                                     <th>Name</th>
+                                    <th>Gender</th>
                                     <th>Image</th>
                                     <th>Action</th>
                                 </tr>
@@ -26,6 +27,7 @@
                                         <td>{{($key+1) + ($service_catelogs->currentPage() - 1)*$service_catelogs->perPage()}}</td>
                                         <td>{{$service_catelog->category->name}}</td>
                                         <td>{{$service_catelog->name}}</td>
+                                        <td>{{ucwords($service_catelog->gender)}}</td>
                                         <td><img src="{{imageUrl($service_catelog->image)}}" alt="image" onerror="this.onerror=null; this.src='{{asset('admin_css/no-pictures.png')}}'"></td>
                                         <td>
                                             <x-edit-btn route="{{ route('service-catelog.edit', $service_catelog->id) }}" />
@@ -82,6 +84,17 @@
                             <label for="name" class="form-label">Name</label>
                             <input id="name" class="form-control" type="text" name="name" required placeholder="Enter category name" @isset($edit_data) value="{{$edit_data->name}}" @endisset>
                             @error('name')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="gender" class="form-label">Gender</label>
+                            <select name="gender" class="form-control" data-placeholder="Select Gender" required>
+                                <option value="male" @isset($edit_data) @if($edit_data->gender == 'male') selected @endif @endisset>Male</option>
+                                <option value="female" @isset($edit_data) @if($edit_data->gender == 'female') selected @endif @endisset>Female</option>
+
+                            </select>
+                            @error('gender')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>

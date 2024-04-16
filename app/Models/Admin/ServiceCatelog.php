@@ -14,6 +14,7 @@ class ServiceCatelog extends Model
         'category_id',
         'name',
         'image',
+        'gender',
         'description'
     ];
 
