@@ -9,7 +9,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/icon.png" rel="icon">
+    <link href="{{asset('website/img/icon.png')}}" rel="icon">
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -311,6 +311,18 @@
                             Our app is designed to create a comfortable and friendly space where you
                             can unwind while we work our magic on your beauty needs.
                         </p>
+
+                        <div class="row">
+                            <div class="col-5">
+                                <h4>Download our app available on</h4>
+                            </div>
+                            <div class="col-3 downloadapp">
+                                <a href="https://play.google.com/store/apps/details?id=com.techup.maikmi" target="_blank">
+                                    <img src="{{ asset('website/img/download.png') }}" class="img-fluid"
+                                        alt="">
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-lg-3 col-6">
                         <h4 class="text-start text-primary fw-normal mb-4">Quick Links</h4>
