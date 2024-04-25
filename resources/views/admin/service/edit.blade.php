@@ -130,10 +130,24 @@
                                     </label>
                                 </div>
 
-                                <div class="form-check form-check-inline float-end">
+                                <div class="form-check form-check-inline">
                                     <input type="checkbox" class="form-check-input" id="is_ban" name="is_ban" value="1" {{$data->is_ban == 1 ? 'checked' : ''}}>
                                     <label class="form-check-label text-danger" for="is_ban">
                                         Ban Service
+                                    </label>
+                                </div>
+
+
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" class="form-check-input" id="male" name="gender" value="male" {{$data->gender == 'male' ? 'checked' : ''}}>
+                                    <label class="form-check-label" for="male">
+                                        Male
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" class="form-check-input" id="female" name="gender" value="female" {{$data->gender == 'female' ? 'checked' : ''}}>
+                                    <label class="form-check-label" for="female">
+                                        Female
                                     </label>
                                 </div>
                             </div>

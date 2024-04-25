@@ -19,7 +19,9 @@ class CreateOtpsTable extends Migration
             $table->string('email')->nullable();
             $table->integer('otp');
             $table->enum('from', ['phone', 'email']);
+            $table->enum('user_type', ['user', 'vendor']);
             $table->enum('type', ['register', 'verification', 'login']);
+            $table->enum('is_verified', ['1', '0'])->default('0');
             $table->timestamps();
         });
     }

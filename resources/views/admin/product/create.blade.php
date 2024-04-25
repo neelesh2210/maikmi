@@ -12,7 +12,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data" >
                         @csrf
                         <div class="row">
                             <div class="col-md-3 mb-3">

@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Users;
 
 use Auth;
+use App\Models\SalonRating;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ServiceBookingResource extends JsonResource
@@ -26,6 +27,7 @@ class ServiceBookingResource extends JsonResource
             'payment_type'  => $this->payment_type,
             'booking_date'  => $this->booking_date,
             'booking_time'  => $this->booking_time,
+            'booking_day'   => date('D',strtotime($this->booking_date)),
             'booking_at'    => $this->booking_at,
             'at_salon'      => $this->at_salon ? true : false,
             'status'        => $this->status,
@@ -34,6 +36,8 @@ class ServiceBookingResource extends JsonResource
         ];
 
         $data['booked_by'] = ['name'=>$this->getBookedBy->name,'phone'=>$this->getBookedBy->phone];
+
+        $data['review'] = SalonRating::where('user_id',Auth::user()->id)->where('salon_id',$this->salon)->first(['rating','comment']);
 
         return $data;
     }

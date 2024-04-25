@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\ImageUploadController;
 use App\Http\Controllers\Api\ProductCartController;
 use App\Http\Controllers\Api\ProductHomeController;
+use App\Http\Controllers\Api\SalonRatingController;
 use App\Http\Controllers\Api\UserAddressController;
 use App\Http\Controllers\Api\ProductOrderController;
 use App\Http\Controllers\Api\Auth\RegisterController;
@@ -41,6 +42,11 @@ Route::post('login-with-otp',[LoginController::class,'loginWithOtp']);
 
 //Login with Email
 Route::post('login-with-email',[LoginController::class,'loginWithEmail']);
+
+//Login/Register
+Route::post('verify-phone',[LoginController::class,'verifyPhone']);
+Route::post('verify-otp',[LoginController::class,'verifyOtp']);
+Route::post('registration',[LoginController::class,'registration']);
 
 //Invoice
 Route::get('generate-product-invoce/{order_id}/{user_id}',[ProductOrderController::class,'invoice'])->name('api.product.invoice');
@@ -75,6 +81,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     //Service Booking
     Route::post('service-booking',[ServiceBookingController::class,'serviceBooking']);
     Route::get('service-booking-list',[ServiceBookingController::class,'serviceBookingList']);
+    Route::post('service-booking-reschedule',[ServiceBookingController::class,'serviceBookingReschedule']);
+    Route::post('service-booking-cancel',[ServiceBookingController::class,'serviceBookingCancel']);
 
     //Product
     Route::get('product-detail/{id}',[ProductController::class,'detail']);
@@ -97,7 +105,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     //Address
     Route::apiResource('address', UserAddressController::class);
 
+    //Update FCM Token
     Route::post('update-fcm-token',[LoginController::class,'updateFcmToken'])->name('update.fcm.token');
+
+    //Salon Rating
+    Route::post('salon-rating',[SalonRatingController::class,'salonRating']);
+    Route::get('salon-rating-list/{salon_id}',[SalonRatingController::class,'salonRatingList']);
 
     //Vendor Route
     Route::group(['prefix' => 'vendor'], function () {
@@ -109,9 +122,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('service-list',[ServiceController::class,'index'])->name('service.list');
         Route::post('add-service',[ServiceController::class,'store'])->name('add.service');
         Route::post('update-service/{id}',[ServiceController::class,'update'])->name('update.service');
+        Route::get('service-catelog/{category_id}',[ServiceController::class,'serviceCatelog']);
 
         //Salon
+        Route::get('get-salon-home',[SalonController::class,'getSalonHome']);
         Route::post('update-salon-detail',[SalonController::class,'update']);
+        Route::post('update-salon-availability',[SalonController::class,'updateSalonAvailability']);
+        Route::post('update-home-service-status',[SalonController::class,'updateHomeServiceStatus']);
 
         //Worker
         Route::get('worker-list',[WorkerController::class,'index']);
@@ -137,6 +154,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         //Product Order
         Route::get('product-order-list',[App\Http\Controllers\Api\Vendors\ProductOrderController::class,'index']);
         Route::post('product-order-status-change',[App\Http\Controllers\Api\Vendors\ProductOrderController::class,'statusChange']);
+
+        //Salon KYC
+        Route::post('kyc-document-store',[App\Http\Controllers\Api\Vendors\KycDocumentController::class,'store']);
 
     });
 

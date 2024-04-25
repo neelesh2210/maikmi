@@ -40,14 +40,16 @@ class ServiceCategoryController extends Controller
         $this->validate($request,[
             'name'          => 'required|unique:service_categories,name',
             'description'   => 'required',
-            'image'         => 'required|image|mimes:jpeg,png,jpg,gif,svg'
+            'male_image'         => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'female_image'         => 'required|image|mimes:jpeg,png,jpg,gif,svg'
         ]);
 
         $data = new ServiceCategory;
         $data->name = $request->name;
         $data->color = $request->color;
         $data->description = $request->description;
-        $data->image = imageUpload($request->file('image'), 'service_category' , false);
+        $data->male_image = imageUpload($request->file('male_image'), 'service_category' , false);
+        $data->female_image = imageUpload($request->file('female_image'), 'service_category' , false);
         $data->save();
 
         return redirect()->route('service-category.index')->with('success', 'Service category added successfully !!');
@@ -89,15 +91,19 @@ class ServiceCategoryController extends Controller
         $this->validate($request,[
             'name'          => 'required|unique:service_categories,name,'.$id,
             'description'   => 'required',
-            'image'         => 'image|mimes:jpeg,png,jpg,gif,svg'
+            'male_image'         => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            'female_image'         => 'nullable|image|mimes:jpeg,png,jpg,gif,svg'
         ]);
 
         $data = ServiceCategory::find($id);
         $data->name = $request->name;
         $data->color = $request->color;
         $data->description = $request->description;
-        if($request->file('image')){
-            $data->image = imageUpload($request->file('image'), 'service_category' , false);
+        if($request->file('male_image')){
+            $data->male_image = imageUpload($request->file('male_image'), 'service_category' , false);
+        }
+        if($request->file('female_image')){
+            $data->female_image = imageUpload($request->file('female_image'), 'service_category' , false);
         }
         $data->save();
 

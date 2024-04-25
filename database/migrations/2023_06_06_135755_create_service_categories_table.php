@@ -16,7 +16,8 @@ class CreateServiceCategoriesTable extends Migration
         Schema::create('service_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->string('image')->nullable();
+            $table->string('male_image')->nullable();
+            $table->string('female_image')->nullable();
             $table->string('color')->nullable();
             $table->longText('description')->nullable();
             $table->tinyInteger('featured')->default(0);

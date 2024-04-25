@@ -70,6 +70,7 @@ class ServiceController extends Controller
         $data->enable_at_salon = $request->enable_at_salon ? 1 : 0;
         $data->enable_at_customer_address = $request->enable_at_customer_address ? 1 : 0;
         $data->available = $request->available ? 1 : 0;
+        $data->gender = $request->gender??'male';
         $data->save();
 
         return redirect()->route('services.index')->with('success', 'Service added successfully !!');
@@ -140,6 +141,7 @@ class ServiceController extends Controller
         $data->enable_at_customer_address = $request->enable_at_customer_address ? 1 : 0;
         $data->available = $request->available ? 1 : 0;
         $data->is_ban = $request->is_ban ? 1 : 0;
+        $data->gender = $request->gender??'male';
         $data->save();
 
         return redirect()->route('services.index')->with('success', 'Service updated successfully !!');

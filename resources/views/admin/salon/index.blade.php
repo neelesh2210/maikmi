@@ -6,9 +6,9 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-6 card-title"><h4>{{$page_title}}</h4></div>
-                        <div class="col-md-6 text-end">
+                        {{-- <div class="col-md-6 text-end">
                             <x-add-btn route="{{route('salon.create')}}" />
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="card-body">
@@ -23,6 +23,7 @@
                                     <th>Service Booking</th>
                                     <th>Featured</th>
                                     <th>Available</th>
+                                    <th>KYC Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -55,15 +56,23 @@
                                             </div>
                                         </td>
                                         <td>
+                                            @if ($data->kyc_status == '1')
+                                                <span class="badge bg-success" title="Total Service Booking">Verified</span>
+                                            @else
+                                                <span class="badge bg-danger" title="Total Service Booking">Not Verified</span>
+                                            @endif
+                                        </td>
+                                        <td>
                                             <a type="button" id="actionBtn{{$data->id}}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="bi bi-three-dots-vertical icon-lg text-muted pb-3px"></i>
                                             </a>
                                             <div class="dropdown-menu" aria-labelledby="actionBtn{{$data->id}}">
-                                                <a class="dropdown-item d-flex align-items-center" href="{{ route('salon.show', $data->id) }}"><i class="bi bi-eye icon-sm me-2"></i><span class="">View</span></a>
+                                                {{-- <a class="dropdown-item d-flex align-items-center" href="{{ route('salon.show', $data->id) }}"><i class="bi bi-eye icon-sm me-2"></i><span class="">View</span></a> --}}
                                                 <a class="dropdown-item d-flex align-items-center" href="{{ route('salon.edit', $data->id) }}"><i class="bi bi-pencil-square icon-sm me-2"></i><span class="">Edit</span></a>
-                                                <a class="dropdown-item d-flex align-items-center" href="{{ route('salon-gallery.edit', $data->id) }}"><i class="bi bi-image icon-sm me-2"></i><span class="">Gallery</span></a>
+                                                {{-- <a class="dropdown-item d-flex align-items-center" href="{{ route('salon-gallery.edit', $data->id) }}"><i class="bi bi-image icon-sm me-2"></i><span class="">Gallery</span></a> --}}
                                                 <a class="dropdown-item d-flex align-items-center" href="{{ route('availability-hour.edit', $data->id) }}"><i class="bi bi-clock-history icon-sm me-2"></i><span class="">Availability Hour</span></a>
                                                 <a class="dropdown-item d-flex align-items-center" href="{{route('salon.worker.list',$data->id)}}"><i class="bi bi-people icon-sm me-2"></i>Workers</a>
+                                                <a class="dropdown-item d-flex align-items-center" href="{{route('salon.kyc',$data->id)}}"><i class="bi bi-card-checklist icon-sm me-2"></i>KYC Document</a>
                                             </div>
                                         </td>
                                     </tr>
@@ -123,6 +132,26 @@
                 Toast.fire({
                     icon: (data == "1") ? "success" : "error",
                     title: 'Available status update successfully !!',
+                });
+
+            });
+        });
+
+        $(".kyc_status_update").change(function(){
+
+            var id = $(this).val();
+            $.get("{{ route('salon.kycStatusUpdate', '') }}/"+id, function(data)
+            {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                });
+                Toast.fire({
+                    icon: (data == "1") ? "success" : "error",
+                    title: 'KYC status update successfully !!',
                 });
 
             });

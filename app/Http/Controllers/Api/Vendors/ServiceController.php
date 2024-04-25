@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\ServiceCategory;
 use App\Models\Admin\ImageUpload;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\ServiceCatelog;
 use App\Http\Resources\Api\ServiceResource;
 
 class ServiceController extends Controller
@@ -30,7 +31,8 @@ class ServiceController extends Controller
             'image'             =>              'nullable|in:'.implode(',',$image_uploads),
             'price'             =>              'required|numeric|gt:0',
             'discounted_price'  =>              'required|numeric|gt:0',
-            'duration'          =>              'required|numeric|gt:0'
+            'duration'          =>              'required|numeric|gt:0',
+            'gender'            =>              'required|in:male,female'
         ]);
 
         if(optional(Auth::user()->getSalon)->id){
@@ -45,6 +47,7 @@ class ServiceController extends Controller
             $service->image = $request->image;
             $service->description = $request->description;
             $service->available = 1;
+            $service->gender = $request->gender;
             $service->save();
 
             return response()->json(['message'=>'Service Added Successfully!','status'=>200],200);
@@ -64,7 +67,8 @@ class ServiceController extends Controller
             'image'             =>              'nullable|in:'.implode(',',$image_uploads),
             'price'             =>              'required|numeric|gt:0',
             'discounted_price'  =>              'required|numeric|gt:0',
-            'duration'          =>              'required|numeric|gt:0'
+            'duration'          =>              'required|numeric|gt:0',
+            'gender'            =>              'required|in:male,female'
         ]);
 
         if(optional(Auth::user()->getSalon)->id){
@@ -79,6 +83,7 @@ class ServiceController extends Controller
                     $service->image = $request->image;
                 }
                 $service->description = $request->description;
+                $service->gender = $request->gender;
                 $service->save();
 
                 return response()->json(['message'=>'Service Updated Successfully!','status'=>200],200);
@@ -88,6 +93,14 @@ class ServiceController extends Controller
         }else{
             return response()->json(['error'=>'User Have No Salon!','status'=>422],422);
         }
+    }
+
+    public function serviceCatelog($category_id){
+        $catelogs = ServiceCatelog::where('category_id',$category_id)->get(['name','image','description','gender']);
+        foreach ($catelogs as $catelog) {
+            $catelog->image_url = $catelog->image?imageUrl($catelog->image):asset('admin_css/no-pictures.png');
+        }
+        return response()->json(['catelogs'=>$catelogs,'status'=>200],200);
     }
 
 }

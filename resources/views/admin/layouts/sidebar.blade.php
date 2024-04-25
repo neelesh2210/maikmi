@@ -73,14 +73,18 @@
                                 class="nav-link {{ activeRoute(['service-category.index', 'service-category.edit']) ? 'active' : '' }}">Category List</a>
                         </li>
 
-                        <li class="nav-item ">
+                        {{-- <li class="nav-item ">
                             <a href="{{route('service-subcategory.index')}}"
                                 class="nav-link {{ activeRoute(['service-subcategory.index', 'service-subcategory.edit']) ? 'active' : '' }}">Sub Category List</a>
-                        </li>
+                        </li> --}}
 
                         <li class="nav-item ">
                             <a href="{{route('services.index')}}"
                                 class="nav-link {{ activeRoute(['services.index', 'services.create', 'services.edit']) ? 'active' : '' }}">Service List</a>
+                        </li>
+
+                        <li class="nav-item ">
+                            <a href="{{route('service-catelog.index')}}" class="nav-link {{ activeRoute(['service-catelog.index', 'service-catelog.edit']) ? 'active' : '' }}">Service Catelog</a>
                         </li>
 
                     </ul>
@@ -117,7 +121,7 @@
                 </div>
             </li>
 
-            <li class="nav-item {{ activeRoute(['service-coupon.index', 'service-coupon.create', 'service-coupon.edit', 'product-coupon.index', 'product-coupon.create', 'product-coupon.edit']) ? 'active' : '' }}">
+            {{-- <li class="nav-item {{ activeRoute(['service-coupon.index', 'service-coupon.create', 'service-coupon.edit', 'product-coupon.index', 'product-coupon.create', 'product-coupon.edit']) ? 'active' : '' }}">
                 <a class="nav-link" data-bs-toggle="collapse" href="#couponManagement" role="button"
                     aria-expanded="false" aria-controls="couponManagement">
                     <i class="link-icon fa-lg bi bi-receipt-cutoff"></i>
@@ -140,7 +144,7 @@
 
                     </ul>
                 </div>
-            </li>
+            </li> --}}
 
             <li class="nav-item {{ activeRoute(['user.index', 'user.edit', 'user-address.index']) ? 'active' : '' }}">
                 <a class="nav-link" data-bs-toggle="collapse" href="#userManagement" role="button"

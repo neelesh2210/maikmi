@@ -18,6 +18,7 @@ class ServiceResource extends JsonResource
             'image'=>$this->image?imageUrl($this->image):asset('admin_css/no-pictures.png'),
             'duration'=>$this->duration,
             'description'=>$this->description,
+            'gender'=>$this->gender,
         ];
 
         $category_name = [];

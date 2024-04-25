@@ -14,36 +14,24 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Male Icon</th>
-                                    <th>Female Icon</th>
+                                    <th>Category</th>
                                     <th>Name</th>
-                                    <th>Color</th>
-                                    <th>Featured</th>
-                                    <th>Status</th>
+                                    <th>Gender</th>
+                                    <th>Image</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($list as $key => $data)
+                                @forelse ($service_catelogs as $key => $service_catelog)
                                     <tr>
-                                        <td>{{($key+1) + ($list->currentPage() - 1)*$list->perPage()}}</td>
-                                        <td><img src="{{imageUrl($data->male_image)}}" alt="image" onerror="this.onerror=null; this.src='{{asset('admin_css/no-pictures.png')}}'"></td>
-                                        <td><img src="{{imageUrl($data->female_image)}}" alt="image" onerror="this.onerror=null; this.src='{{asset('admin_css/no-pictures.png')}}'"></td>
-                                        <td>{{$data->name}}</td>
-                                        <td><span class="badge" style="background:{{$data->color}};">{{$data->color}}</span></td>
+                                        <td>{{($key+1) + ($service_catelogs->currentPage() - 1)*$service_catelogs->perPage()}}</td>
+                                        <td>{{$service_catelog->category->name}}</td>
+                                        <td>{{$service_catelog->name}}</td>
+                                        <td>{{ucwords($service_catelog->gender)}}</td>
+                                        <td><img src="{{imageUrl($service_catelog->image)}}" alt="image" onerror="this.onerror=null; this.src='{{asset('admin_css/no-pictures.png')}}'"></td>
                                         <td>
-                                            <div class="form-check form-switch">
-                                                <input type="checkbox" class="form-check-input featured_update" name="featured" value="{{$data->id}}" @if ($data->featured == 1) checked @endif>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-switch">
-                                                <input type="checkbox" class="form-check-input status_update" name="status" value="{{$data->id}}" @if ($data->status == 1) checked @endif>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <x-edit-btn route="{{ route('service-category.edit', $data->id) }}" />
-                                            <x-delete-btn route="{{ route('service-category.destroy', $data->id) }}" />
+                                            <x-edit-btn route="{{ route('service-catelog.edit', $service_catelog->id) }}" />
+                                            <x-delete-btn route="{{ route('service-catelog.destroy', $service_catelog->id) }}" />
                                         </td>
                                     </tr>
                                 @empty
@@ -58,6 +46,9 @@
                                 @endforelse
                             </tbody>
                         </table>
+                        <div class="mt-2">
+                            {{ $service_catelogs->links() }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -71,12 +62,24 @@
                 </div>
                 <div class="card-body">
                     @isset($edit_data)
-                        <form id="valid_form" method="POST" action="{{route('service-category.update',$edit_data->id)}}" enctype="multipart/form-data">
+                        <form id="valid_form" method="POST" action="{{route('service-catelog.update',$edit_data->id)}}" enctype="multipart/form-data">
                         @method('PUT')
                     @else
-                        <form id="valid_form" method="POST" action="{{route('service-category.store')}}" enctype="multipart/form-data">
+                        <form id="valid_form" method="POST" action="{{route('service-catelog.store')}}" enctype="multipart/form-data">
                     @endisset
                         @csrf
+                        <div class="mb-3">
+                            <label for="service_category_ids" class="form-label">Categories</label>
+                            <select name="category_id" class="form-control js-example-basic-single" data-placeholder="Select category" required>
+                                <option value="">Select Category...</option>
+                                @foreach ($serviceCategoryList as $category)
+                                    <option value="{{(int)$category->id}}" @isset($edit_data) @if($edit_data->category_id == $category->id) selected @endif @endisset>{{$category->name}}</option>
+                                @endforeach
+                            </select>
+                            @error('service_category_ids')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
                             <input id="name" class="form-control" type="text" name="name" required placeholder="Enter category name" @isset($edit_data) value="{{$edit_data->name}}" @endisset>
@@ -85,34 +88,26 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="color" class="form-label">Color</label>
-                            <input id="color" class="form-control form-control-color" type="color" name="color" required placeholder="Enter category name" @isset($edit_data) value="{{$edit_data->color}}" @endisset>
-                            @error('color')
+                            <label for="gender" class="form-label">Gender</label>
+                            <select name="gender" class="form-control" data-placeholder="Select Gender" required>
+                                <option value="male" @isset($edit_data) @if($edit_data->gender == 'male') selected @endif @endisset>Male</option>
+                                <option value="female" @isset($edit_data) @if($edit_data->gender == 'female') selected @endif @endisset>Female</option>
+
+                            </select>
+                            @error('gender')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="male_image" class="form-label">Male Icon</label>
-                            <input id="male_image" class="form-control" type="file" name="male_image" accept="image/*" @isset($edit_data) @else required @endif>
-                            @error('male_image')
+                            <label for="image" class="form-label">Image</label>
+                            <input id="image" class="form-control" type="file" name="image" accept="image/*" @isset($edit_data) @else required @endif>
+                            @error('image')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         @isset($edit_data)
                             <div class="mb-3">
-                                <img src="{{imageUrl($edit_data->male_image)}}" class="img-fluid" alt="Banner" onerror="this.onerror=null; this.src='{{asset('admin_css/no-pictures.png')}}'">
-                            </div>
-                        @endisset
-                        <div class="mb-3">
-                            <label for="female_image" class="form-label">Female Icon</label>
-                            <input id="female_image" class="form-control" type="file" name="female_image" accept="image/*" @isset($edit_data) @else required @endif>
-                            @error('female_image')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                        @isset($edit_data)
-                            <div class="mb-3">
-                                <img src="{{imageUrl($edit_data->female_image)}}" class="img-fluid" alt="Banner" onerror="this.onerror=null; this.src='{{asset('admin_css/no-pictures.png')}}'">
+                                <img src="{{imageUrl($edit_data->image)}}" class="img-fluid" alt="Banner" onerror="this.onerror=null; this.src='{{asset('admin_css/no-pictures.png')}}'">
                             </div>
                         @endisset
                         <div class="mb-3">
@@ -124,7 +119,7 @@
                         </div>
                         @isset($edit_data) <x-save-btn text="Update" /> @else <x-save-btn text="Save" /> @endisset
                         @isset($edit_data)
-                            <x-cancle-btn text="Cancel" route="{{route('service-category.index')}}" />
+                            <x-cancle-btn text="Cancel" route="{{route('service-catelog.index')}}" />
                         @endisset
                     </form>
                 </div>
