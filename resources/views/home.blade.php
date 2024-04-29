@@ -57,7 +57,7 @@
             </nav>
 
             <div class="container-xxl py-5 bg-dark hero-header mb-5">
-                <div class="container my-5 py-5">
+                <div class="container mb-5 mt-sm-5 mt-3 pt-sm-5 pb-5">
                     <div class="row align-items-center g-5">
                         <div class="col-lg-7 text-center text-lg-start">
                             <h1 class="display-3 text-white animated slideInLeft">
@@ -69,9 +69,9 @@
                                 crafted a user-friendly platform that seamlessly connects beauty enthusiasts with
                                 top-notch salons, spas, and beauty experts.
                             </p>
-                            <a href="#gallery"
+                            <a href="https://play.google.com/store/apps/details?id=com.techup.maikmi" target="_blank"
                                 class="btn btn-pink text-white py-sm-3 px-sm-5 me-3 animated slideInLeft custom-btn">
-                                Explore Gallery
+                                Download App
                             </a>
                         </div>
                     </div>
