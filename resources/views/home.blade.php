@@ -57,7 +57,7 @@
             </nav>
 
             <div class="container-xxl py-5 bg-dark hero-header mb-5">
-                <div class="container mb-5 mt-sm-5 mt-3 pt-sm-5 pb-5">
+                <div class="container mb-3 mt-sm-5 mt-3 pt-sm-5">
                     <div class="row align-items-center g-5">
                         <div class="col-lg-7 text-center text-lg-start">
                             <h1 class="display-3 text-white animated slideInLeft">
@@ -81,7 +81,7 @@
         <!-- Navbar & Hero End -->
 
         <!-- About Start -->
-        <div class="container-xxl py-5" id="about">
+        <div class="container-xxl py-lg-5 py-3" id="about">
             <div class="container">
                 <div class="row g-5 align-items-center">
                     <div class="col-lg-6">
@@ -131,7 +131,7 @@
         <!-- About End -->
 
         <!-- Service Start -->
-        <div class="container-xxl py-5" id="services">
+        <div class="container-xxl py-lg-5 py-3" id="services">
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-title ff-secondary text-center text-primary fw-normal">Our Services</h2>
@@ -172,7 +172,7 @@
         <!-- Service End -->
 
         <!-- Gallery Start -->
-        <div class="container-xxl py-5 wow fadeInUp" id="gallery" data-wow-delay=".1s">
+        <div class="container-xxl py-lg-5 py-3 wow fadeInUp" id="gallery" data-wow-delay=".1s">
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-title ff-secondary text-center text-primary fw-normal">Our Gallery</h2>
@@ -200,7 +200,7 @@
         <!-- Gallery End -->
 
         <!-- Testimonial Start -->
-        <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container-xxl py-lg-5 py-3 wow fadeInUp" data-wow-delay="0.1s">
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-title ff-secondary text-center text-primary fw-normal">Testimonials</h2>
@@ -272,7 +272,7 @@
         <!-- Testimonial End -->
 
         <!-- Contact Area-->
-        <div class="container-xxl py-5 px-0 wow fadeInUp" id="contact-us" data-wow-delay="0.1s">
+        <div class="container-xxl py-lg-5 py-3 px-0 wow fadeInUp" id="contact-us" data-wow-delay="0.1s">
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-title ff-secondary text-center text-primary fw-normal">Connect With Us</h2>
