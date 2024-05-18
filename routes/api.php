@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OtpLessController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\SlotController;
 use App\Http\Controllers\Api\ProductController;
@@ -51,6 +52,9 @@ Route::post('registration',[LoginController::class,'registration']);
 //Invoice
 Route::get('generate-product-invoce/{order_id}/{user_id}',[ProductOrderController::class,'invoice'])->name('api.product.invoice');
 Route::get('generate-service-invoce/{booking_id}/{user_id}',[ServiceBookingController::class,'invoice'])->name('api.service.invoice');
+
+//OTP Less
+Route::get('otpless-send-otp',[OtpLessController::class,'sendOtp']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
 

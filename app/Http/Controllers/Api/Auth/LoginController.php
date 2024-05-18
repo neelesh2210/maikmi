@@ -14,6 +14,7 @@ use Craftsys\Msg91\Facade\Msg91;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
+use App\Http\Controllers\OtpLessController;
 
 class LoginController extends Controller
 {
@@ -125,7 +126,10 @@ class LoginController extends Controller
             $type = 'register';
         }
 
-        $otp = 1234;
+        $otp_less = new OtpLessController;
+        $order_id = $otp_less->sendOtp($request->phone);
+
+        // $otp = 1234;
         // if(env('APP_ENV') == 'production'){
         //     $otp = rand(1111,9999);
         //     Msg91::sms()->to('91'.$request->phone)->flow('64a6b9d1d6fc057c15503ab2')->variable('business_name', env('APP_NAME'))->variable('otp', $otp)->send();
@@ -136,7 +140,7 @@ class LoginController extends Controller
 
         $otps = new Otp;
         $otps->phone = $request->phone;
-        $otps->otp = $otp;
+        $otps->otp = json_decode($order_id)->orderId;
         $otps->from = 'phone';
         $otps->user_type = $request->type;
         $otps->type = $type;
@@ -150,7 +154,7 @@ class LoginController extends Controller
         $this->validate($request,[
             'phone'=>'required|numeric|digits:10',
             'type'=>'required|in:user,vendor',
-            'otp'=>'required|numeric|digits:4'
+            'otp'=>'required|numeric|digits:6'
         ]);
 
         $user = User::where('type',$request->type)->where('phone',$request->phone)->first();
@@ -161,7 +165,10 @@ class LoginController extends Controller
         }
 
         $otp = Otp::where('type',$type)->where('from','phone')->where('phone',$request->phone)->where('user_type',$request->type)->where('is_verified','0')->latest('id')->first();
-        if(optional($otp)->otp == $request->otp){
+
+        $otp_less = new OtpLessController;
+        $status = $otp_less->verifyOtp($otp?->otp,$otp?->phone,$request->otp);
+        if(json_decode($status)->isOTPVerified){
             if($user){
                 $otp->delete();
 
@@ -173,7 +180,7 @@ class LoginController extends Controller
                 return response()->json(['message'=>'Please Register','status'=>200],200);
             }
         }else{
-            return response()->json(['message'=>'Invalid OTP!','status'=>422],422);
+            return response()->json(['message'=>json_decode($status)->reason?json_decode($status)->reason:'Somthing went Wrong!','status'=>422],422);
         }
 
         return response()->json(['message'=>'OTP Send Successfully!','status'=>200], 200);
