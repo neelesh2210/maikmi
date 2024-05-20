@@ -14,7 +14,7 @@ class OtpLessController extends Controller
             "orderId"=>mt_rand(111111111,999999999),
             "hash"=>"",
             "otpLength"=> 6,
-            "channel"=>"WHATSAPP",
+            // "channel"=>"WHATSAPP",
             "expiry"=> 600
         ];
 
