@@ -90,10 +90,25 @@ class ServiceBookingController extends Controller
         }
     }
 
+    public function serviceBookingConfirm(Request $request){
+        $booking = ServiceBooking::where('booked_by',auth()->user()->id)->where('booking_id',$request->booking_id)->where('status','time_update')->first();
+        if($booking){
+            $booking->status = 'time_update';
+            $booking->save();
+
+            sendNotification('Service Booking Confirmed', 'Service Confirmed Successfully with booking id '.$booking->booking_id, auth()->user()->fcm_token);
+            sendNotification('Service Booking Confirmed', 'Service Confirmed Successfully with booking id '.$booking->booking_id, $booking->getSalon->getOwner->fcm_token);
+
+            return response()->json(['message'=>'Booking Added in Queue Successfully!','status'=>200],200);
+        }else{
+            return response()->json(['message'=>'Booking Not Found!','status'=>422],422);
+        }
+    }
+
     public function serviceBookingStatusCheck(Request $request){
         $booking = ServiceBooking::where('booked_by',auth()->user()->id)->where('booking_id',$request->booking_id)->first();
         if($booking){
-            return response()->json(['booking_status'=>$booking->status,'message'=>'Booking Added in Queue Successfully!','status'=>200],200);
+            return response()->json(['time'=>$booking->booking_time,'booking_status'=>$booking->status,'message'=>'Booking Added in Queue Successfully!','status'=>200],200);
         }else{
             return response()->json(['message'=>'Booking Not Found!','status'=>422],422);
         }

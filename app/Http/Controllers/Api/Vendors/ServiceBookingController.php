@@ -25,11 +25,16 @@ class ServiceBookingController extends Controller
         ]);
         $service_booking = ServiceBooking::where('booking_id',$request->booking_id)->whereIn('status',['waiting','pending'])->first();
         if($service_booking){
-            $service_booking->status = $request->status;
             if($request->status == 'confirmed'){
+                if($request->time){
+                    $service_booking->status = 'time_update';
+                }else{
+                    $service_booking->status = 'confirmed';
+                }
                 $service_booking->booking_time = $request->time;
                 sendNotification('Booking Confirm', 'Your Booking is confirmed by vendor with booking id '.$service_booking->booking_id, $service_booking->getBookedBy->fcm_token);
             }else{
+                $service_booking->status = $request->status;
                 sendNotification('Booking Cancelled', 'Your Booking is cancelled by vendor with booking id '.$service_booking->booking_id, $service_booking->getBookedBy->fcm_token);
             }
             $service_booking->save();
