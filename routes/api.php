@@ -87,6 +87,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('service-booking-list',[ServiceBookingController::class,'serviceBookingList']);
     Route::post('service-booking-reschedule',[ServiceBookingController::class,'serviceBookingReschedule']);
     Route::post('service-booking-cancel',[ServiceBookingController::class,'serviceBookingCancel']);
+    Route::post('service-booking-waiting',[ServiceBookingController::class,'serviceBookingWaiting']);
+    Route::post('service-booking-status-check',[ServiceBookingController::class,'serviceBookingStatusCheck']);
 
     //Product
     Route::get('product-detail/{id}',[ProductController::class,'detail']);

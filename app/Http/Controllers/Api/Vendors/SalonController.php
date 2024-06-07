@@ -7,9 +7,12 @@ use App\Models\Salon;
 use App\Models\Product;
 use App\Models\Service;
 use Illuminate\Http\Request;
+use App\Models\ServiceBooking;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\SalonResource;
+use App\Http\Controllers\Api\SlotController;
 use App\Http\Resources\Api\SalonDetailResource;
+use App\Http\Resources\Users\ServiceBookingResource;
 
 class SalonController extends Controller
 {
@@ -159,10 +162,17 @@ class SalonController extends Controller
         return response()->json(['message'=>'Salon Home Service Status Updated Successfully!','status'=>200],200);
     }
 
-    public function getSalonHome(){
+    public function getSalonHome(Request $request){
         $salon = Salon::where('user_id',Auth::user()->id)->first();
+        $pending_service_bookings = ServiceBookingResource::collection(ServiceBooking::where('user_id', auth()->id())->where('status','pending')->with('getBookedBy')->orderBy('id', 'desc')->get());
 
-        return response()->json(['available_status'=>''.$salon->available,'home_service_status'=>$salon->home_service_status,'message'=>'Data Retrieved Successfully!','status'=>200],200);
+        return response()->json([
+                                    'available_status'=>''.$salon->available,
+                                    'home_service_status'=>$salon->home_service_status,
+                                    'pending_service_bookings'=>$pending_service_bookings,
+                                    'message'=>'Data Retrieved Successfully!',
+                                    'status'=>200
+                                ],200);
     }
 
 }

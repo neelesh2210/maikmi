@@ -20,13 +20,20 @@ class ServiceBookingController extends Controller
     public function serviceBookingStatusChange(Request $request){
         $this->validate($request,[
             'booking_id'=>'required',
-            'status'=>'required|in:booked,confirmed,completed,cancelled'
+            'status'=>'required|in:booked,confirmed,completed,cancelled',
+            'time'  =>'nullable|date_format:g:i A'
         ]);
-
-        $service_booking = ServiceBooking::where('booking_id',$request->booking_id)->first();
+        $service_booking = ServiceBooking::where('booking_id',$request->booking_id)->whereIn('status',['waiting','pending'])->first();
         if($service_booking){
             $service_booking->status = $request->status;
+            if($request->status == 'confirmed'){
+                $service_booking->booking_time = $request->time;
+                sendNotification('Booking Confirm', 'Your Booking is confirmed by vendor with booking id '.$service_booking->booking_id, $service_booking->getBookedBy->fcm_token);
+            }else{
+                sendNotification('Booking Cancelled', 'Your Booking is cancelled by vendor with booking id '.$service_booking->booking_id, $service_booking->getBookedBy->fcm_token);
+            }
             $service_booking->save();
+
 
             return response()->json(['message'=>'Booking Status Changed Successfully!','status'=>200],200);
         }else{

@@ -3,7 +3,9 @@
 namespace App\Http\Resources\Users;
 
 use Auth;
+use Carbon\Carbon;
 use App\Models\SalonRating;
+use App\Http\Controllers\Api\SlotController;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ServiceBookingResource extends JsonResource
@@ -38,6 +40,50 @@ class ServiceBookingResource extends JsonResource
         $data['booked_by'] = ['name'=>$this->getBookedBy->name,'phone'=>$this->getBookedBy->phone];
 
         $data['review'] = SalonRating::where('user_id',Auth::user()->id)->where('salon_id',$this->salon)->first(['rating','comment']);
+
+
+        $available_slots = [];
+        if($this->status == 'pending' || $this->status == 'waiting'){
+            $request->request->add(['salon_id'=>$this->salon['id'],'date'=>$this->booking_date]);
+
+            $slots = new SlotController;
+
+            $morning_time_slots = $slots->timeSlot($request)->original['morning_time_slot'];
+            $afternoon_time_slots = $slots->timeSlot($request)->original['afternoon_time_slot'];
+            $evening_time_slots = $slots->timeSlot($request)->original['evening_time_slot'];
+            $night_time_slots = $slots->timeSlot($request)->original['night_time_slot'];
+
+            foreach ($morning_time_slots as $morning_time_slot) {
+                if(count($available_slots) < 4){
+                    if(Carbon::parse($this->booking_time)->format('H:i') <= Carbon::parse($morning_time_slot['time'])->format('H:i') && $morning_time_slot['availability'] == true){
+                        $available_slots[] = $morning_time_slot['time'];
+                    }
+                }
+            }
+            foreach ($afternoon_time_slots as $afternoon_time_slot) {
+                if(count($available_slots) < 4){
+                    if(Carbon::parse($this->booking_time)->format('H:i') <= Carbon::parse($afternoon_time_slot['time'])->format('H:i') && $afternoon_time_slot['availability'] == true){
+                        $available_slots[] = $afternoon_time_slot['time'];
+                    }
+                }
+            }
+            foreach ($evening_time_slots as $evening_time_slot) {
+                if(count($available_slots) < 4){
+                    if(Carbon::parse($this->booking_time)->format('H:i') <= Carbon::parse($evening_time_slot['time'])->format('H:i') && $evening_time_slot['availability'] == true){
+                        $available_slots[] = $evening_time_slot['time'];
+                    }
+                }
+            }
+            foreach ($night_time_slots as $night_time_slot) {
+                if(count($available_slots) < 4){
+                    if(Carbon::parse($this->booking_time)->format('H:i') <= Carbon::parse($night_time_slot['time'])->format('H:i') && $night_time_slot['availability'] == true){
+                        $available_slots[] = $night_time_slot['time'];
+                    }
+                }
+            }
+        }
+
+        $data['slots'] = $available_slots;
 
         return $data;
     }

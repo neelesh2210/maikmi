@@ -35,7 +35,8 @@ class ServiceBookingController extends Controller
             $data->status = $request->status;
             $data->save();
 
-            sendNotification('Service Booking', 'Service Booked Successfully with booking id '.$data->booking_id, auth()->user()->fcm_token);
+            // sendNotification('Service Booking', 'Service Booked Successfully with booking id '.$data->booking_id, auth()->user()->fcm_token);
+            sendNotification('New Booking', 'New Booking Arrived with booking id '.$data->booking_id.'. Please confirm it.', $data->getSalon->getOwner->fcm_token);
 
             return response([
                 'success'       => true,
@@ -70,6 +71,29 @@ class ServiceBookingController extends Controller
             sendNotification('Service Booking Cancelled', 'Service Cancelled Successfully with booking id '.$booking->booking_id, auth()->user()->fcm_token);
 
             return response()->json(['message'=>'Booking Cancel Successfully!','status'=>200],200);
+        }else{
+            return response()->json(['message'=>'Booking Not Found!','status'=>422],422);
+        }
+    }
+
+    public function serviceBookingWaiting(Request $request){
+        $booking = ServiceBooking::where('booked_by',auth()->user()->id)->where('booking_id',$request->booking_id)->where('status','pending')->first();
+        if($booking){
+            $booking->status = 'waiting';
+            $booking->save();
+
+            sendNotification('Service Booking Waiting', 'Service Added in Queue Successfully with booking id '.$booking->booking_id, auth()->user()->fcm_token);
+
+            return response()->json(['message'=>'Booking Added in Queue Successfully!','status'=>200],200);
+        }else{
+            return response()->json(['message'=>'Booking Not Found!','status'=>422],422);
+        }
+    }
+
+    public function serviceBookingStatusCheck(Request $request){
+        $booking = ServiceBooking::where('booked_by',auth()->user()->id)->where('booking_id',$request->booking_id)->first();
+        if($booking){
+            return response()->json(['booking_status'=>$booking->status,'message'=>'Booking Added in Queue Successfully!','status'=>200],200);
         }else{
             return response()->json(['message'=>'Booking Not Found!','status'=>422],422);
         }
