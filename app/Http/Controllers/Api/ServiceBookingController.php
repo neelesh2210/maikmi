@@ -93,7 +93,7 @@ class ServiceBookingController extends Controller
     public function serviceBookingConfirm(Request $request){
         $booking = ServiceBooking::where('booked_by',auth()->user()->id)->where('booking_id',$request->booking_id)->where('status','time_update')->first();
         if($booking){
-            $booking->status = 'time_update';
+            $booking->status = 'confirmed';
             $booking->save();
 
             sendNotification('Service Booking Confirmed', 'Service Confirmed Successfully with booking id '.$booking->booking_id, auth()->user()->fcm_token);
