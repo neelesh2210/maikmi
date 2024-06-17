@@ -11,4 +11,10 @@ $(function() {
     });
   }
 
+  if ($(".easyMdeExample").length) {
+    var easymde = new EasyMDE({
+      element: $(".easyMdeExample")[0]
+    });
+  }
+
 });

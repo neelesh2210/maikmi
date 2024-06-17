@@ -32,6 +32,7 @@ class ServiceBookingResource extends JsonResource
             'booking_day'   => date('D',strtotime($this->booking_date)),
             'booking_at'    => $this->booking_at,
             'at_salon'      => $this->at_salon ? true : false,
+            'home_service_charge'      => $this->home_service_charge,
             'status'        => $this->status,
             'total_amount'  => $this->total_amount,
             'invoice'       => route('api.service.invoice',[$this->booking_id,encrypt(Auth::user()->id)]),

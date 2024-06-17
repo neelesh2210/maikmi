@@ -32,6 +32,7 @@ class ServiceBookingController extends Controller
             $data->start_at = Carbon::now();
             $data->end_at = Carbon::now();
             $data->at_salon = $request->at_salon;
+            $data->home_service_charge = $request->home_service_charge;
             $data->status = $request->status;
             $data->save();
 

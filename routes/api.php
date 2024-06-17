@@ -136,6 +136,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('update-salon-detail',[SalonController::class,'update']);
         Route::post('update-salon-availability',[SalonController::class,'updateSalonAvailability']);
         Route::post('update-home-service-status',[SalonController::class,'updateHomeServiceStatus']);
+        Route::post('update-home-service-charge',[SalonController::class,'updateHomeServiceCharge']);
 
         //Worker
         Route::get('worker-list',[WorkerController::class,'index']);
@@ -164,6 +165,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
         //Salon KYC
         Route::post('kyc-document-store',[App\Http\Controllers\Api\Vendors\KycDocumentController::class,'store']);
+
+        //Plan
+        Route::get('plan-list',[App\Http\Controllers\Api\Vendors\PlanController::class,'index']);
+
+        //Plan Purchase
+        Route::post('plan-purchase-payment-initialization',[App\Http\Controllers\Api\Vendors\PlanPurchaseController::class,'paymentInitialization']);
+        Route::post('plan-purchase-verify-signature',[App\Http\Controllers\Api\Vendors\PlanPurchaseController::class,'verifySignature']);
+        Route::get('plan-purchase-list',[App\Http\Controllers\Api\Vendors\PlanPurchaseController::class,'planPurchaseList']);
 
     });
 

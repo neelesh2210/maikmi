@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\ProductOrderController;
@@ -110,6 +109,8 @@ Route::middleware(['auth:admin'])->group(function () {
         // Service booking
         Route::resource('service-booking', 'ServiceBookingController');
 
+        //Plan
+        Route::resource('plan', PlanController::class);
 
     });
 

@@ -243,6 +243,13 @@
                 </li>
             @endcanany
 
+            <li class="nav-item mt-0 {{ activeRoute(['plan.index','plan.create','plan.edit']) ? 'active' : '' }}">
+                <a href="{{ route('plan.index') }}" class="nav-link">
+                    <i class="link-icon fa-lg bi bi-speedometer"></i>
+                    <span class="link-title">Plan</span>
+                </a>
+            </li>
+
             @canany(['slider-list', 'banner-list'])
                 <li class="nav-item nav-category">mobile apps</li><hr>
                 <li

@@ -164,15 +164,28 @@ class SalonController extends Controller
 
     public function getSalonHome(Request $request){
         $salon = Salon::where('user_id',Auth::user()->id)->first();
-        $pending_service_bookings = ServiceBookingResource::collection(ServiceBooking::where('user_id', auth()->id())->where('status','pending')->with('getBookedBy')->orderBy('id', 'desc')->get());
+        $pending_service_bookings = ServiceBookingResource::collection(ServiceBooking::where('user_id', auth()->id())->whereIn('status',['pending','waiting'])->with('getBookedBy')->orderBy('id', 'desc')->get());
 
         return response()->json([
                                     'available_status'=>''.$salon->available,
                                     'home_service_status'=>$salon->home_service_status,
+                                    'home_service_charge'=>$salon->home_service_charge,
                                     'pending_service_bookings'=>$pending_service_bookings,
                                     'message'=>'Data Retrieved Successfully!',
                                     'status'=>200
                                 ],200);
+    }
+
+    public function updateHomeServiceCharge(Request $request){
+        $request->validate([
+            'home_service_charge'=>'required|numeric|regex:/^\d+(\.\d{1,2})?$/|min:0',
+        ]);
+
+        $salon = Salon::where('user_id',auth()->id())->first();
+        $salon->home_service_charge = $request->home_service_charge;
+        $salon->save();
+
+        return response()->json(['message'=>'Charge Updated Successfully!','status'=>200],200);
     }
 
 }

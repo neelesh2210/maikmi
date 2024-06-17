@@ -25,6 +25,7 @@ class SalonDetailResource extends JsonResource
             'salon_rating'=>4.5,
             'is_vacant'=>null,
             'is_favorite'=>0,
+            'home_service_charge'=>$this->home_service_charge,
             'home_service_status'=>$this->home_service_status,
         ];
 

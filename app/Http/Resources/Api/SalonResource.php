@@ -42,6 +42,8 @@ class SalonResource extends JsonResource
             $data['salon_rating'] = $total_rating/$total_rating_user;
         }
 
+        $data['workers'] = Worker::where('salon_id',$this['id'])->get(['name','is_free']);
+
         return $data;
     }
 }
