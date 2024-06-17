@@ -47,6 +47,7 @@ class PlanExpireCron extends Command
 
             if($plan_purchase->duration < $time_diff){
                 $plan_purchase->plan_status = 'expired';
+                $plan_purchase->plan_expired_time = Carbon::now();
                 $plan_purchase->save();
 
                 $hold_plan_purchase = PlanPurchaseHistory::where('user_id',$plan_purchase->user_id)->where('payment_status','captured')->where('plan_status','hold')->oldest()->first();

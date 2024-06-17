@@ -17,6 +17,9 @@ class PlanPurchaseResource extends JsonResource
             'plan_duration'     =>  json_decode($this->plan_detail)->duration,
             'amount'            =>  $this->amount,
             'plan_status'       =>  $this->plan_status,
+            'purchase_date'     =>  $this->created_at->format('Y-m-d H:i:s'),
+            'expired_date'      =>  $this->plan_expired_time,
+            'activated_date'    =>  $this->plan_activated_time,
         ];
     }
 }

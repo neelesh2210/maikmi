@@ -25,6 +25,7 @@ class CreatePlanPurchaseHistoriesTable extends Migration
             $table->double('amount',15,2);
             $table->enum('payment_status', ['created', 'authorized', 'captured', 'refunded', 'failed'])->default('created');
             $table->enum('plan_status', ['active', 'expired', 'hold', 'cancelled'])->nullable();
+            $table->string('plan_expired_time')->nullable();
             $table->string('plan_activated_time')->nullable();
             $table->timestamps();
         });

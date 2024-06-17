@@ -114,7 +114,7 @@ class PlanPurchaseController extends Controller
     }
 
     public function planPurchaseList(){
-        $plan_purchase_histories = PlanPurchaseResource::collection(PlanPurchaseHistory::where('user_id',auth()->id())->where('payment_status','captured')->latest()->paginate(10));
+        $plan_purchase_histories = PlanPurchaseResource::collection(PlanPurchaseHistory::where('user_id',auth()->id())->where('payment_status','captured')->orderByRaw("FIELD(plan_status, 'active', 'hold', 'expired', 'cancelled')")->paginate(10));
 
         return response()->json([
             'plan_purchase_histories'=>$plan_purchase_histories,

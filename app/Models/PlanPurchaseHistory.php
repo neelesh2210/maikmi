@@ -20,6 +20,7 @@ class PlanPurchaseHistory extends Model
         'amount',
         'payment_status',
         'plan_status',
+        'plan_expired_time',
         'plan_activated_time'
     ];
 }
