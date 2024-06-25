@@ -82,33 +82,37 @@ class PlanPurchaseController extends Controller
         ]);
         $api = new Api(env('RAZOR_KEY'), env('RAZOR_SECRET'));
 
-        $purchaseHistory = PlanPurchaseHistory::where('id',$request->plan_history_id)->where('order_id',$request->razorpay_order_id)->where('payment_status','created')->first();
-        if($purchaseHistory){
-            $response = $api->utility->verifyPaymentSignature([
-                'razorpay_order_id'     => $request->razorpay_order_id,
-                'razorpay_payment_id'   => $request->razorpay_payment_id,
-                'razorpay_signature'    => $request->razorpay_signature
-            ]);
+        if($request->payment_status == 'captured'){
+            $purchaseHistory = PlanPurchaseHistory::where('id',$request->plan_history_id)->where('order_id',$request->razorpay_order_id)->where('payment_status','created')->first();
+            if($purchaseHistory){
+                $response = $api->utility->verifyPaymentSignature([
+                    'razorpay_order_id'     => $request->razorpay_order_id,
+                    'razorpay_payment_id'   => $request->razorpay_payment_id,
+                    'razorpay_signature'    => $request->razorpay_signature
+                ]);
 
-            $res=$api->payment->fetch($request->razorpay_payment_id);
+                $res=$api->payment->fetch($request->razorpay_payment_id);
 
-            $active_purchase_history = PlanPurchaseHistory::where('user_id',auth()->id())->where('payment_status','captured')->where('plan_status','active')->first();
+                $active_purchase_history = PlanPurchaseHistory::where('user_id',auth()->id())->where('payment_status','captured')->where('plan_status','active')->first();
 
-            $purchaseHistory->payment_id = $res->id;
-            $purchaseHistory->payment_signature = $request->razorpay_signature;
-            $purchaseHistory->payment_status = $request->payment_status;
-            $purchaseHistory->plan_status = $active_purchase_history?'hold':'active';
-            $purchaseHistory->plan_activated_time = $active_purchase_history?null:Carbon::now();
-            $purchaseHistory->save();
+                $purchaseHistory->payment_id = $res->id;
+                $purchaseHistory->payment_signature = $request->razorpay_signature;
+                $purchaseHistory->payment_status = $request->payment_status;
+                $purchaseHistory->plan_status = $active_purchase_history?'hold':'active';
+                $purchaseHistory->plan_activated_time = $active_purchase_history?null:Carbon::now();
+                $purchaseHistory->save();
 
-            return [
-                'payment_id'    => $res->id,
-                'order_id'      => $res->order_id,
-                'plan_id'       => $res->notes->plan_id,
-                'amount'        => $res->amount/100,
-            ];
+                return [
+                    'payment_id'    => $res->id,
+                    'order_id'      => $res->order_id,
+                    'plan_id'       => $res->notes->plan_id,
+                    'amount'        => $res->amount/100,
+                ];
+            }else{
+                return response()->json(['message'=>'Invalid Purchase History','status'=>422],422);
+            }
         }else{
-            return response()->json(['message'=>'Invalid Purchase History','status'=>422],422);
+            return response()->json(['message'=>'Payment Failed','status'=>422],422);
         }
 
     }
