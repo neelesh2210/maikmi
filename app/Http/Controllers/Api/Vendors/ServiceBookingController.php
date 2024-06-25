@@ -24,7 +24,8 @@ class ServiceBookingController extends Controller
             'status'=>'required|in:booked,confirmed,completed,cancelled',
             'time'  =>'nullable|date_format:g:i A'
         ]);
-        $service_booking = ServiceBooking::where('booking_id',$request->booking_id)->whereIn('status',['waiting','pending'])->first();
+        // $service_booking = ServiceBooking::where('booking_id',$request->booking_id)->whereIn('status',['waiting','pending'])->first();
+        $service_booking = ServiceBooking::where('booking_id',$request->booking_id)->first();
         if($service_booking){
             $plan_purchase = PlanPurchaseHistory::where('user_id',auth()->id())->where('plan_status','active')->first();
             if($plan_purchase){
