@@ -112,7 +112,7 @@ class PlanPurchaseController extends Controller
                 return response()->json(['message'=>'Invalid Purchase History','status'=>422],422);
             }
         }else{
-            return response()->json(['message'=>'Payment Failed','status'=>422],422);
+            return response()->json(['message'=>$request->message,'status'=>422],422);
         }
 
     }
