@@ -131,7 +131,7 @@ if(! function_exists('sendNotification')){
             $in_app_module = [
                 "type"           => $type,
             ];
-            FireBaseManager::sendMessage($notificationArr, $in_app_module, $token);
+            FireBaseManager::sendMessage($notificationArr, $token, $in_app_module);
 
         }else{
             FireBaseManager::sendMessage($notificationArr, $token);
