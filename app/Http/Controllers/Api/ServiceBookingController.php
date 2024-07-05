@@ -37,7 +37,7 @@ class ServiceBookingController extends Controller
             $data->save();
 
             // sendNotification('Service Booking', 'Service Booked Successfully with booking id '.$data->booking_id, auth()->user()->fcm_token);
-            sendNotification('New Booking', 'New Booking Arrived with booking id '.$data->booking_id.'. Please confirm it.', $data->getSalon->getOwner->fcm_token);
+            sendNotification('New Booking', 'New Booking Arrived with booking id '.$data->booking_id.'. Please confirm it.', $data->getSalon->getOwner->fcm_token, 'order');
 
             return response([
                 'success'       => true,
