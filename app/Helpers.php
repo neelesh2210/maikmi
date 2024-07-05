@@ -120,14 +120,23 @@ if(! function_exists('imageUpload')){
 }
 
 if(! function_exists('sendNotification')){
-    function sendNotification($title, $body, $token)
+    function sendNotification($title, $body, $token, $type = null)
     {
         $notificationArr = [
             'title'             => $title,
             'body'              => $body,
         ];
 
-        FireBaseManager::sendMessage($notificationArr, $token);
+        if($type){
+            $in_app_module = [
+                "type"           => $type,
+            ];
+            FireBaseManager::sendMessage($notificationArr, $in_app_module, $token);
+
+        }else{
+            FireBaseManager::sendMessage($notificationArr, $token);
+        }
+
     }
 }
 
