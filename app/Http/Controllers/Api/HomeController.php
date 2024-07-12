@@ -67,7 +67,19 @@ class HomeController extends Controller
         }
 
         foreach($featured_salons as $featured_salon){
-            $featured_salon->distance = latLongDistanceCalculate($featured_salon->latitude, $featured_salon->longitude, $search_user_latitude, $search_user_longitude, 'K');
+            if(isset($referrer_salon)){
+                if($referrer_salon){
+                    if($featured_salon->id == $referrer_salon->id){
+                        $featured_salon->distance = 0;
+                    }else{
+                        $featured_salon->distance = latLongDistanceCalculate($featured_salon->latitude, $featured_salon->longitude, $search_user_latitude, $search_user_longitude, 'K');
+                    }
+                }else{
+                    $featured_salon->distance = latLongDistanceCalculate($featured_salon->latitude, $featured_salon->longitude, $search_user_latitude, $search_user_longitude, 'K');
+                }
+            }else{
+                $featured_salon->distance = latLongDistanceCalculate($featured_salon->latitude, $featured_salon->longitude, $search_user_latitude, $search_user_longitude, 'K');
+            }
         }
 
         $featured_salons = $featured_salons->toArray();
