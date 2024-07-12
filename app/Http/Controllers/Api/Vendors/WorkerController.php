@@ -65,7 +65,7 @@ class WorkerController extends Controller
     }
 
     public function destroy($worker_id){
-        return $worker = Worker::where('user_id',Auth::user()->id)->where('id',$worker_id)->first();
+        $worker = Worker::where('user_id',Auth::user()->id)->where('id',$worker_id)->first();
 
         if($worker){
             $worker->delete();
