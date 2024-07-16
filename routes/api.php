@@ -177,6 +177,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     });
 
+    Route::post('logout',[LoginController::class,'logout']);
+
 });
 
 

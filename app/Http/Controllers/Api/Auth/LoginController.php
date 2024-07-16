@@ -320,4 +320,14 @@ class LoginController extends Controller
         }
     }
 
+    public function logout(){
+        $user = User::find(Auth::user()->id);
+        $user->fcm_token = null;
+        $user->save();
+
+        $user->tokens()->delete();
+
+        return response()->json(['message'=>'User Logout Successfully!','status'=>200],200);
+    }
+
 }
