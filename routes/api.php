@@ -90,6 +90,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('service-booking-waiting',[ServiceBookingController::class,'serviceBookingWaiting']);
     Route::post('service-booking-confirm',[ServiceBookingController::class,'serviceBookingConfirm']);
     Route::post('service-booking-status-check',[ServiceBookingController::class,'serviceBookingStatusCheck']);
+    Route::post('service-booking-retry',[ServiceBookingController::class,'serviceBookingRetry']);
 
     //Product
     Route::get('product-detail/{id}',[ProductController::class,'detail']);

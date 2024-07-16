@@ -142,4 +142,19 @@ class ServiceBookingController extends Controller
         }
     }
 
+    public function serviceBookingRetry(Request $request){
+        $booking = ServiceBooking::where('booked_by',auth()->user()->id)->where('booking_id',$request->booking_id)->first();
+        if($booking){
+            sendNotification('New Booking', 'New Booking Arrived with booking id '.$booking->booking_id.'. Please confirm it.', $booking->getSalon->getOwner->fcm_token, 'order');
+
+            return response([
+                'success'       => true,
+                'booking_id'    => $booking->booking_id,
+                'message'       => 'Booking resend successfully',
+            ], 200);
+        }else{
+            return response()->json(['message'=>'Booking Not Found!','status'=>422],422);
+        }
+    }
+
 }

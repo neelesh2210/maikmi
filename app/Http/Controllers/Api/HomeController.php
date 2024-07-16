@@ -25,61 +25,61 @@ class HomeController extends Controller
         $search_user_latitude = $request->search_user_latitude;
         $search_user_longitude = $request->search_user_longitude;
 
-        if(Auth::user()->referrer_code){
-            $referrer_salon = Salon::where('salon_unique_id',Auth::user()->referrer_code)->first();
-            if($referrer_salon){
-                $featured_salons = Salon::whereHas('getOwner',function($query){
-                    $query->where('is_active','active');
-                })->where('available','1')->where('featured','1')->when($search_city, function ($q) use ($search_city) {
-                    $q->where('city',$search_city);
-                })->orderByRaw("FIELD(id,$referrer_salon->id) DESC")->orderBy("id","desc")->take(10)->get();
+        // if(Auth::user()->referrer_code){
+        //     $referrer_salon = Salon::where('salon_unique_id',Auth::user()->referrer_code)->first();
+        //     if($referrer_salon){
+        //         $featured_salons = Salon::whereHas('getOwner',function($query){
+        //             $query->where('is_active','active');
+        //         })->where('available','1')->where('featured','1')->when($search_city, function ($q) use ($search_city) {
+        //             $q->where('city',$search_city);
+        //         })->orderByRaw("FIELD(id,$referrer_salon->id) DESC")->orderBy("id","desc")->take(10)->get();
 
-                $at_home_salons = Salon::whereHas('getOwner',function($query){
-                    $query->where('is_active','active');
-                })->where('available','1')->where('home_service_status','1')->when($search_city, function ($q) use ($search_city) {
-                    $q->where('city',$search_city);
-                })->orderByRaw("FIELD(id,$referrer_salon->id) DESC")->orderBy("id","desc")->take(10)->get();
-            }else{
-                $featured_salons = Salon::whereHas('getOwner',function($query){
-                    $query->where('is_active','active');
-                })->where('available','1')->where('featured','1')->when($search_city, function ($q) use ($search_city) {
-                    $q->where('city',$search_city);
-                })->orderBy("id","desc")->take(10)->get();
+        //         $at_home_salons = Salon::whereHas('getOwner',function($query){
+        //             $query->where('is_active','active');
+        //         })->where('available','1')->where('home_service_status','1')->when($search_city, function ($q) use ($search_city) {
+        //             $q->where('city',$search_city);
+        //         })->orderByRaw("FIELD(id,$referrer_salon->id) DESC")->orderBy("id","desc")->take(10)->get();
+        //     }else{
+        //         $featured_salons = Salon::whereHas('getOwner',function($query){
+        //             $query->where('is_active','active');
+        //         })->where('available','1')->where('featured','1')->when($search_city, function ($q) use ($search_city) {
+        //             $q->where('city',$search_city);
+        //         })->orderBy("id","desc")->take(10)->get();
 
-                $at_home_salons = Salon::whereHas('getOwner',function($query){
-                    $query->where('is_active','active');
-                })->where('available','1')->where('home_service_status','1')->when($search_city, function ($q) use ($search_city) {
-                    $q->where('city',$search_city);
-                })->orderBy("id","desc")->take(10)->get();
-            }
-        }else{
-            $featured_salons = Salon::whereHas('getOwner',function($query){
-                $query->where('is_active','active');
-            })->where('available','1')->where('featured','1')->when($search_city, function ($q) use ($search_city) {
-                $q->where('city',$search_city);
-            })->orderBy("id","desc")->take(10)->get();
+        //         $at_home_salons = Salon::whereHas('getOwner',function($query){
+        //             $query->where('is_active','active');
+        //         })->where('available','1')->where('home_service_status','1')->when($search_city, function ($q) use ($search_city) {
+        //             $q->where('city',$search_city);
+        //         })->orderBy("id","desc")->take(10)->get();
+        //     }
+        // }else{
+        //     $featured_salons = Salon::whereHas('getOwner',function($query){
+        //         $query->where('is_active','active');
+        //     })->where('available','1')->where('featured','1')->when($search_city, function ($q) use ($search_city) {
+        //         $q->where('city',$search_city);
+        //     })->orderBy("id","desc")->take(10)->get();
 
-            $at_home_salons = Salon::whereHas('getOwner',function($query){
-                $query->where('is_active','active');
-            })->where('available','1')->where('home_service_status','1')->when($search_city, function ($q) use ($search_city) {
-                $q->where('city',$search_city);
-            })->orderBy("id","desc")->take(10)->get();
-        }
+        //     $at_home_salons = Salon::whereHas('getOwner',function($query){
+        //         $query->where('is_active','active');
+        //     })->where('available','1')->where('home_service_status','1')->when($search_city, function ($q) use ($search_city) {
+        //         $q->where('city',$search_city);
+        //     })->orderBy("id","desc")->take(10)->get();
+        // }
+
+        $featured_salons = Salon::whereHas('getOwner',function($query){
+            $query->where('is_active','active');
+        })->where('available','1')->where('featured','1')->when($search_city, function ($q) use ($search_city) {
+            $q->where('city',$search_city);
+        })->orderBy("id","desc")->take(10)->get();
+
+        $at_home_salons = Salon::whereHas('getOwner',function($query){
+            $query->where('is_active','active');
+        })->where('available','1')->where('home_service_status','1')->when($search_city, function ($q) use ($search_city) {
+            $q->where('city',$search_city);
+        })->orderBy("id","desc")->take(10)->get();
 
         foreach($featured_salons as $featured_salon){
-            if(isset($referrer_salon)){
-                if($referrer_salon){
-                    if($featured_salon->id == $referrer_salon->id){
-                        $featured_salon->distance = 0;
-                    }else{
-                        $featured_salon->distance = latLongDistanceCalculate($featured_salon->latitude, $featured_salon->longitude, $search_user_latitude, $search_user_longitude, 'K');
-                    }
-                }else{
-                    $featured_salon->distance = latLongDistanceCalculate($featured_salon->latitude, $featured_salon->longitude, $search_user_latitude, $search_user_longitude, 'K');
-                }
-            }else{
-                $featured_salon->distance = latLongDistanceCalculate($featured_salon->latitude, $featured_salon->longitude, $search_user_latitude, $search_user_longitude, 'K');
-            }
+            $featured_salon->distance = latLongDistanceCalculate($featured_salon->latitude, $featured_salon->longitude, $search_user_latitude, $search_user_longitude, 'K');
         }
 
         $featured_salons = $featured_salons->toArray();
@@ -121,11 +121,17 @@ class HomeController extends Controller
 
         $salons =  SalonResource::collection($salon_list);
 
+        $referrer_salon = Salon::where('salon_unique_id',Auth::user()->referrer_code)->first();
+        if($referrer_salon){
+            $referrer_salon = new SalonResource($referrer_salon);
+        }
+
         return response()->json([
                                     'service_categories'=>$service_categories,
                                     'featured_salons'=>$featured_salons,
                                     'at_home_salons'=>$at_home_salons,
                                     'salons'=>$salons,
+                                    'referrer_salon'=>$referrer_salon,
                                     'message'=>'Data Retrived Successfully!',
                                     'status'=>200
                                 ],200);
