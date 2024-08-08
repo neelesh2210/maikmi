@@ -250,6 +250,13 @@
                 </a>
             </li>
 
+            <li class="nav-item mt-0 {{ activeRoute(['send.notification']) ? 'active' : '' }}">
+                <a href="{{ route('send.notification') }}" class="nav-link">
+                    <i class="link-icon fa-lg bi bi-speedometer"></i>
+                    <span class="link-title">Send Notification</span>
+                </a>
+            </li>
+
             @canany(['slider-list', 'banner-list'])
                 <li class="nav-item nav-category">mobile apps</li><hr>
                 <li

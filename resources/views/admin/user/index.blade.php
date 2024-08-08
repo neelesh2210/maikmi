@@ -7,6 +7,11 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-6 card-title"><h4>{{$page_title}}</h4></div>
+                        <div class="col-md-6 text-end">
+                            <form action="{{route('user.index')}}">
+                                <button type="submit" name="export" value="export" class="btn btn-primary" style="height: 31px;padding-top: 2px;">Export</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">

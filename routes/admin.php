@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\ProductOrderController;
+use App\Http\Controllers\Admin\SendNotificationController;
 
 
 /*
@@ -111,6 +112,10 @@ Route::middleware(['auth:admin'])->group(function () {
 
         //Plan
         Route::resource('plan', PlanController::class);
+
+        //Send Notification
+        Route::get('send-notification',[SendNotificationController::class,'index'])->name('send.notification');
+        Route::post('send-notification-store',[SendNotificationController::class,'store'])->name('send.notification.store');
 
     });
 

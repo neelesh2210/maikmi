@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use App\Models\Salon;
 use App\Models\Worker;
+use App\Exports\SalonExport;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SalonController extends Controller
 {
@@ -18,7 +20,15 @@ class SalonController extends Controller
      */
     public function index(Request $request)
     {
-        $list = Salon::orderBy('id', 'desc')->with(['getOwner', 'getServiceBooking'])->paginate(20);
+        $list = Salon::orderBy('id', 'desc')->with(['getOwner', 'getServiceBooking']);
+
+        if($request->has('export')){
+            $list = $list->latest()->get();
+
+            return Excel::download(new SalonExport($list), 'salons.xlsx');
+        }
+
+        $list = $list->paginate(20);
         return view('admin.salon.index', compact('list'), ['page_title' => 'Shop List']);
     }
 
