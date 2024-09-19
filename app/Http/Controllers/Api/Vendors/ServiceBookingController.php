@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Vendors;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\ServiceBooking;
 use App\Models\PlanPurchaseHistory;
@@ -45,6 +46,28 @@ class ServiceBookingController extends Controller
 
                 return response()->json(['message'=>'Booking Status Changed Successfully!','status'=>200],200);
             }else{
+
+                $today_total_service_booking = ServiceBooking::where('user_id',auth()->id())->whereDate('created_at', Carbon::today())->count();
+
+                if($today_total_service_booking <= 5){
+                    if($request->status == 'confirmed'){
+                        if($request->time){
+                            $service_booking->booking_time = $request->time;
+                            $service_booking->status = 'time_update';
+                        }else{
+                            $service_booking->status = 'confirmed';
+                        }
+                        sendNotification('Booking Confirm', 'Your Booking is confirmed by vendor with booking id '.$service_booking->booking_id, $service_booking->getBookedBy->fcm_token);
+                    }else{
+                        $service_booking->status = $request->status;
+                        sendNotification('Booking Cancelled', 'Your Booking is cancelled by vendor with booking id '.$service_booking->booking_id, $service_booking->getBookedBy->fcm_token);
+                    }
+                    $service_booking->save();
+
+                    return response()->json(['message'=>'Booking Status Changed Successfully!','status'=>200],200);
+                }
+
+
                 return response()->json(['message'=>'You do not have any subscription to accept booking!','status'=>401],401);
             }
         }else{
