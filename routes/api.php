@@ -91,6 +91,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('service-booking-confirm',[ServiceBookingController::class,'serviceBookingConfirm']);
     Route::post('service-booking-status-check',[ServiceBookingController::class,'serviceBookingStatusCheck']);
     Route::post('service-booking-retry',[ServiceBookingController::class,'serviceBookingRetry']);
+    Route::post('service-booking-payment-initialization',[ServiceBookingController::class,'paymentInitialization']);
+    Route::post('service-booking-verify-signature',[ServiceBookingController::class,'verifySignature']);
+    Route::post('service-booking-remaining-payment-initialization',[ServiceBookingController::class,'remainingPaymentInitialization']);
+    Route::post('service-booking-remaining-verify-signature',[ServiceBookingController::class,'remainingVerifySignature']);
 
     //Product
     Route::get('product-detail/{id}',[ProductController::class,'detail']);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Carbon\Carbon;
 use App\Models\Salon;
+use Razorpay\Api\Api;
 use Illuminate\Http\Request;
 use App\Models\ServiceBooking;
 use App\Http\Controllers\Controller;
@@ -33,6 +34,7 @@ class ServiceBookingController extends Controller
             $data->end_at = Carbon::now();
             $data->at_salon = $request->at_salon;
             $data->home_service_charge = $request->home_service_charge;
+            $data->payment_status = 'unpaid';
             $data->status = $request->status;
             $data->save();
 
@@ -155,6 +157,206 @@ class ServiceBookingController extends Controller
         }else{
             return response()->json(['message'=>'Booking Not Found!','status'=>422],422);
         }
+    }
+
+    public function paymentInitialization(Request $request){
+        $booking = ServiceBooking::where('booked_by',auth()->user()->id)->where('booking_id',$request->booking_id)->first();
+        if($booking){
+            if($request->payment === 'part'){
+                $amount = (($booking->total_amount - $booking->paid_amount)*10)/100;
+            }else{
+                $amount = $booking->total_amount;
+            }
+
+            $data=[
+                'amount'=>$amount*100,
+                'currency'=> "INR",
+                'receipt'=> "order_rcptid_" . time(),
+                'notes'=> [
+                    'user_id'   => auth()->id(),
+                    'booking_id'   => $booking->id,
+                    'key'       => env('RAZOR_KEY')
+                ]
+            ];
+
+            $encoded_data=json_encode($data);
+
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://api.razorpay.com/v1/orders',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS =>$encoded_data,
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json',
+                    'Authorization: Basic '.base64_encode(env('RAZOR_KEY').':'.env('RAZOR_SECRET'))
+                ),
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+
+            $response = json_decode($response, true);
+
+            return [
+                'order_id'          => $response['id'],
+                'amount'            => $response['amount']/100,
+                'booking_id'        => $booking->booking_id,
+                'key'               => $response['notes']['key'],
+            ];
+
+        }else{
+            return response()->json(['message'=>'Booking Not Found!','status'=>422],422);
+        }
+    }
+
+    public function verifySignature(Request $request){
+        $this->validate($request, [
+            'razorpay_order_id'         => 'required',
+            'booking_id'                => 'required',
+            'payment_status'            => 'required',
+        ]);
+        $api = new Api(env('RAZOR_KEY'), env('RAZOR_SECRET'));
+
+        if($request->payment_status == 'captured'){
+            $booking = ServiceBooking::where('booked_by',auth()->user()->id)->where('booking_id',$request->booking_id)->first();
+            if($booking){
+                $response = $api->utility->verifyPaymentSignature([
+                    'razorpay_order_id'     => $request->razorpay_order_id,
+                    'razorpay_payment_id'   => $request->razorpay_payment_id,
+                    'razorpay_signature'    => $request->razorpay_signature
+                ]);
+
+                $res=$api->payment->fetch($request->razorpay_payment_id);
+
+                $booking->paid_amount = $res->amount/100;
+                $booking->payment_detail = [['payment_id'=>$res->id,'order_id'=>$res->order_id,'amount'=>$res->amount/100,'payment_status'=>$request->payment_status,'date'=>Carbon::now(),'payment_type'=>'online']];
+                if($booking->total_amount == $res->amount/100){
+                    $booking->payment_status = 'paid';
+                }else{
+                    $booking->payment_status = 'partially_paid';
+                }
+                $booking->save();
+
+                return [
+                    'payment_id'    => $res->id,
+                    'order_id'      => $res->order_id,
+                    'booking_id'    => $booking->id,
+                    'amount'        => $res->amount/100,
+                ];
+            }else{
+                return response()->json(['message'=>'Invalid Booking','status'=>422],422);
+            }
+        }else{
+            return response()->json(['message'=>$request->message,'status'=>422],422);
+        }
+
+    }
+
+    public function remainingPaymentInitialization(Request $request){
+        $booking = ServiceBooking::where('booked_by',auth()->user()->id)->where('booking_id',$request->booking_id)->first();
+        if($booking){
+            $amount = ($booking->total_amount - $booking->paid_amount);
+
+            $data=[
+                'amount'=>$amount*100,
+                'currency'=> "INR",
+                'receipt'=> "order_rcptid_" . time(),
+                'notes'=> [
+                    'user_id'   => auth()->id(),
+                    'booking_id'   => $booking->id,
+                    'key'       => env('RAZOR_KEY')
+                ]
+            ];
+
+            $encoded_data=json_encode($data);
+
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://api.razorpay.com/v1/orders',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS =>$encoded_data,
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json',
+                    'Authorization: Basic '.base64_encode(env('RAZOR_KEY').':'.env('RAZOR_SECRET'))
+                ),
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+
+            $response = json_decode($response, true);
+
+            return [
+                'order_id'          => $response['id'],
+                'amount'            => $response['amount']/100,
+                'booking_id'        => $booking->booking_id,
+                'key'               => $response['notes']['key'],
+            ];
+
+        }else{
+            return response()->json(['message'=>'Booking Not Found!','status'=>422],422);
+        }
+    }
+
+    public function remainingVerifySignature(Request $request){
+        $this->validate($request, [
+            'razorpay_order_id'         => 'required',
+            'booking_id'                => 'required',
+            'payment_status'            => 'required',
+        ]);
+        $api = new Api(env('RAZOR_KEY'), env('RAZOR_SECRET'));
+
+        if($request->payment_status == 'captured'){
+            $booking = ServiceBooking::where('booked_by',auth()->user()->id)->where('booking_id',$request->booking_id)->first();
+            if($booking){
+                $response = $api->utility->verifyPaymentSignature([
+                    'razorpay_order_id'     => $request->razorpay_order_id,
+                    'razorpay_payment_id'   => $request->razorpay_payment_id,
+                    'razorpay_signature'    => $request->razorpay_signature
+                ]);
+
+                $res=$api->payment->fetch($request->razorpay_payment_id);
+
+                $booking->paid_amount = $booking->total_amount;
+                if(!$booking->payment_detail){
+                    $booking->payment_detail = [['payment_id'=>$res->id,'order_id'=>$res->order_id,'amount'=>$res->amount/100,'payment_status'=>$request->payment_status,'date'=>Carbon::now(),'payment_type'=>'online']];
+                }else{
+                    $payment_details = [];
+                    array_push($payment_details,$booking->payment_detail[0],['payment_id'=>$res->id,'order_id'=>$res->order_id,'amount'=>$res->amount/100,'payment_status'=>$request->payment_status,'date'=>Carbon::now(),'payment_type'=>'online']);
+                    $booking->payment_detail = $payment_details;
+                }
+                $booking->payment_status = 'paid';
+                $booking->save();
+
+                return [
+                    'payment_id'    => $res->id,
+                    'order_id'      => $res->order_id,
+                    'booking_id'    => $booking->id,
+                    'amount'        => $res->amount/100,
+                ];
+            }else{
+                return response()->json(['message'=>'Invalid Booking','status'=>422],422);
+            }
+        }else{
+            return response()->json(['message'=>$request->message,'status'=>422],422);
+        }
+
     }
 
 }

@@ -10,10 +10,11 @@ class ServiceBooking extends Model
     use HasFactory;
 
     protected $casts = [
-        'salon'         => 'array',
-        'service'       => 'array',
-        'coupon'        => 'array',
-        'address'       => 'array'
+        'salon'                 => 'array',
+        'service'               => 'array',
+        'coupon'                => 'array',
+        'address'               => 'array',
+        'payment_detail'        => 'array'
     ];
 
     public function getSalon()
