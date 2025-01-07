@@ -34,7 +34,7 @@ class CreateServiceBookingsTable extends Migration
             $table->string('booking_at')->nullable();
             $table->string('start_at')->nullable();
             $table->string('end_at')->nullable();
-            $table->enum('status', ['waiting','pending', 'booked', 'time_update', 'confirmed', 'completed', 'cancelled'])->nullable()->default('pending');
+            $table->enum('status', ['waiting','pending', 'booked', 'time_update', 'confirmed', 'completed', 'cancelled', 'started'])->nullable()->default('pending');
             $table->timestamps();
         });
     }

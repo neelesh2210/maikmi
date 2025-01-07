@@ -38,6 +38,8 @@ class ServiceBookingResource extends JsonResource
             'invoice'               => route('api.service.invoice',[$this->booking_id,encrypt(Auth::user()->id)]),
             'payment_detail'        => $this->payment_detail??[],
             'payment_status'        => $this->payment_status,
+            'start_otp'             => $this->start_otp,
+            'end_otp'               => $this->end_otp,
         ];
 
         $data['booked_by'] = ['name'=>$this->getBookedBy->name,'phone'=>$this->getBookedBy->phone];

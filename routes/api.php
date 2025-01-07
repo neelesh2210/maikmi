@@ -156,6 +156,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         //Service Booking
         Route::get('service-booking-list',[App\Http\Controllers\Api\Vendors\ServiceBookingController::class,'serviceBookingList']);
         Route::post('service-booking-status-change',[App\Http\Controllers\Api\Vendors\ServiceBookingController::class,'serviceBookingStatusChange']);
+        Route::post('verify-start-service-booking-otp',[App\Http\Controllers\Api\Vendors\ServiceBookingController::class,'verifyStartServiceBookingOtp']);
+        Route::post('verify-end-service-booking-otp',[App\Http\Controllers\Api\Vendors\ServiceBookingController::class,'verifyEndServiceBookingOtp']);
 
         //Product Category
         Route::get('product-category-list',[App\Http\Controllers\Api\Vendors\ProductCategoryController::class,'index']);

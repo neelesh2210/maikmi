@@ -36,6 +36,7 @@ class ServiceBookingController extends Controller
                         $service_booking->status = 'time_update';
                     }else{
                         $service_booking->status = 'confirmed';
+                        $service_booking->start_otp = rand(1111,9999);
                     }
                     sendNotification('Booking Confirm', 'Your Booking is confirmed by vendor with booking id '.$service_booking->booking_id, $service_booking->getBookedBy->fcm_token);
                 }else{
@@ -56,6 +57,7 @@ class ServiceBookingController extends Controller
                             $service_booking->status = 'time_update';
                         }else{
                             $service_booking->status = 'confirmed';
+                            $service_booking->start_otp = rand(1111,9999);
                         }
                         sendNotification('Booking Confirm', 'Your Booking is confirmed by vendor with booking id '.$service_booking->booking_id, $service_booking->getBookedBy->fcm_token);
                     }else{
@@ -69,6 +71,39 @@ class ServiceBookingController extends Controller
 
 
                 return response()->json(['message'=>'You do not have any subscription to accept booking!','status'=>401],401);
+            }
+        }else{
+            return response()->json(['message'=>'Booking Not Found','status'=>401],401);
+        }
+    }
+
+    public function verifyStartServiceBookingOtp(Request $request) {
+        $service_booking = ServiceBooking::where('booking_id',$request->booking_id)->first();
+        if($service_booking){
+            if($service_booking->start_otp === $request->otp){
+                sendNotification('Service Started', 'Your Service of booking id '.$service_booking->booking_id . ' has started', $service_booking->getBookedBy->fcm_token);
+
+                $service_booking->start_otp = null;
+                $service_booking->end_otp = rand(1111,9999);
+                $service_booking->status = 'started';
+                $service_booking->save();
+                return response()->json(['message'=>'Service Started!','status'=>200],200);
+            }
+        }else{
+            return response()->json(['message'=>'Booking Not Found','status'=>401],401);
+        }
+    }
+
+    public function verifyEndServiceBookingOtp(Request $request) {
+        $service_booking = ServiceBooking::where('booking_id',$request->booking_id)->first();
+        if($service_booking){
+            if($service_booking->end_otp === $request->otp){
+                sendNotification('Service Completed', 'Your Service of booking id '.$service_booking->booking_id . ' has completed', $service_booking->getBookedBy->fcm_token);
+
+                $service_booking->end_otp = null;
+                $service_booking->status = 'completed';
+                $service_booking->save();
+                return response()->json(['message'=>'Service Completed!','status'=>200],200);
             }
         }else{
             return response()->json(['message'=>'Booking Not Found','status'=>401],401);
