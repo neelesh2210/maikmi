@@ -36,8 +36,8 @@ class ServiceBookingController extends Controller
                         $service_booking->status = 'time_update';
                     }else{
                         $service_booking->status = 'confirmed';
-                        $service_booking->start_otp = rand(1111,9999);
                     }
+                    $service_booking->start_otp = rand(1111,9999);
                     sendNotification('Booking Confirm', 'Your Booking is confirmed by vendor with booking id '.$service_booking->booking_id, $service_booking->getBookedBy->fcm_token);
                 }else{
                     $service_booking->status = $request->status;
