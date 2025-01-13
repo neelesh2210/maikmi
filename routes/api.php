@@ -142,6 +142,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('update-salon-availability',[SalonController::class,'updateSalonAvailability']);
         Route::post('update-home-service-status',[SalonController::class,'updateHomeServiceStatus']);
         Route::post('update-home-service-charge',[SalonController::class,'updateHomeServiceCharge']);
+        Route::post('update-partial-payment-status',[SalonController::class,'updatePartialPaymentStatus']);
+        Route::post('update-partial-payment-percent',[SalonController::class,'updatePartialPaymentPercent']);
 
         //Worker
         Route::get('worker-list',[WorkerController::class,'index']);
@@ -182,6 +184,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('plan-purchase-verify-signature',[App\Http\Controllers\Api\Vendors\PlanPurchaseController::class,'verifySignature']);
         Route::get('plan-purchase-list',[App\Http\Controllers\Api\Vendors\PlanPurchaseController::class,'planPurchaseList']);
 
+        //Wallet
+        Route::get('wallet-transactions', [App\Http\Controllers\Api\Vendors\WalletTransactionController::class, 'index']);
+
+        //Coupon
+        Route::get('coupons', [App\Http\Controllers\Api\Vendors\CouponController::class, 'index']);
+        Route::post('coupon/store', [App\Http\Controllers\Api\Vendors\CouponController::class, 'store']);
     });
 
     Route::post('logout',[LoginController::class,'logout']);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Carbon\Carbon;
 use App\Models\Salon;
 use Razorpay\Api\Api;
+use App\Models\SalonWallet;
 use Illuminate\Http\Request;
 use App\Models\ServiceBooking;
 use App\Http\Controllers\Controller;
@@ -109,9 +110,9 @@ class ServiceBookingController extends Controller
     }
 
     public function serviceBookingStatusCheck(Request $request){
-        $booking = ServiceBooking::where('booked_by',auth()->user()->id)->where('booking_id',$request->booking_id)->first();
+        $booking = ServiceBooking::where('booked_by',auth()->user()->id)->where('booking_id',$request->booking_id)->with('getSalon')->first();
         if($booking){
-            return response()->json(['time'=>$booking->booking_time,'booking_status'=>$booking->status,'message'=>'Booking Added in Queue Successfully!','status'=>200],200);
+            return response()->json(['time'=>$booking->booking_time,'booking_status'=>$booking->status, 'partial_payment_status'=>$booking->getSalon->is_partial_payment, 'partial_payment_percent'=>$booking->getSalon->partial_payment_percent ,'message'=>'Booking Added in Queue Successfully!','status'=>200],200);
         }else{
             return response()->json(['message'=>'Booking Not Found!','status'=>422],422);
         }
@@ -160,10 +161,10 @@ class ServiceBookingController extends Controller
     }
 
     public function paymentInitialization(Request $request){
-        $booking = ServiceBooking::where('booked_by',auth()->user()->id)->where('booking_id',$request->booking_id)->first();
+        $booking = ServiceBooking::where('booked_by',auth()->user()->id)->where('booking_id',$request->booking_id)->with('getSalon')->first();
         if($booking){
-            if($request->payment === 'part'){
-                $amount = (($booking->total_amount - $booking->paid_amount)*10)/100;
+            if($booking->getSalon->is_partial_payment === '1' && $request->payment === 'part'){
+                $amount = (($booking->total_amount - $booking->paid_amount)*$booking->getSalon->partial_payment_percent)/100;
             }else{
                 $amount = $booking->total_amount;
             }
@@ -226,8 +227,10 @@ class ServiceBookingController extends Controller
         $api = new Api(env('RAZOR_KEY'), env('RAZOR_SECRET'));
 
         if($request->payment_status == 'captured'){
-            $booking = ServiceBooking::where('booked_by',auth()->user()->id)->where('booking_id',$request->booking_id)->first();
+            $booking = ServiceBooking::where('booked_by',auth()->user()->id)->where('booking_id',$request->booking_id)->with('getSalon')->first();
             if($booking){
+                $salon = Salon::where('id', $booking->getSalon->id)->first();
+
                 $response = $api->utility->verifyPaymentSignature([
                     'razorpay_order_id'     => $request->razorpay_order_id,
                     'razorpay_payment_id'   => $request->razorpay_payment_id,
@@ -244,6 +247,19 @@ class ServiceBookingController extends Controller
                     $booking->payment_status = 'partially_paid';
                 }
                 $booking->save();
+
+                $gst_amount = (($res->amount / 100) * 18) / 100;
+
+                $salon_wallet = new SalonWallet;
+                $salon_wallet->salon_id = $salon->id;
+                $salon_wallet->amount = ($res->amount / 100) - $gst_amount;
+                $salon_wallet->source_id = $booking->id;
+                $salon_wallet->source = 'booking';
+                $salon_wallet->type = 'credit';
+                $salon_wallet->save();
+
+                $salon->total_wallet_balance = $salon->total_wallet_balance + $salon_wallet->amount;
+                $salon->save();
 
                 return [
                     'payment_id'    => $res->id,
@@ -325,6 +341,8 @@ class ServiceBookingController extends Controller
         if($request->payment_status == 'captured'){
             $booking = ServiceBooking::where('booked_by',auth()->user()->id)->where('booking_id',$request->booking_id)->first();
             if($booking){
+                $salon = Salon::where('id', $booking->getSalon->id)->first();
+
                 $response = $api->utility->verifyPaymentSignature([
                     'razorpay_order_id'     => $request->razorpay_order_id,
                     'razorpay_payment_id'   => $request->razorpay_payment_id,
@@ -343,6 +361,19 @@ class ServiceBookingController extends Controller
                 }
                 $booking->payment_status = 'paid';
                 $booking->save();
+
+                $gst_amount = (($res->amount / 100) * 18) / 100;
+
+                $salon_wallet = new SalonWallet;
+                $salon_wallet->salon_id = $salon->id;
+                $salon_wallet->amount = ($res->amount / 100) - $gst_amount;
+                $salon_wallet->source_id = $booking->id;
+                $salon_wallet->source = 'booking';
+                $salon_wallet->type = 'credit';
+                $salon_wallet->save();
+
+                $salon->total_wallet_balance = $salon->total_wallet_balance + $salon_wallet->amount;
+                $salon->save();
 
                 return [
                     'payment_id'    => $res->id,

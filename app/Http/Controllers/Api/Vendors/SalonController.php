@@ -170,6 +170,8 @@ class SalonController extends Controller
                                     'available_status'=>''.$salon->available,
                                     'home_service_status'=>$salon->home_service_status,
                                     'home_service_charge'=>$salon->home_service_charge,
+                                    'partial_payment_status'=>$salon->is_partial_payment,
+                                    'partial_payment_percent'=>$salon->partial_payment_percent,
                                     'pending_service_bookings'=>$pending_service_bookings,
                                     'message'=>'Data Retrieved Successfully!',
                                     'status'=>200
@@ -186,6 +188,29 @@ class SalonController extends Controller
         $salon->save();
 
         return response()->json(['message'=>'Charge Updated Successfully!','status'=>200],200);
+    }
+
+    public function updatePartialPaymentStatus(Request $request){
+        $this->validate($request,[
+            'status'=>'required|in:1,0'
+        ]);
+        $salon = Salon::where('user_id',Auth::user()->id)->first();
+        $salon->is_partial_payment = $request->status;
+        $salon->save();
+
+        return response()->json(['message'=>'Salon Partial Payment Status Updated Successfully!','status'=>200],200);
+    }
+
+    public function updatePartialPaymentPercent(Request $request){
+        $request->validate([
+            'partial_payment_percent'=>'required|numeric|regex:/^\d+(\.\d{1,2})?$/|min:1',
+        ]);
+
+        $salon = Salon::where('user_id',auth()->id())->first();
+        $salon->partial_payment_percent = $request->partial_payment_percent;
+        $salon->save();
+
+        return response()->json(['message'=>'Partial Payment Percent Updated Successfully!','status'=>200],200);
     }
 
 }
