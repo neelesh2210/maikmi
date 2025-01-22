@@ -43,8 +43,10 @@ class ServiceBookingController extends Controller
             $data->status = $request->status;
             $data->save();
 
-            $coupon->total_used = $coupon->total_used + 1;
-            $coupon->save();
+            if($coupon){
+                $coupon->total_used = $coupon->total_used + 1;
+                $coupon->save();
+            }
 
             // sendNotification('Service Booking', 'Service Booked Successfully with booking id '.$data->booking_id, auth()->user()->fcm_token);
             sendNotification('New Booking', 'New Booking Arrived with booking id '.$data->booking_id.'. Please confirm it.', $data->getSalon->getOwner->fcm_token, 'order');

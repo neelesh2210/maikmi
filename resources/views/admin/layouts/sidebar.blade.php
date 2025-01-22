@@ -128,6 +128,13 @@
                 </a>
             </li>
 
+            <li class="nav-item mt-0 {{ activeRoute(['withdrawal.list']) ? 'active' : '' }}">
+                <a href="{{ route('withdrawal.list') }}" class="nav-link">
+                    <i class="link-icon fa-lg bi bi-speedometer"></i>
+                    <span class="link-title">Withdrawal List</span>
+                </a>
+            </li>
+
             {{-- <li class="nav-item {{ activeRoute(['service-coupon.index', 'service-coupon.create', 'service-coupon.edit', 'product-coupon.index', 'product-coupon.create', 'product-coupon.edit']) ? 'active' : '' }}">
                 <a class="nav-link" data-bs-toggle="collapse" href="#couponManagement" role="button"
                     aria-expanded="false" aria-controls="couponManagement">

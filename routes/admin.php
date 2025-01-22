@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Auth\LoginController;
+use App\Http\Controllers\Admin\WithdrawalController;
 use App\Http\Controllers\Admin\ProductOrderController;
 use App\Http\Controllers\Admin\SendNotificationController;
 
@@ -126,6 +127,9 @@ Route::middleware(['auth:admin'])->group(function () {
         Route::put('coupon/{slug}/update',[CouponController::class, 'update'])->name('coupon.update');
         Route::delete('coupon/{slug}/delete',[CouponController::class, 'destroy'])->name('coupon.destroy');
         Route::post('get-salon-service', [CouponController::class, 'getSalonService'])->name('get.salon.service');
+
+        //Withdrawal List
+        Route::get('withdrawal-list',[WithdrawalController::class,'index'])->name('withdrawal.list');
 
     });
 
