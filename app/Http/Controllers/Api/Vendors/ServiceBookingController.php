@@ -97,14 +97,14 @@ class ServiceBookingController extends Controller
     public function verifyEndServiceBookingOtp(Request $request) {
         $service_booking = ServiceBooking::where('booking_id',$request->booking_id)->first();
         if($service_booking){
-            if($service_booking->end_otp === $request->otp){
+            // if($service_booking->end_otp === $request->otp){
                 sendNotification('Service Completed', 'Your Service of booking id '.$service_booking->booking_id . ' has completed', $service_booking->getBookedBy->fcm_token);
 
                 $service_booking->end_otp = null;
                 $service_booking->status = 'completed';
                 $service_booking->save();
                 return response()->json(['message'=>'Service Completed!','status'=>200],200);
-            }
+            // }
         }else{
             return response()->json(['message'=>'Booking Not Found','status'=>401],401);
         }

@@ -25,6 +25,8 @@ class ServiceBookingResource extends JsonResource
             'salon'                 => $this->salon,
             'service'               => $this->service,
             'coupon'                => $this->coupon,
+            'coupon_discount_amount'=> $this->coupon_discount_amount,
+            'paid_amount'           => $this->paid_amount,
             'address'               => $this->address,
             'payment_type'          => $this->payment_type,
             'booking_date'          => $this->booking_date,

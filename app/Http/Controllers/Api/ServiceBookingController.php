@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Carbon\Carbon;
 use App\Models\Salon;
 use Razorpay\Api\Api;
+use App\Models\Coupon;
 use App\Models\SalonWallet;
 use Illuminate\Http\Request;
 use App\Models\ServiceBooking;
@@ -16,6 +17,8 @@ class ServiceBookingController extends Controller
 
     public function serviceBooking(Request $request){
         try{
+            $coupon = Coupon::where('salon_id', $request->salon_id)->where('code', $request->coupon)->first();
+
             $data = new ServiceBooking;
             $data->booking_id = date('Ym').rand(1111, 9999);
             $data->user_id = Salon::find($request->salon_id)->user_id;
@@ -23,7 +26,8 @@ class ServiceBookingController extends Controller
             $data->booked_by = auth()->id();
             $data->salon = $request->salon;
             $data->service = $request->service;
-            $data->coupon = $request->coupon;
+            $data->coupon = $coupon;
+            $data->coupon_discount_amount = $request->coupon_discount_amount;
             $data->quantity = 1;
             $data->total_amount = $request->total_amount;
             $data->address = $request->address;
@@ -38,6 +42,9 @@ class ServiceBookingController extends Controller
             $data->payment_status = 'unpaid';
             $data->status = $request->status;
             $data->save();
+
+            $coupon->total_used = $coupon->total_used + 1;
+            $coupon->save();
 
             // sendNotification('Service Booking', 'Service Booked Successfully with booking id '.$data->booking_id, auth()->user()->fcm_token);
             sendNotification('New Booking', 'New Booking Arrived with booking id '.$data->booking_id.'. Please confirm it.', $data->getSalon->getOwner->fcm_token, 'order');

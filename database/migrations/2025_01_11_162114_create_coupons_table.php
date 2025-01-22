@@ -20,6 +20,8 @@ class CreateCouponsTable extends Migration
             $table->string('code')->unique()->index();
             $table->string('title')->nullable();
             $table->string('image')->nullable();
+            $table->enum('amount_type', ['amount', 'percent']);
+            $table->double('amount', 15, 2);
             $table->text('description')->nullable();
             $table->enum('coupon_type', ['service', 'total_order_value']);
             $table->longText('service_ids')->nullable();

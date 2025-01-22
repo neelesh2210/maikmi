@@ -121,6 +121,13 @@
                 </div>
             </li>
 
+            <li class="nav-item mt-0 {{ activeRoute(['coupon.index','coupon.create','coupon.edit']) ? 'active' : '' }}">
+                <a href="{{ route('coupon.index') }}" class="nav-link">
+                    <i class="link-icon fa-lg bi bi-speedometer"></i>
+                    <span class="link-title">Coupon</span>
+                </a>
+            </li>
+
             {{-- <li class="nav-item {{ activeRoute(['service-coupon.index', 'service-coupon.create', 'service-coupon.edit', 'product-coupon.index', 'product-coupon.create', 'product-coupon.edit']) ? 'active' : '' }}">
                 <a class="nav-link" data-bs-toggle="collapse" href="#couponManagement" role="button"
                     aria-expanded="false" aria-controls="couponManagement">

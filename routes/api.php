@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OtpLessController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\SlotController;
+use App\Http\Controllers\Api\CouponController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\Auth\LoginController;
@@ -124,6 +125,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('salon-rating',[SalonRatingController::class,'salonRating']);
     Route::get('salon-rating-list/{salon_id}',[SalonRatingController::class,'salonRatingList']);
 
+    //Coupon
+    Route::get('coupons/{salon_id}', [CouponController::class, 'index']);
+
     //Vendor Route
     Route::group(['prefix' => 'vendor'], function () {
 
@@ -190,6 +194,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         //Coupon
         Route::get('coupons', [App\Http\Controllers\Api\Vendors\CouponController::class, 'index']);
         Route::post('coupon/store', [App\Http\Controllers\Api\Vendors\CouponController::class, 'store']);
+        Route::post('coupon/update/{slug}', [App\Http\Controllers\Api\Vendors\CouponController::class, 'update']);
+        Route::delete('coupon/destroy/{slug}', [App\Http\Controllers\Api\Vendors\CouponController::class, 'destroy']);
+
+        //Story
+        Route::get('story-list',[App\Http\Controllers\Api\Vendors\StoryController::class,'index']);
+        Route::post('add-story',[App\Http\Controllers\Api\Vendors\StoryController::class,'store']);
+        Route::post('delete-story',[App\Http\Controllers\Api\Vendors\StoryController::class,'destroy']);
     });
 
     Route::post('logout',[LoginController::class,'logout']);

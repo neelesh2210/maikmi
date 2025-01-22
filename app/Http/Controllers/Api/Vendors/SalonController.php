@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api\Vendors;
 
 use Auth;
+use Carbon\Carbon;
 use App\Models\Salon;
+use App\Models\Story;
 use App\Models\Product;
 use App\Models\Service;
 use Illuminate\Http\Request;
@@ -42,7 +44,12 @@ class SalonController extends Controller
                 })->where('available','1')->where('id',$id)->first();
 
         if($salon){
-            return response()->json(['salon'=>new SalonDetailResource($salon),'message'=>'Salon Detail Retrived Successfully!','status'=>200],200);
+            $stories = Story::where('salon_id', $salon->id)->where('created_at', '>=', Carbon::now()->subDay())->latest()->get();
+            foreach ($stories as $key => $story) {
+                $story->image = $story->image ? imageUrl($story->image) : asset('admin_css/no-pictures.png');
+                $story->date = $story->created_at->format('d M Y h:i A');
+            }
+            return response()->json(['salon'=>new SalonDetailResource($salon),'stories'=>$stories,'message'=>'Salon Detail Retrived Successfully!','status'=>200],200);
         }else{
             return response()->json(['message'=>'Salon Not Found!','status'=>422],422);
         }

@@ -54,7 +54,7 @@ class User extends Authenticatable
 
     public function getSalon()
     {
-        return $this->hasOne(Salon::class);
+        return $this->hasOne(Salon::class, 'user_id');
     }
 
     public function getDefaultAddress()

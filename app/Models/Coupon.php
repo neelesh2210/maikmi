@@ -16,6 +16,8 @@ class Coupon extends Model
         'code',
         'title',
         'image',
+        'amount_type',
+        'amount',
         'description',
         'coupon_type',
         'service_ids',
@@ -26,4 +28,12 @@ class Coupon extends Model
         'total_used',
         'is_active'
     ];
+
+    protected $casts = [
+        // 'service_ids' => 'array'
+    ];
+
+    public function salon() {
+        return $this->belongsTo(Salon::class);
+    }
 }
