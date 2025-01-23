@@ -12,7 +12,7 @@ class WithdrawalResource extends JsonResource
         // return parent::toArray($request);
         return [
             'amount'    => $this->amount,
-            'status'     => $this->state,
+            'status'     => $this->status,
             'date'      => $this->created_at->format('d M Y h:i A'),
         ];
     }
