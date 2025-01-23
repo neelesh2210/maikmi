@@ -130,6 +130,7 @@ Route::middleware(['auth:admin'])->group(function () {
 
         //Withdrawal List
         Route::get('withdrawal-list',[WithdrawalController::class,'index'])->name('withdrawal.list');
+        Route::post('withdrawal-status',[WithdrawalController::class,'status'])->name('withdrawal.status');
 
     });
 

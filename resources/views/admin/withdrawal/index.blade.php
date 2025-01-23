@@ -39,8 +39,10 @@
                                                     <option value="success">Success</option>
                                                     <option value="cancel">Cancel</option>
                                                 </select>
-                                            @else
+                                            @elseif($withdrawal->status == 'success')
                                                 <span class="badge rounded-pill bg-success">{{ucfirst($withdrawal->status)}}</span>
+                                            @elseif($withdrawal->status == 'cancel')
+                                                <span class="badge rounded-pill bg-danger">{{ucfirst($withdrawal->status)}}</span>
                                             @endif
                                         </td>
                                         <td class="text-center">
@@ -70,8 +72,45 @@
 
     <script>
 
-        function changeStatus(){
+        function changeStatus(id){
+            var status = $('#status_'+id).val();
+            $.ajax({
+                url: "{{route('withdrawal.status')}}",
+                type: "POST",
+                data: {
+                    id: id,
+                    status: status,
+                    _token: "{{csrf_token()}}"
+                },
+                success: function(response){
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                    });
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'status changed successfully'
+                    });
 
+                    location.reload();
+                }, error: function (xhr, ajaxOptions, thrownError) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                    });
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'You have already paid this salon'
+                    });
+                    location.reload();
+                }
+            });
         }
 
     </script>
