@@ -205,6 +205,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         //Wallet Withdrawal
         Route::get('withdrawal-list',[App\Http\Controllers\Api\Vendors\WalletWithdrawalController::class,'index']);
         Route::post('withdrawal-request',[App\Http\Controllers\Api\Vendors\WalletWithdrawalController::class,'store']);
+
+        //Bank Detail
+        Route::get('bank-detail',[App\Http\Controllers\Api\Vendors\BankDetailController::class,'index']);
+        Route::post('update-bank-detail',[App\Http\Controllers\Api\Vendors\BankDetailController::class,'store']);
     });
 
     Route::post('logout',[LoginController::class,'logout']);
