@@ -126,7 +126,7 @@ class LoginController extends Controller
             $type = 'register';
         }
 
-        if($request->phone == '8009164221'){
+        if($request->phone == '9598334716'){
             return response()->json(['message'=>'OTP Send Successfully!','status'=>200], 200);
         }
         $otp_less = new OtpLessController;
@@ -157,7 +157,7 @@ class LoginController extends Controller
         }else{
             $type = 'register';
         }
-        if($request->phone == '8009164221'){
+        if($request->phone == '9598334716'){
             if($user){
                 return response()->json(['token'=>$user->createToken('auth_token')->plainTextToken,'message'=>'User Login Successfully!','status'=>200],200);
             }else{
