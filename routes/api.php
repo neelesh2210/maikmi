@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\ProductCartController;
 use App\Http\Controllers\Api\ProductHomeController;
 use App\Http\Controllers\Api\SalonRatingController;
 use App\Http\Controllers\Api\UserAddressController;
+use App\Http\Controllers\Api\Users\StoryController;
 use App\Http\Controllers\Api\ProductOrderController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\ProductSearchController;
@@ -127,6 +128,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     //Coupon
     Route::get('coupons/{salon_id}', [CouponController::class, 'index']);
+
+    //Stories View
+    Route::post('stories-view',[StoryController::class,'view']);
 
     //Vendor Route
     Route::group(['prefix' => 'vendor'], function () {
