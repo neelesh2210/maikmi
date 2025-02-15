@@ -2,8 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OtpLessController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\SlotController;
+use App\Http\Controllers\Api\CouponController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\Auth\LoginController;
@@ -12,6 +14,7 @@ use App\Http\Controllers\Api\ProductCartController;
 use App\Http\Controllers\Api\ProductHomeController;
 use App\Http\Controllers\Api\SalonRatingController;
 use App\Http\Controllers\Api\UserAddressController;
+use App\Http\Controllers\Api\Users\StoryController;
 use App\Http\Controllers\Api\ProductOrderController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\ProductSearchController;
@@ -52,6 +55,9 @@ Route::post('registration',[LoginController::class,'registration']);
 Route::get('generate-product-invoce/{order_id}/{user_id}',[ProductOrderController::class,'invoice'])->name('api.product.invoice');
 Route::get('generate-service-invoce/{booking_id}/{user_id}',[ServiceBookingController::class,'invoice'])->name('api.service.invoice');
 
+//OTP Less
+Route::get('otpless-send-otp',[OtpLessController::class,'sendOtp']);
+
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
     //Home
@@ -83,6 +89,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('service-booking-list',[ServiceBookingController::class,'serviceBookingList']);
     Route::post('service-booking-reschedule',[ServiceBookingController::class,'serviceBookingReschedule']);
     Route::post('service-booking-cancel',[ServiceBookingController::class,'serviceBookingCancel']);
+    Route::post('service-booking-waiting',[ServiceBookingController::class,'serviceBookingWaiting']);
+    Route::post('service-booking-confirm',[ServiceBookingController::class,'serviceBookingConfirm']);
+    Route::post('service-booking-status-check',[ServiceBookingController::class,'serviceBookingStatusCheck']);
+    Route::post('service-booking-retry',[ServiceBookingController::class,'serviceBookingRetry']);
+    Route::post('service-booking-payment-initialization',[ServiceBookingController::class,'paymentInitialization']);
+    Route::post('service-booking-verify-signature',[ServiceBookingController::class,'verifySignature']);
+    Route::post('service-booking-remaining-payment-initialization',[ServiceBookingController::class,'remainingPaymentInitialization']);
+    Route::post('service-booking-remaining-verify-signature',[ServiceBookingController::class,'remainingVerifySignature']);
 
     //Product
     Route::get('product-detail/{id}',[ProductController::class,'detail']);
@@ -112,6 +126,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('salon-rating',[SalonRatingController::class,'salonRating']);
     Route::get('salon-rating-list/{salon_id}',[SalonRatingController::class,'salonRatingList']);
 
+    //Coupon
+    Route::get('coupons/{salon_id}', [CouponController::class, 'index']);
+
+    //Stories View
+    Route::post('stories-view',[StoryController::class,'view']);
+
     //Vendor Route
     Route::group(['prefix' => 'vendor'], function () {
 
@@ -129,11 +149,15 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('update-salon-detail',[SalonController::class,'update']);
         Route::post('update-salon-availability',[SalonController::class,'updateSalonAvailability']);
         Route::post('update-home-service-status',[SalonController::class,'updateHomeServiceStatus']);
+        Route::post('update-home-service-charge',[SalonController::class,'updateHomeServiceCharge']);
+        Route::post('update-partial-payment-status',[SalonController::class,'updatePartialPaymentStatus']);
+        Route::post('update-partial-payment-percent',[SalonController::class,'updatePartialPaymentPercent']);
 
         //Worker
         Route::get('worker-list',[WorkerController::class,'index']);
         Route::post('add-worker',[WorkerController::class,'store']);
         Route::post('change-worker-status',[WorkerController::class,'status']);
+        Route::post('delete-worker/{worker_id}',[WorkerController::class,'destroy']);
 
         //Time Slot
         Route::get('get-time-slot',[App\Http\Controllers\Api\Vendors\SlotController::class,'getTimeSlot']);
@@ -142,6 +166,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         //Service Booking
         Route::get('service-booking-list',[App\Http\Controllers\Api\Vendors\ServiceBookingController::class,'serviceBookingList']);
         Route::post('service-booking-status-change',[App\Http\Controllers\Api\Vendors\ServiceBookingController::class,'serviceBookingStatusChange']);
+        Route::post('verify-start-service-booking-otp',[App\Http\Controllers\Api\Vendors\ServiceBookingController::class,'verifyStartServiceBookingOtp']);
+        Route::post('verify-end-service-booking-otp',[App\Http\Controllers\Api\Vendors\ServiceBookingController::class,'verifyEndServiceBookingOtp']);
 
         //Product Category
         Route::get('product-category-list',[App\Http\Controllers\Api\Vendors\ProductCategoryController::class,'index']);
@@ -158,7 +184,38 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         //Salon KYC
         Route::post('kyc-document-store',[App\Http\Controllers\Api\Vendors\KycDocumentController::class,'store']);
 
+        //Plan
+        Route::get('plan-list',[App\Http\Controllers\Api\Vendors\PlanController::class,'index']);
+
+        //Plan Purchase
+        Route::post('plan-purchase-payment-initialization',[App\Http\Controllers\Api\Vendors\PlanPurchaseController::class,'paymentInitialization']);
+        Route::post('plan-purchase-verify-signature',[App\Http\Controllers\Api\Vendors\PlanPurchaseController::class,'verifySignature']);
+        Route::get('plan-purchase-list',[App\Http\Controllers\Api\Vendors\PlanPurchaseController::class,'planPurchaseList']);
+
+        //Wallet
+        Route::get('wallet-transactions', [App\Http\Controllers\Api\Vendors\WalletTransactionController::class, 'index']);
+
+        //Coupon
+        Route::get('coupons', [App\Http\Controllers\Api\Vendors\CouponController::class, 'index']);
+        Route::post('coupon/store', [App\Http\Controllers\Api\Vendors\CouponController::class, 'store']);
+        Route::post('coupon/update/{slug}', [App\Http\Controllers\Api\Vendors\CouponController::class, 'update']);
+        Route::delete('coupon/destroy/{slug}', [App\Http\Controllers\Api\Vendors\CouponController::class, 'destroy']);
+
+        //Story
+        Route::get('story-list',[App\Http\Controllers\Api\Vendors\StoryController::class,'index']);
+        Route::post('add-story',[App\Http\Controllers\Api\Vendors\StoryController::class,'store']);
+        Route::post('delete-story',[App\Http\Controllers\Api\Vendors\StoryController::class,'destroy']);
+
+        //Wallet Withdrawal
+        Route::get('withdrawal-list',[App\Http\Controllers\Api\Vendors\WalletWithdrawalController::class,'index']);
+        Route::post('withdrawal-request',[App\Http\Controllers\Api\Vendors\WalletWithdrawalController::class,'store']);
+
+        //Bank Detail
+        Route::get('bank-detail',[App\Http\Controllers\Api\Vendors\BankDetailController::class,'index']);
+        Route::post('update-bank-detail',[App\Http\Controllers\Api\Vendors\BankDetailController::class,'store']);
     });
+
+    Route::post('logout',[LoginController::class,'logout']);
 
 });
 

@@ -3,13 +3,18 @@
 namespace App\Http\Controllers\Api\Vendors;
 
 use Auth;
+use Carbon\Carbon;
 use App\Models\Salon;
+use App\Models\Story;
 use App\Models\Product;
 use App\Models\Service;
 use Illuminate\Http\Request;
+use App\Models\ServiceBooking;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\SalonResource;
+use App\Http\Controllers\Api\SlotController;
 use App\Http\Resources\Api\SalonDetailResource;
+use App\Http\Resources\Users\ServiceBookingResource;
 
 class SalonController extends Controller
 {
@@ -39,7 +44,12 @@ class SalonController extends Controller
                 })->where('available','1')->where('id',$id)->first();
 
         if($salon){
-            return response()->json(['salon'=>new SalonDetailResource($salon),'message'=>'Salon Detail Retrived Successfully!','status'=>200],200);
+            $stories = Story::where('salon_id', $salon->id)->where('created_at', '>=', Carbon::now()->subDay())->latest()->get();
+            foreach ($stories as $key => $story) {
+                $story->image = $story->image ? imageUrl($story->image) : asset('admin_css/no-pictures.png');
+                $story->date = $story->created_at->format('d M Y h:i A');
+            }
+            return response()->json(['salon'=>new SalonDetailResource($salon),'stories'=>$stories,'message'=>'Salon Detail Retrived Successfully!','status'=>200],200);
         }else{
             return response()->json(['message'=>'Salon Not Found!','status'=>422],422);
         }
@@ -159,10 +169,55 @@ class SalonController extends Controller
         return response()->json(['message'=>'Salon Home Service Status Updated Successfully!','status'=>200],200);
     }
 
-    public function getSalonHome(){
+    public function getSalonHome(Request $request){
         $salon = Salon::where('user_id',Auth::user()->id)->first();
+        $pending_service_bookings = ServiceBookingResource::collection(ServiceBooking::where('user_id', auth()->id())->whereIn('status',['pending','waiting'])->with('getBookedBy')->orderBy('id', 'desc')->get());
 
-        return response()->json(['available_status'=>''.$salon->available,'home_service_status'=>$salon->home_service_status,'message'=>'Data Retrieved Successfully!','status'=>200],200);
+        return response()->json([
+                                    'available_status'=>''.$salon->available,
+                                    'home_service_status'=>$salon->home_service_status,
+                                    'home_service_charge'=>$salon->home_service_charge,
+                                    'partial_payment_status'=>$salon->is_partial_payment,
+                                    'partial_payment_percent'=>$salon->partial_payment_percent,
+                                    'pending_service_bookings'=>$pending_service_bookings,
+                                    'message'=>'Data Retrieved Successfully!',
+                                    'status'=>200
+                                ],200);
+    }
+
+    public function updateHomeServiceCharge(Request $request){
+        $request->validate([
+            'home_service_charge'=>'required|numeric|regex:/^\d+(\.\d{1,2})?$/|min:0',
+        ]);
+
+        $salon = Salon::where('user_id',auth()->id())->first();
+        $salon->home_service_charge = $request->home_service_charge;
+        $salon->save();
+
+        return response()->json(['message'=>'Charge Updated Successfully!','status'=>200],200);
+    }
+
+    public function updatePartialPaymentStatus(Request $request){
+        $this->validate($request,[
+            'status'=>'required|in:1,0'
+        ]);
+        $salon = Salon::where('user_id',Auth::user()->id)->first();
+        $salon->is_partial_payment = $request->status;
+        $salon->save();
+
+        return response()->json(['message'=>'Salon Partial Payment Status Updated Successfully!','status'=>200],200);
+    }
+
+    public function updatePartialPaymentPercent(Request $request){
+        $request->validate([
+            'partial_payment_percent'=>'required|numeric|regex:/^\d+(\.\d{1,2})?$/|min:1',
+        ]);
+
+        $salon = Salon::where('user_id',auth()->id())->first();
+        $salon->partial_payment_percent = $request->partial_payment_percent;
+        $salon->save();
+
+        return response()->json(['message'=>'Partial Payment Percent Updated Successfully!','status'=>200],200);
     }
 
 }

@@ -1,9 +1,11 @@
 <?php
 
-
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Auth\LoginController;
+use App\Http\Controllers\Admin\WithdrawalController;
 use App\Http\Controllers\Admin\ProductOrderController;
+use App\Http\Controllers\Admin\SendNotificationController;
 
 
 /*
@@ -110,6 +112,25 @@ Route::middleware(['auth:admin'])->group(function () {
         // Service booking
         Route::resource('service-booking', 'ServiceBookingController');
 
+        //Plan
+        Route::resource('plan', PlanController::class);
+
+        //Send Notification
+        Route::get('send-notification',[SendNotificationController::class,'index'])->name('send.notification');
+        Route::post('send-notification-store',[SendNotificationController::class,'store'])->name('send.notification.store');
+
+        //Coupon
+        Route::get('coupons',[CouponController::class, 'index'])->name('coupon.index');
+        Route::get('coupon/create',[CouponController::class, 'create'])->name('coupon.create');
+        Route::post('coupon/store',[CouponController::class, 'store'])->name('coupon.store');
+        Route::get('coupon/{slug}/edit',[CouponController::class, 'edit'])->name('coupon.edit');
+        Route::put('coupon/{slug}/update',[CouponController::class, 'update'])->name('coupon.update');
+        Route::delete('coupon/{slug}/delete',[CouponController::class, 'destroy'])->name('coupon.destroy');
+        Route::post('get-salon-service', [CouponController::class, 'getSalonService'])->name('get.salon.service');
+
+        //Withdrawal List
+        Route::get('withdrawal-list',[WithdrawalController::class,'index'])->name('withdrawal.list');
+        Route::post('withdrawal-status',[WithdrawalController::class,'status'])->name('withdrawal.status');
 
     });
 

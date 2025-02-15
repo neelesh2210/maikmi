@@ -64,4 +64,16 @@ class WorkerController extends Controller
         }
     }
 
+    public function destroy($worker_id){
+        $worker = Worker::where('user_id',Auth::user()->id)->where('id',$worker_id)->first();
+
+        if($worker){
+            $worker->delete();
+
+            return response()->json(['message'=>'Worker Deleted Successfully!','status'=>200],200);
+        }else{
+            return response()->json(['message'=>'No Worker Found!','status'=>422],422);
+        }
+    }
+
 }

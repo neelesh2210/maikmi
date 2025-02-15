@@ -15,7 +15,7 @@ class FireBaseManager
         return $token['access_token'];
     }
 
-    public static function sendMessage($notification_tray, $token)
+    public static function sendMessage($notification_tray, $token, $in_app_module=null)
     {
         $apiurl = 'https://fcm.googleapis.com/v1/projects/maikmi/messages:send';   //replace "your-project-id" with...your project ID
 
@@ -28,6 +28,7 @@ class FireBaseManager
             'message' => [
                 'token'             => $token,
                 'notification'      => $notification_tray,
+                'data'              => $in_app_module,
             ],
         ];
 

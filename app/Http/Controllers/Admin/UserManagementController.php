@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Exports\CustomerExport;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserManagementController extends Controller
 {
@@ -30,6 +32,11 @@ class UserManagementController extends Controller
         if($request->status){
             $status = $request->status;
             $list = $list->where('is_active', $status);
+        }
+        if($request->has('export')){
+            $list = $list->latest()->get();
+
+            return Excel::download(new CustomerExport($list), 'customers.xlsx');
         }
         $list = $list->with(['userDetail', 'getDefaultAddress'])->orderBy('id', 'desc')->paginate(20);
         return view('admin.user.index', compact('list', 'search', 'status'), ['page_title' => 'User List']);

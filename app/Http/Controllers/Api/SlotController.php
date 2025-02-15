@@ -48,9 +48,10 @@ class SlotController extends Controller
                     $availability = true;
                 }
             }
-
-            if(date('H:i') >= $time){
-                $availability = false;
+            if($date->format('d-m-y') == Carbon::now()->format('d-m-y')){
+                if(date('H:i') >= $time){
+                    $availability = false;
+                }
             }
 
             $service_bookings = ServiceBooking::where('salon_id',$request->salon_id)->whereIn('status',['pending','booked','confirmed'])->where('booking_date',$request->date)->where('booking_time',date("g:i A", strtotime($time)))->count();
