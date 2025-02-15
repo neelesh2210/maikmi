@@ -63,113 +63,140 @@
             </div>
             <div class="row mt-3">
                 <div class="col-lg-12 col-md-12">
-                    <p>This Privacy Policy outlines how we collect, use, and share your personal information when you
-                        use our app and website for account management and query resolution.
-                    </p>
-                    <h5 class="text-theme">1. Information Collection and Use</h5>
-                    <p class="mb-3"> <strong>Registration and Login : </strong> When you register and log in to our
-                        app, we collect your phone number for OTP-based authentication. This ensures the security of
-                        your account.</p>
-                    <p class="mb-3"> <strong>Profile Information : </strong>We may collect the following information
-                        to create and manage your account:.</p>
-                    <p>- City name</p>
-                    <p>- Name</p>
-                    <p>- Phone number</p>
-                    <p>- Date of Birth (DOB)</p>
-                    <p>- Gender</p>
-                    <p class="mb-3"> <strong>Optional Profile Picture : </strong>You have the option to upload a
-                        profile picture, which is not mandatory for using our services.</p>
-                    <h5 class="text-theme mt-3">2. Use of Information</h5>
-                    <ul class="list-unstyled mb-3 list-icon">
-                        <li><i class="fa fa-angle-right"></i> <strong>Account Management : </strong>We use the collected
-                            information to manage your account, provide access to our services, and assist with query
-                            resolution. </li>
-                        <li><i class="fa fa-angle-right"></i> <strong>Communication : </strong> We may use your contact
-                            information to communicate with you regarding your account, queries, and updates related to
-                            our services.</li>
+                    <p>This Privacy Policy explains how We collects, uses, and
+                        shares your personal information when you use our app and website. It also details your rights
+                        regarding your data and how you can contact us for inquiries.</p>
+
+                    <h4>1. Information We Collect</h4>
+                    <h5>1.1 Registration & Login</h5>
+                    <p>When you register or log in to our app, we collect your phone number for OTP-based authentication
+                        to ensure account security.</p>
+
+                    <h5>1.2 Profile Information</h5>
+                    <p>To create and manage your account, we may collect the following details:</p>
+                    <ul>
+                        <li>Name</li>
+                        <li>Phone number</li>
+                        <li>City Name</li>
+                        <li>Date of Birth (DOB)</li>
+                        <li>Gender</li>
+                        <li>Optional Profile Picture (You may choose to upload an image, but it is not mandatory).</li>
                     </ul>
-                    <h5 class="text-theme mt-3"> 3. Information Sharing</h5>
-                    <p><strong>Third-Party Sharing :</strong> We do not share your personal information with third
-                        parties unless required by law or for the purpose of resolving queries related to our services.
+
+                    <h4>2. How We Use Your Information</h4>
+                    <p>We use the collected data to:</p>
+                    <ul>
+                        <li>Manage your account and provide access to our services.</li>
+                        <li>Verify identity and ensure account security.</li>
+                        <li>Communicate with you regarding service updates, inquiries, or support requests.</li>
+                        <li>Improve our app and services based on user interactions.</li>
+                    </ul>
+
+                    <h4>3. Information Sharing & Disclosure</h4>
+                    <p>We do not sell, rent, or trade your personal data. However, we may share your information in the
+                        following situations:</p>
+                    <ul>
+                        <li><strong>Legal Requirements:</strong> If required by law, government authorities, or to
+                            protect our legal rights.</li>
+                        <li><strong>Service Providers:</strong> If necessary, we may share data with trusted third-party
+                            providers for essential services (e.g., cloud hosting, analytics) while ensuring compliance
+                            with data protection laws.</li>
+                    </ul>
+
+                    <h4>4. Data Security</h4>
+                    <p>We implement industry-standard security measures to protect your personal information against
+                        unauthorized access, loss, misuse, or disclosure. However, no method of transmission over the
+                        internet is 100% secure.</p>
+
+                    <h4>5. Data Retention & Deletion</h4>
+                    <p>We retain your personal data only as long as necessary for the purposes outlined in this policy.
                     </p>
-                    <h5 class="text-theme mt-3">4. Security</h5>
-                    <p><strong>Data Security :</strong> We implement security measures to protect your personal
-                        information from unauthorized access, alteration, disclosure, or destruction.
-                    </p>
-                    <h5 class="text-theme mt-3">5. Data Retention</h5>
-                    <p>We retain your personal information as long as it is necessary for the purposes outlined in this
-                        Privacy Policy.
-                    </p>
-                    <h5 class="text-theme mt-3">6. User Rights</h5>
-                    <p class="mb-3"> You have the right to access, correct, or delete your personal information.
-                        Please contact us if you wish to exercise any of these rights.</p>
-                    <h5 class="text-theme mt-3">7. Updates to Privacy Policy</h5>
-                    <p>We may update this Privacy Policy from time to time. Any changes will be effective immediately
-                        upon posting.</p>
-                    <p>By using our app and website, you acknowledge that you have read and understood this Privacy
-                        Policy and agree to the collection and use of your personal information as described herein.</p>
+                    <p>If you wish to delete your account and associated data, you may contact us via the provided
+                        support channels.</p>
+
+                    <h4>6. Your Rights & Control Over Data</h4>
+                    <p>You have the right to:</p>
+                    <ul>
+                        <li>Access, update, or delete your personal information.</li>
+                        <li>Withdraw consent for data collection (this may limit certain functionalities).</li>
+                        <li>Contact us for inquiries about how we handle your data.</li>
+                    </ul>
+
+                    <h4>7. Privacy Policy Updates</h4>
+                    <p>We may update this Privacy Policy periodically. Any changes will be posted in the app and on our
+                        website. Continued use of our services constitutes your acceptance of the updated policy.</p>
+
+                    <h4>8. Contact Information</h4>
+                    <p>If you have any questions about this Privacy Policy or data protection, you can contact us:</p>
+                    <ul>
+                        <li><strong>Email:</strong> support@maikmi.com</li>
+                        <li><strong>Phone:</strong> +91-80091 64221</li>
+                        <li><strong>Website:</strong> https://maikmi.in/</li>
+                    </ul>
+                    <p>By using our app, you acknowledge that you have read and understood this Privacy Policy and agree
+                        to its terms.</p>
                 </div>
             </div>
-        </div>
 
-        <!-- Footer Start -->
-        <div class="container-fluid bg-dark text-light footer wow fadeIn" data-wow-delay="0.1s">
-            <div class="container py-5" style="border-top: 1px solid rgba(256, 256, 256, 0.1);">
-                <div class="row g-5">
-                    <div class="col-lg-6 col-md-6">
-                        <a href="" class="footer-brand p-0">
-                            <img src="{{ asset('website/img/logo.png') }}" alt="Logo">
-                        </a>
-                        <p>
-                            Step into Maikmi and experience a haven of relaxation and transformation.
-                            Our app is designed to create a comfortable and friendly space where you
-                            can unwind while we work our magic on your beauty needs.
-                        </p>
-                    </div>
-                    <div class="col-lg-3 col-6">
-                        <h4 class="text-start text-primary fw-normal mb-4">Quick Links</h4>
-                        <a class="btn btn-link" href="#about">About Us</a>
-                        <a class="btn btn-link" href="#contact-us">Contact Us</a>
-                        <a class="btn btn-link" href="{{ route('frontend.privacy') }}">Privacy Policy</a>
-                        <a class="btn btn-link" href="{{ route('frontend.terms') }}">Terms & Condition</a>
-                    </div>
-
-                    <div class="col-lg-3 col-6">
-                        <h4 class="text-start text-primary fw-normal mb-4">Support Time</h4>
-                        <h5 class="text-pink fw-normal">Monday - Saturday</h5>
-                        <p>10AM : 06.00PM</p>
-                        <h5 class="text-pink fw-normal">Sunday</h5>
-                        <p>- Closed</p>
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="copyright">
-                    <div class="row">
-                        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                            &copy; Maikmi, All Right Reserved. Designed By <a class="text-primary" href="#">Adian
-                                Infotech</a>
+            <!-- Footer Start -->
+            <div class="container-fluid bg-dark text-light footer wow fadeIn" data-wow-delay="0.1s">
+                <div class="container py-5" style="border-top: 1px solid rgba(256, 256, 256, 0.1);">
+                    <div class="row g-5">
+                        <div class="col-lg-6 col-md-6">
+                            <a href="" class="footer-brand p-0">
+                                <img src="{{ asset('website/img/logo.png') }}" alt="Logo">
+                            </a>
+                            <p>
+                                Step into Maikmi and experience a haven of relaxation and transformation.
+                                Our app is designed to create a comfortable and friendly space where you
+                                can unwind while we work our magic on your beauty needs.
+                            </p>
                         </div>
-                        <div class="col-md-6">
-                            <div class="d-flex justify-content-center">
-                                <a class="btn btn-outline-light btn-social" href="">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                                <a class="btn btn-outline-light btn-social" href="">
-                                    <i class="fab fa-facebook-f"></i>
-                                </a>
-                                <a class="btn btn-outline-light btn-social" href="">
-                                    <i class="fab fa-youtube"></i>
-                                </a>
-                                <a class="btn btn-outline-light btn-social" href="">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
+                        <div class="col-lg-3 col-6">
+                            <h4 class="text-start text-primary fw-normal mb-4">Quick Links</h4>
+                            <a class="btn btn-link" href="#about">About Us</a>
+                            <a class="btn btn-link" href="#contact-us">Contact Us</a>
+                            <a class="btn btn-link" href="{{ route('frontend.privacy') }}">Privacy Policy</a>
+                            <a class="btn btn-link" href="{{ route('frontend.terms') }}">Terms & Condition</a>
+                        </div>
+
+                        <div class="col-lg-3 col-6">
+                            <h4 class="text-start text-primary fw-normal mb-4">Support Time</h4>
+                            <h5 class="text-pink fw-normal">Monday - Saturday</h5>
+                            <p>10AM : 06.00PM</p>
+                            <h5 class="text-pink fw-normal">Sunday</h5>
+                            <p>- Closed</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="copyright">
+                        <div class="row">
+                            <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                                &copy; Maikmi, All Right Reserved. Designed By <a class="text-primary"
+                                    href="#">Adian
+                                    Infotech</a>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex justify-content-center">
+                                    <a class="btn btn-outline-light btn-social" href="">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                    <a class="btn btn-outline-light btn-social" href="">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                    <a class="btn btn-outline-light btn-social" href="">
+                                        <i class="fab fa-youtube"></i>
+                                    </a>
+                                    <a class="btn btn-outline-light btn-social" href="">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- Footer End -->
         </div>
-        <!-- Footer End -->
-    </div>
 </body>
