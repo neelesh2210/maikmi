@@ -17,17 +17,27 @@ class ServiceBookingController extends Controller
      */
     public function index(Request $request)
     {
+        $search_status = $request->search_status;
+        $search_salon = $request->salon_id;
+        $search_date = $request->search_date;
+
         $list = ServiceBooking::orderBy('id', 'desc')->with(['getSalon', 'getBookedBy']);
-        if($request->salon_id){
-            $list = $list->where('salon_id', $request->salon_id);
+        if($search_salon){
+            $list = $list->where('salon_id', $search_salon);
         }
         if($request->has('export')){
             $list = $list->latest()->get();
 
             return Excel::download(new ServiceBookingExport($list), 'service_bookings.xlsx');
         }
-        $list = $list->paginate('20');
-        return view('admin.service_booking.index', compact('list'), ['page_title' => 'Service Booking List']);
+        $list = $list->when($search_status, function($query) use ($search_status){
+            $query->where('status', $search_status);
+        })->when($search_date, function($query) use ($search_date){
+            $start_date = explode(' to ', $search_date)[0];
+            $end_date = explode(' to ', $search_date)[1];
+            $query->whereBetween('created_at',[$start_date, $end_date]);
+        })->paginate('20');
+        return view('admin.service_booking.index', compact('list','search_status','search_salon','search_date'), ['page_title' => 'Service Booking List']);
     }
 
     /**

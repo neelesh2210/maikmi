@@ -28,7 +28,7 @@ class SalonController extends Controller
             return Excel::download(new SalonExport($list), 'salons.xlsx');
         }
 
-        $list = $list->paginate(20);
+        $list = $list->withSum('getServiceBooking','total_amount')->withSum('getServiceBooking','paid_amount')->paginate(20);
         return view('admin.salon.index', compact('list'), ['page_title' => 'Shop List']);
     }
 

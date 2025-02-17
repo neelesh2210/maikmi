@@ -15,6 +15,43 @@
                             <x-add-btn route="{{route('services.create')}}" />
                         </div>
                     </div>
+                    <form action="{{route('service-booking.index')}}">
+                        <div class="row">
+                            <div class="col-3">
+                                <label for="search_status">Status</label>
+                                <select name="search_status" class="form-control form-sm-control">
+                                    <option value="">All</option>
+                                    <option value="waiting" @if($search_status == 'waiting') selected @endif>Waiting</option>
+                                    <option value="pending" @if($search_status == 'pending') selected @endif>Pending</option>
+                                    <option value="booked" @if($search_status == 'booked') selected @endif>Booked</option>
+                                    <option value="confirmed" @if($search_status == 'confirmed') selected @endif>Confirmed</option>
+                                    <option value="completed" @if($search_status == 'completed') selected @endif>Completed</option>
+                                    <option value="cancelled" @if($search_status == 'cancelled') selected @endif>Cancelled</option>
+                                    <option value="time_update" @if($search_status == 'time_update') selected @endif>Time Update</option>
+                                    <option value="started" @if($search_status == 'started') selected @endif>Started</option>
+                                </select>
+                            </div>
+                            <div class="col-3">
+                                <label for="salon_id">Salon</label>
+                                <select name="salon_id" class="form-control form-sm-control js-example-basic-multiple">
+                                    <option value="">All</option>
+                                    @foreach (App\Models\Salon::oldest('name')->get() as $salon)
+                                        <option value="{{$salon->id}}" @if($search_salon == $salon->id) selected @endif>{{$salon->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-3">
+                                <label for="date">Date</label>
+                                <div class="input-group flatpickr wd-200 me-2 mb-2 mb-md-0" id="flatpickr-date-range">
+                                    <span class="input-group-text input-group-addon bg-transparent border-primary" data-toggle><i data-feather="calendar" class="text-primary"></i></span>
+                                    <input type="text" name="search_date" value="{{$search_date}}" class="form-control bg-transparent border-primary" placeholder="Select date" data-input>
+                                </div>
+                            </div>
+                            <div class="col-md-3" style="margin-top: 20px;">
+                                <button class="btn btn-primary" style="height: 31px;padding-top: 2px;">Search</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -25,7 +62,7 @@
                                     <th>Booking Id</th>
                                     <th>Salon</th>
                                     <th>Booked By</th>
-                                    <th>Payment Type</th>
+                                    <th>Payment</th>
                                     <th>Booking Date & Time</th>
                                     <th>Booking At</th>
                                     <th>Status</th>
@@ -38,7 +75,11 @@
                                         <td> {{$data->booking_id}} </td>
                                         <td> <a href="{{ route('salon.show', $data->salon_id ) }}">{{$data->getSalon->name}}</a> </td>
                                         <td> {{$data->getBookedBy->name}} </td>
-                                        <td> {{$data->payment_type}} </td>
+                                        <td>
+                                            <b>Type: </b>{{$data->payment_type}} <br>
+                                            <b>Total Amount: </b> ₹{{$data->total_amount}} <br>
+                                            <b>Paid Amount: </b> ₹{{$data->paid_amount}}
+                                        </td>
                                         <td> {{$data->booking_date}} {{$data->booking_time}}</td>
                                         <td> {{$data->booking_at}} </td>
                                         <td> {{ucfirst($data->status)}} </td>

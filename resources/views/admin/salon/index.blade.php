@@ -42,10 +42,13 @@
                                             <b>Name : </b>{{$data->getOwner->name}} <br>
                                             <b>Phone : </b> {{$data->getOwner->phone}} <br>
                                         </td>
-                                        <td>
+                                        <td class="text-center">
                                             <a href="{{route('service-booking.index')}}?salon_id={{$data->id}}">
                                                 <span class="badge bg-primary" title="Total Service Booking">{{$data->getServiceBooking->count()}}</span>
-                                            </a>
+                                            </a> <br>
+                                            <b>Total Amount: </b> ₹{{$data->get_service_booking_sum_total_amount}} <br>
+                                            <b>Paid Amount: </b> ₹{{$data->get_service_booking_sum_paid_amount}} <br>
+                                            <b>Total Wallet Balance: </b> ₹{{$data->total_wallet_balance}}
                                         </td>
                                         <td>
                                             <div class="form-check form-switch">
