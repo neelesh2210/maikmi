@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('home');
 })->name('frontend.index');
 
-Route::get('/privacy-policy', function(){
+Route::get('/privacy', function(){
     return view('privacy');
 })->name('frontend.privacy');
 
