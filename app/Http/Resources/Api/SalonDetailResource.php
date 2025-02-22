@@ -27,6 +27,7 @@ class SalonDetailResource extends JsonResource
             'is_favorite'=>0,
             'home_service_charge'=>$this->home_service_charge,
             'home_service_status'=>$this->home_service_status,
+            'partial_payment_percent'=>$this->partial_payment_percent
         ];
 
         $data['services'] = ServiceResource::collection(Service::where('user_id',$this->user_id)->where('available',1)->get());
