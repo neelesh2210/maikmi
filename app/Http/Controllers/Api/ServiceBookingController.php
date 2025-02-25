@@ -177,7 +177,9 @@ class ServiceBookingController extends Controller
             }else{
                 $amount = $booking->total_amount;
             }
-
+            if($amount < 1){
+                return response()->json(['message'=>'Minimum payment of 1 Rs.','status'=>422],422);
+            }
             $data=[
                 'amount'=>$amount*100,
                 'currency'=> "INR",
